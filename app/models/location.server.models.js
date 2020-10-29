@@ -207,6 +207,9 @@ const find = (params, user_id, done) => {
             if(err){
                 console.log(err);
                 return done(err, false);
+            }else if(locations.length ==0){
+                console.log("empty");
+                return done(err, []);
             }else{
                 await review_info(locations, (results) => {
                   return done(null, results);

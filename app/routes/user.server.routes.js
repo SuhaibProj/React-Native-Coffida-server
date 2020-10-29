@@ -17,6 +17,6 @@ module.exports = function(app){
         .post(auth.isAuthenticated, users.logout);
 
     app.route('/api/' + version + '/user/:usr_id')
-        .get(users.get_one)
+        .get(auth.isAuthenticated, users.get_one)
         .patch(auth.isAuthenticated, users.update);
 };
