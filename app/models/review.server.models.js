@@ -108,9 +108,16 @@ const addPhoto = async function(image, fileExt, rev_id, done){
   let filename = rev_id + fileExt;
 
   try{
-    image.pipe(fs.createWriteStream(photosDirectory + filename));
-    // await fs.writeFile(photosDirectory + filename, image, {encoding: null});
-    done(null);
+    const path = photosDirectory + filename;
+
+    fs.writeFile(path, image.body, function(err, result){
+      if(err){
+        return done(err);
+      }else{
+        console.log("RESULT", result);
+        return done(null);
+      }
+    });
   }catch (err){
     console.log(err);
     fs.unlink(photosDirectory + filename).catch(err => done(err));
