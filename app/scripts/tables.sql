@@ -8,7 +8,7 @@
 # First create the database if it does not already exist...
 # CREATE DATABASE IF NOT EXISTS coffida;
 
-USE ashley_student; # Change to your mudfoot username
+USE suhaibm; # Change to your mudfoot username
 
 # First drop the tables if they do not already exist
 # Note: has to be done in a certian order for referential integrity
