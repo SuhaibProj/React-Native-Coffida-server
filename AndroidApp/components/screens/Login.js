@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, Alert, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, Button, StyleSheet, TextInput } from 'react-native'
 
 export default class Login extends Component {
     constructor (props) {
@@ -16,7 +16,7 @@ export default class Login extends Component {
                 <View style = {{marginVertical: 10, width: 100,}}>
                     <Button 
                         title = 'Login' 
-                        onPress={() => navig.navigate('Home')}>
+                        onPress={() => navig.navigate('AuthUser')}>
                     </Button>
                 </View>
                 <View style = {styleCSS.spacer }>
