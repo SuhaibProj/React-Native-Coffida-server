@@ -2,7 +2,7 @@ import React from 'react'
 import { Component } from 'react'
 import { Text, View, Button, StyleSheet, Alert, TouchableOpacity, TextInput } from 'react-native'
 
-export default class Login extends Component {
+export default class Register extends Component {
     constructor (props) {
         super(props)
     }
@@ -10,26 +10,28 @@ export default class Login extends Component {
         const navig = this.props.navigation;
         return (
             <View style = { styleCSS.container }> 
-                <Text style={ styleCSS.title }>CoffiDa Login Page</Text>
+                <Text style={ styleCSS.title }>CoffiDa Registration Page</Text>
+                <Text style={ styleCSS.text }>Enter your First Name:</Text>
+                <TextInput style = {styleCSS.input} placeholder={'First name'} />
+                <Text style={ styleCSS.text }>Enter your Last Name:</Text>
+                <TextInput style = {styleCSS.input} placeholder={'Last Name'} />
+                <Text style={ styleCSS.text }>Register your Email:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} />
+                <Text style={ styleCSS.text }>Create your New Password:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} />
-                <View style = {{marginVertical: 10, width: 100,}}>
-                    <Button 
-                        title = 'Login' 
-                        onPress={() => navig.navigate('Home')}>
-                    </Button>
-                </View>
                 <View style = {styleCSS.spacer }>
                     <Button 
-                        title = 'Register' 
-                        onPress={() => navig.navigate('Register')}>
+                        title = 'Submit' 
+                        onPress={() => navig.navigate('Login')}>
                     </Button>
                 </View>
+                <TouchableOpacity>
+
+                </TouchableOpacity>
             </View>
         );    
     }
 }
-
 
 const styleCSS = StyleSheet.create({
     container: {
@@ -61,4 +63,3 @@ const styleCSS = StyleSheet.create({
     },
 
 });
-

@@ -1,39 +1,44 @@
 import React from 'react'
+import { Component } from 'react'
 import { Text, View, Button, StyleSheet } from 'react-native'
 
-const Home = ({ navigation }) => {
-    return (
-        <View style = {styleCSS.container}> 
-            <Text style ={styleCSS.title}>CoffiDa Home Page</Text>
-            <Button 
-                title = 'Sign In' 
-                onPress={() => navigation.navigate('Login')}>
-            </Button>
-            <Button 
-                title = 'About' 
-                onPress={() => navigation.navigate('About')}>
-            </Button>
-        </View>
-    );
-};
+export default class Home extends Component {
+    constructor (props) {
+        super(props)
+    }
+    render() {
+        const navig = this.props.navigation;
+        return (
+            <View style = {styleCSS.container}> 
+                <Text style ={styleCSS.title}>CoffiDa Home Page</Text>
+                <View style = {styleCSS.spacer}> 
+                    <Button 
+                        title = 'Sign In' 
+                        onPress={() => navig.navigate('Login')}>
+                    </Button>
+                </View>
+            </View>
+        );    
+    }
+}
 
 const styleCSS = StyleSheet.create({
-    title: {
-        flex: 0.92,
-        justifyContent: 'center',
-        marginVertical: 8,
-        marginHorizontal: 16,
-        fontSize: 20,
-        borderBottomColor: '#737373',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-    },
     container: {
         flex: 1,
-        justifyContent: 'center',
-        flexDirection: 'column',
         marginHorizontal: 16,
     },
-  });
-  
+    title: {
+        marginVertical: 30,
+        fontSize: 20,
+    },
+    text: {
+        fontSize: 15,
+    },
+    spacer: {
+        flex: 1,
+        marginVertical: 40,
+        justifyContent: 'flex-end',
+        marginBottom: 20,
+    },
 
-export default Home
+});
