@@ -13,14 +13,38 @@ export default class ReviewMgmt extends Component {
                 <Text style ={styleCSS.title}>Welcome to your Review Management</Text>
                 <View style = {styleCSS.buttonGeneric}>
                     <Button 
-                        title = 'My Details' 
-                        onPress={() => navig.navigate('UserDetails')}>
+                        title = 'Add Review' 
+                        onPress={() => navig.navigate('AddReview')}>
                     </Button>
                 </View>
                 <View style = {styleCSS.buttonGeneric}>
                     <Button 
-                        title = 'Review Management' 
-                        onPress={() => navig.navigate('ReviewMgmt')}>
+                        title = 'Update Review' 
+                        onPress={() => navig.navigate('UpdateReview')}>
+                    </Button>
+                </View>
+                <View style = {styleCSS.buttonGeneric}>
+                    <Button 
+                        title = 'Delete Review' 
+                        onPress={() => navig.navigate('DeleteReview')}>
+                    </Button>
+                </View>
+                <View style = {styleCSS.buttonGeneric}>
+                    <Button 
+                        title = 'Search Review Photo(s)' 
+                        onPress={() => navig.navigate('GetReviewPhoto')}>
+                    </Button>
+                </View>
+                <View style = {styleCSS.buttonGeneric}>
+                    <Button 
+                        title = 'Add Review Photo(s)' 
+                        onPress={() => navig.navigate('AddReviewPhoto')}>
+                    </Button>
+                </View>
+                <View style = {styleCSS.buttonGeneric}>
+                    <Button 
+                        title = 'Delete Review Photo(s)' 
+                        onPress={() => navig.navigate('DeleteReviewPhoto')}>
                     </Button>
                 </View>
                 <View style = {styleCSS.logout}> 
@@ -43,6 +67,11 @@ const styleCSS = StyleSheet.create({
         marginVertical: 30,
         fontSize: 20,
         alignSelf: 'center',
+    },
+    text: {
+        marginVertical: 25,
+        fontSize: 15,
+        textAlign: 'center',
     },
     buttonGeneric: {
         marginVertical: 10,

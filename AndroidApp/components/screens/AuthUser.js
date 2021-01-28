@@ -20,8 +20,20 @@ export default class AuthHome extends Component {
                 </View>
                 <View style = {styleCSS.buttonGeneric}>
                     <Button 
+                        title = 'Search Reviews' 
+                        onPress={() => navig.navigate('Reviews')}>
+                    </Button>
+                </View>
+                <View style = {styleCSS.buttonGeneric}>
+                    <Button 
                         title = 'Review Management' 
                         onPress={() => navig.navigate('ReviewMgmt')}>
+                    </Button>
+                </View>
+                <View style = {styleCSS.buttonGeneric}>
+                    <Button 
+                        title = 'Locations' 
+                        onPress={() => navig.navigate('LocationMgmt')}>
                     </Button>
                 </View>
                 <View style = {styleCSS.logout}> 

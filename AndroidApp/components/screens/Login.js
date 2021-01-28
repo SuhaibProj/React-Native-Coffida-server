@@ -5,14 +5,23 @@ import { Text, View, Button, StyleSheet, TextInput } from 'react-native'
 export default class Login extends Component {
     constructor (props) {
         super(props)
+
+        this.state = {
+            email: '',
+            password: '',
+        };
     }
     render() {
         const navig = this.props.navigation;
         return (
             <View style = { styleCSS.container }> 
-                <Text style={ styleCSS.title }>CoffiDa Login Page</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Email'} />
-                <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} />
+                <Text style = { styleCSS.title }>CoffiDa Login Page</Text>
+                <TextInput style = {styleCSS.input} placeholder={'Email'} 
+                    onChangeText = {(email) => this.setState({email})} value={this.state.email}
+                />
+                <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true}
+                    onChangeText = {(password) => this.setState({password})} value={this.state.password}
+                />
                 <View style = {styleCSS.login}>
                     <Button 
                         title = 'Login' 

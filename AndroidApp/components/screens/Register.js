@@ -5,6 +5,12 @@ import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput } from 'rea
 export default class Register extends Component {
     constructor (props) {
         super(props)
+        this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+        };
     }
     render() {
         const navig = this.props.navigation;
@@ -12,22 +18,27 @@ export default class Register extends Component {
             <View style = { styleCSS.container }> 
                 <Text style={ styleCSS.title }>CoffiDa Registration Page</Text>
                 <Text style={ styleCSS.text }>Enter your First Name:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'First name'} />
+                <TextInput style = {styleCSS.input} placeholder={'First name'} 
+                onChangeText = {(firstName) => this.setState({firstName})} value={this.state.firstName}
+                />
                 <Text style={ styleCSS.text }>Enter your Last Name:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Last Name'} />
+                <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
+                onChangeText = {(lastName) => this.setState({lastName})} value={this.state.lastName}
+                />
                 <Text style={ styleCSS.text }>Register your Email:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Email'} />
+                <TextInput style = {styleCSS.input} placeholder={'Email'} 
+                    onChangeText = {(email) => this.setState({email})} value={this.state.email}
+                />
                 <Text style={ styleCSS.text }>Create your New Password:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} />
+                <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
+                    onChangeText = {(password) => this.setState({password})} value={this.state.password}
+                />
                 <View style = {styleCSS.login }>
                     <Button 
                         title = 'Submit' 
                         onPress={() => navig.navigate('Login')}>
                     </Button>
                 </View>
-                <TouchableOpacity>
-
-                </TouchableOpacity>
             </View>
         );    
     }
