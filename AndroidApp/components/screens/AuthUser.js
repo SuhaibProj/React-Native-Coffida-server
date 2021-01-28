@@ -40,7 +40,7 @@ const styleCSS = StyleSheet.create({
         flex: 1,
         marginVertical: 20,
         justifyContent: 'flex-end',
-        marginBottom: 30,
+        marginBottom: 5,
     },
     imagePos: {
         width: '100%',

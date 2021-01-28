@@ -21,7 +21,7 @@ export default class App extends React.Component {
             />
             <Stack.Screen name="Register" component={RegisterScreen}/>
             <Stack.Screen name="Login" component={LoginScreen}/>
-            <Stack.Screen name="AuthUser" component={AuthUserScreen}/>
+            <Stack.Screen name="AuthUser" component={AuthUserScreen} options={{ title: 'My Account' }}/>
           </Stack.Navigator>
         </NavigationContainer>
     );
