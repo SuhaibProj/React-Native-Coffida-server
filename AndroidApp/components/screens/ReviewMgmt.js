@@ -32,7 +32,7 @@ export default class ReviewMgmt extends Component {
                 <View style = {styleCSS.buttonGeneric}>
                     <Button 
                         title = 'Search Review Photo(s)' 
-                        onPress={() => navig.navigate('GetReviewPhoto')}>
+                        onPress={() => navig.navigate('SearchReviewPhoto')}>
                     </Button>
                 </View>
                 <View style = {styleCSS.buttonGeneric}>

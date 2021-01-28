@@ -2,7 +2,7 @@ import React from 'react'
 import { Component } from 'react'
 import { Text, View, Button, StyleSheet, Image} from 'react-native'
 
-export default class AuthHome extends Component {
+export default class AuthUser extends Component {
     constructor (props) {
         super(props)
     }
@@ -33,7 +33,7 @@ export default class AuthHome extends Component {
                 <View style = {styleCSS.buttonGeneric}>
                     <Button 
                         title = 'Locations' 
-                        onPress={() => navig.navigate('LocationMgmt')}>
+                        onPress={() => navig.navigate('Locations')}>
                     </Button>
                 </View>
                 <View style = {styleCSS.logout}> 
