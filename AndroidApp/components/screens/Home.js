@@ -11,19 +11,9 @@ export default class Home extends Component {
         return (
             <View style = {styleCSS.container}>
                 <Text style ={styleCSS.title}>CoffiDa Home Page</Text>
-                <Image source={require('../Images/bg.png')} style={styleCSS.imagePos}/> 
-                <Text style ={styleCSS.text}>CoffiDa is a platform for reviewing 
-                    {"\n"}the best local coffee spots. 
-                    {"\n"}Anybody can use CoffiDa for finding 
-                    {"\n"}the best local Café’s, but Users 
-                    {"\n"}who sign up for an account 
-                    {"\n"}can also publish reviews. 
-                    {"\n"}Reviews consist of a series of ratings 
-                    {"\n"}(e.g. quality, price, cleanliness) 
-                    {"\n"}along with a short body of text 
-                    {"\n"}for describing their experience. 
-                    {"\n"}Users can also comment on, 
-                    {"\n"}and ‘like’ other reviews.</Text>
+                <Image source={require('../Images/bg.png')} style={styleCSS.imageConfig}/> 
+                <Text style ={styleCSS.text}>This is THE platform for reviews 
+                    {"\n"}on the best local coffee spots.</Text>
                 <View style = {styleCSS.signIn}> 
                     <Button 
                         title = 'Sign In' 
@@ -37,6 +27,7 @@ export default class Home extends Component {
 
 const styleCSS = StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: '#cccccc',
     },
     title: {
@@ -45,15 +36,16 @@ const styleCSS = StyleSheet.create({
         textAlign: 'center',
     },
     text: {
+        marginVertical: 25,
         fontSize: 15,
         textAlign: 'center',
     },
     signIn: {
-        marginVertical: 100,
-        width: '80%',
+        marginVertical: '50%',
+        width: '75%',
         alignSelf: 'center',
     },
-    imagePos: {
+    imageConfig: {
         width: 250,
         height: 250,
         alignSelf: 'center',

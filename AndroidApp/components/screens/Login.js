@@ -13,7 +13,7 @@ export default class Login extends Component {
                 <Text style={ styleCSS.title }>CoffiDa Login Page</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} />
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} />
-                <View style = {{marginVertical: 10, width: 100,}}>
+                <View style = {styleCSS.login}>
                     <Button 
                         title = 'Login' 
                         onPress={() => navig.navigate('AuthUser')}>
@@ -34,15 +34,12 @@ export default class Login extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        marginHorizontal: 16,
+        backgroundColor: '#cccccc',
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
-    },
-    text: {
-        fontSize: 15,
+        textAlign: 'center',
     },
     input: {
         justifyContent: 'center',
@@ -52,15 +49,20 @@ const styleCSS = StyleSheet.create({
         fontSize: 15,
         backgroundColor: 'rgba(0,0,0,0.20)',
         marginVertical: 10,
+        alignSelf: 'center',
     },
     register: {
         flex: 1,
-        marginVertical: 20,
         justifyContent: 'flex-end',
-        marginBottom: 30,
-        width: '80%',
+        width: '75%',
         alignSelf: 'center',
+        marginBottom: 30,
     },
+    login: {
+        alignSelf: 'center',
+        marginVertical: 20, 
+        width: 100,
+    }
 
 });
 

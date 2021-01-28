@@ -36,15 +36,16 @@ export default class Register extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        marginHorizontal: 16,
+        backgroundColor: '#cccccc',
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
+        alignSelf: 'center',
     },
     text: {
         fontSize: 15,
+        alignSelf: 'center',
     },
     input: {
         justifyContent: 'center',
@@ -54,14 +55,14 @@ const styleCSS = StyleSheet.create({
         fontSize: 15,
         backgroundColor: 'rgba(0,0,0,0.20)',
         marginVertical: 10,
+        alignSelf: 'center',
     },
     login: {
         flex: 1,
-        marginVertical: 20,
         justifyContent: 'flex-end',
-        marginBottom: 30,
-        width: '80%',
+        width: '75%',
         alignSelf: 'center',
+        marginBottom: 30,
     },
 
 });

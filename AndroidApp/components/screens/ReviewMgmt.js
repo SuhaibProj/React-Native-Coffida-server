@@ -37,29 +37,28 @@ export default class ReviewMgmt extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        marginHorizontal: 16,
+        backgroundColor: '#cccccc',
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
-    },
-    text: {
-        fontSize: 15,
+        alignSelf: 'center',
     },
     buttonGeneric: {
         marginVertical: 10,
-        width: '80%',
+        width: '75%',
         alignSelf: 'center',
-    },
-    imageConfig: {
-        width: '100%',
-        height: '100%',
     },
     logout: {
         flex: 1,
         justifyContent: 'flex-end',
+        width: '75%',
+        alignSelf: 'center',
         marginBottom: 30,
-        width: '80%',
+    },
+    imageConfig: {
+        width: 250,
+        height: 250,
         alignSelf: 'center',
     },
 });
