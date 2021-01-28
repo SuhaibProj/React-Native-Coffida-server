@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet } from 'react-native'
+import { Text, View, Button, StyleSheet, ImageBackground} from 'react-native'
 
 export default class AuthHome extends Component {
     constructor (props) {
@@ -9,6 +9,7 @@ export default class AuthHome extends Component {
     render() {
         const navig = this.props.navigation;
         return (
+            <ImageBackground source={require('../Images/bg.png')} style={styleCSS.imagePos}>
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Personal Home Page</Text>
                 <View style = {styleCSS.spacer}> 
@@ -18,6 +19,7 @@ export default class AuthHome extends Component {
                     </Button>
                 </View>
             </View>
+            </ImageBackground>
         );    
     }
 }
@@ -36,9 +38,12 @@ const styleCSS = StyleSheet.create({
     },
     spacer: {
         flex: 1,
-        marginVertical: 40,
+        marginVertical: 20,
         justifyContent: 'flex-end',
-        marginBottom: 20,
+        marginBottom: 30,
     },
-
+    imagePos: {
+        width: '100%',
+        height: '95%',
+    },
 });

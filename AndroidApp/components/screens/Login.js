@@ -57,7 +57,7 @@ const styleCSS = StyleSheet.create({
         flex: 1,
         marginVertical: 20,
         justifyContent: 'flex-end',
-        marginBottom: 20,
+        marginBottom: 30,
     },
 
 });
