@@ -19,7 +19,7 @@ export default class Register extends Component {
                 <TextInput style = {styleCSS.input} placeholder={'Email'} />
                 <Text style={ styleCSS.text }>Create your New Password:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} />
-                <View style = {styleCSS.spacer }>
+                <View style = {styleCSS.login }>
                     <Button 
                         title = 'Submit' 
                         onPress={() => navig.navigate('Login')}>
@@ -55,11 +55,13 @@ const styleCSS = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.20)',
         marginVertical: 10,
     },
-    spacer: {
+    login: {
         flex: 1,
         marginVertical: 20,
         justifyContent: 'flex-end',
         marginBottom: 30,
+        width: '80%',
+        alignSelf: 'center',
     },
 
 });

@@ -19,7 +19,7 @@ export default class Login extends Component {
                         onPress={() => navig.navigate('AuthUser')}>
                     </Button>
                 </View>
-                <View style = {styleCSS.spacer }>
+                <View style = {styleCSS.register}>
                     <Button 
                         title = 'Register' 
                         onPress={() => navig.navigate('Register')}>
@@ -53,11 +53,13 @@ const styleCSS = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.20)',
         marginVertical: 10,
     },
-    spacer: {
+    register: {
         flex: 1,
         marginVertical: 20,
         justifyContent: 'flex-end',
         marginBottom: 30,
+        width: '80%',
+        alignSelf: 'center',
     },
 
 });

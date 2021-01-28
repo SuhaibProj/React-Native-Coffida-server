@@ -1,21 +1,20 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, ImageBackground} from 'react-native'
+import { Text, View, Button, StyleSheet} from 'react-native'
 
-export default class AuthHome extends Component {
+export default class ReviewMgmt extends Component {
     constructor (props) {
         super(props)
     }
     render() {
         const navig = this.props.navigation;
         return (
-            <ImageBackground source={require('../Images/bg.png')} style={styleCSS.imageConfig}>
             <View style = {styleCSS.container}> 
-                <Text style ={styleCSS.title}>Welcome to your Personal Home Page</Text>
+                <Text style ={styleCSS.title}>Welcome to your Review Management</Text>
                 <View style = {styleCSS.buttonGeneric}>
                     <Button 
-                        title = 'My Account' 
-                        onPress={() => navig.navigate('UserMgmt')}>
+                        title = 'My Details' 
+                        onPress={() => navig.navigate('UserDetails')}>
                     </Button>
                 </View>
                 <View style = {styleCSS.buttonGeneric}>
@@ -31,7 +30,6 @@ export default class AuthHome extends Component {
                     </Button>
                 </View>
             </View>
-            </ImageBackground>
         );    
     }
 }
