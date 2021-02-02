@@ -2,6 +2,11 @@ import React from 'react'
 import { Component } from 'react'
 import { Text, View, Button, StyleSheet, TextInput } from 'react-native'
 
+//import AsyncStorage from '@react-native-community/async-storage';
+
+const adminSignIn = {email: 'suhaib1602@yahoo.com', password: 'password'}
+
+
 export default class Login extends Component {
     constructor (props) {
         super(props)
@@ -17,26 +22,34 @@ export default class Login extends Component {
             <View style = { styleCSS.container }> 
                 <Text style = { styleCSS.title }>CoffiDa Login Page</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
-                    onChangeText = {(email) => this.setState({email})} value={this.state.email}
+                    onChangeText = {(email) => this.setState({email})}
+                    autoCapitalize="none" defaultValue={this.state.username}
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true}
-                    onChangeText = {(password) => this.setState({password})} value={this.state.password}
+                    onChangeText = {(password) => this.setState({password})}
+                    autoCapitalize="none" defaultValue={this.state.password} 
                 />
                 <View style = {styleCSS.login}>
-                    <Button 
-                        title = 'Login' 
-                        onPress={() => navig.navigate('AuthUser')}>
+                    <Button title = 'Login' onPress={this._signIn} >
+                        //onPress={() => navig.navigate('AuthUser')}
                     </Button>
                 </View>
                 <View style = {styleCSS.register}>
-                    <Button 
-                        title = 'Register' 
-                        onPress={() => navig.navigate('Register')}>
+                    <Button title = 'Register' onPress={() => navig.navigate('Register')}>
                     </Button>
                 </View>
             </View>
-        );    
+        ); 
+        
     }
+    _signIn = async() => {
+        if(adminSignIn.username === this.state.username && adminSignIn.password === this.state.password){
+            //await AsyncStorage.setItem('loggedIn', '1')
+            this.props.navigation.navigate('AuthUser')
+        } else {
+            alert("Incorrect Login Details!\nPlease Try Again.")
+        }
+    }   
 }
 
 

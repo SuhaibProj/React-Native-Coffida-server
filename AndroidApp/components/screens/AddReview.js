@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, Button, StyleSheet, TextInput } from 'react-native'
 
 export default class AddReview extends Component {
     constructor (props) {
@@ -66,17 +66,12 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         alignSelf: 'center',
     },
-    register: {
+    submit: {
         flex: 1,
         justifyContent: 'flex-end',
         width: '75%',
         alignSelf: 'center',
         marginBottom: 30,
     },
-    login: {
-        alignSelf: 'center',
-        marginVertical: 20, 
-        width: 100,
-    }
 
 });

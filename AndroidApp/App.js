@@ -8,7 +8,7 @@ import LoginScreen from './components/screens/Login'
 import RegisterScreen from './components/screens/Register'
 
 import AuthUserScreen from './components/screens/AuthUser'
-import UserMgmtScreen from './components/screens/UserMgmt'
+import MyAccountScreen from './components/screens/MyAccount'
 import UpdateUserDetails from './components/screens/UpdateUserDetails'
 
 import SearchReviewsScreen from './components/screens/SearchReviews'
@@ -36,8 +36,8 @@ export default class App extends React.Component {
             <Stack.Screen name="Register" component={RegisterScreen}/>
             <Stack.Screen name="Login" component={LoginScreen}/>
             <Stack.Screen name="AuthUser" component={AuthUserScreen} options={{ title: 'My Home' }}/>
-            <Stack.Screen name="UserMgmt" component={UserMgmtScreen} options={{ title: 'My Account' }}/>
-            <Stack.Screen name="UpdateUserDetails" component={UpdateUserDetails} options={{ title: 'My Account information' }}/>
+            <Stack.Screen name="MyAccount" component={MyAccountScreen} options={{ title: 'My Account' }}/>
+            <Stack.Screen name="UpdateUserDetails" component={UpdateUserDetails} options={{ title: 'Update Account' }}/>
             <Stack.Screen name="ReviewMgmt" component={ReviewMgmtScreen} options={{ title: 'Review Management' }}/>
             <Stack.Screen name="SearchReviews" component={SearchReviewsScreen} options={{ title: 'Reviews' }}/>
             <Stack.Screen name="AddReview" component={AddReviewScreen} options={{ title: 'Insert Review' }}/>

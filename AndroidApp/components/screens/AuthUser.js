@@ -15,7 +15,7 @@ export default class AuthUser extends Component {
                 <View style = {styleCSS.buttonGeneric}>
                     <Button 
                         title = 'My Account' 
-                        onPress={() => navig.navigate('UserMgmt')}>
+                        onPress={() => navig.navigate('MyAccount')}>
                     </Button>
                 </View>
                 <View style = {styleCSS.buttonGeneric}>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
-
+import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput, Alert, ToastAndroid } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 export default class Register extends Component {
     constructor (props) {
         super(props)
@@ -12,33 +12,69 @@ export default class Register extends Component {
             password: '',
         };
     }
+
+    onRegister = () => {
+        let info = {
+            first_name: this.state.firstName,
+            last_name: this.state.lastName,
+            email: this.state.email,
+            password: this.state.password,
+        }
+            return fetch('http://10.0.2.2:3333/api/1.0.0/user', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(info),
+            })
+            .then((response) => {
+                if(response.status === 201) {
+                    return response.json();
+                }else if (response.status === 400){
+                    throw 'Sorry couldnt connect.';
+                }else{
+                    throw 'Something didnt work';
+                }
+            })
+            .then((ResponseJSON) => {
+                console.log("User ID Created: ", ResponseJSON)
+                ToastAndroid.show("User Creation Successful",ToastAndroid.SHORT)
+                this.props.navigation.navigate("Login")
+            })
+            .catch((error) => {
+                console.log(error)
+                ToastAndroid.show(error, ToastAndroid.SHORT)
+            });
+    };
+    
     render() {
-        const navig = this.props.navigation;
         return (
             <View style = { styleCSS.container }> 
                 <Text style={ styleCSS.title }>CoffiDa Registration Page</Text>
                 <Text style={ styleCSS.text }>Enter your First Name:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'First name'} 
-                onChangeText = {(firstName) => this.setState({firstName})} value={this.state.firstName}
+                <TextInput style = {styleCSS.input} placeholder={'First Name'} 
+                    onChangeText = {(firstName) => this.setState({firstName})} 
+                    value={this.state.firstName}
                 />
                 <Text style={ styleCSS.text }>Enter your Last Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
-                onChangeText = {(lastName) => this.setState({lastName})} value={this.state.lastName}
+                    onChangeText = {(lastName) => this.setState({lastName})} 
+                    value={this.state.lastName} 
                 />
                 <Text style={ styleCSS.text }>Register your Email:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
-                    onChangeText = {(email) => this.setState({email})} value={this.state.email}
+                    onChangeText = {(email) => this.setState({email})} 
+                    value={this.state.email} 
                 />
                 <Text style={ styleCSS.text }>Create your New Password:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
-                    onChangeText = {(password) => this.setState({password})} value={this.state.password}
+                    onChangeText = {(password) => this.setState({password})} 
+                    value={this.state.password} 
                 />
-                <View style = {styleCSS.login }>
-                    <Button 
-                        title = 'Submit' 
-                        onPress={() => navig.navigate('Login')}>
-                    </Button>
+                <View style = {styleCSS.register }>
+                    <Button title = 'Register' onPress={() => this.onRegister()}/>
                 </View>
+
             </View>
         );    
     }
@@ -68,7 +104,7 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         alignSelf: 'center',
     },
-    login: {
+    register: {
         flex: 1,
         justifyContent: 'flex-end',
         width: '75%',

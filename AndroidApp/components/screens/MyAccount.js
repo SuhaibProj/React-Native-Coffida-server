@@ -2,7 +2,7 @@ import React from 'react'
 import { Component } from 'react'
 import { Text, View, Button, StyleSheet} from 'react-native'
 
-export default class UserMgmt extends Component {
+export default class MyAccount extends Component {
     constructor (props) {
         super(props)
     }
@@ -28,6 +28,8 @@ export default class UserMgmt extends Component {
         );    
     }
 }
+
+
 
 const styleCSS = StyleSheet.create({
     container: {
