@@ -1,55 +1,79 @@
-import React from 'react'
-import { Component } from 'react'
-import { Text, View, Button, StyleSheet, TextInput } from 'react-native'
-
-//import AsyncStorage from '@react-native-community/async-storage';
-
-const adminSignIn = {email: 'suhaib1602@yahoo.com', password: 'password'}
-
+import React from 'react';
+import { Component } from 'react';
+import { Text, View, Button, StyleSheet, ToastAndroid } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Login extends Component {
     constructor (props) {
         super(props)
-
         this.state = {
             email: '',
             password: '',
+            token: '',
         };
     }
+
+    onLogin = async() => {
+            
+        let database_info = {
+            email: this.state.email,
+            password: this.state.password,
+        }
+        return fetch('http://10.0.2.2:3333/api/1.0.0/user/login', {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(database_info),
+        })
+        .then((response) => {
+            if(response.status === 200) {
+                return response.json();
+            }else if (response.status === 400){
+                alert("Incorrect Credentials");
+            }else{
+                throw 'Something didnt work';
+            }
+        })
+        .then(async(responseJSON) => {
+            console.log(responseJSON)
+            await AsyncStorage.setItem('@session_token', responseJSON.token);
+            ToastAndroid.show("User Log-In Successful",ToastAndroid.SHORT);
+            this.props.navigation.navigate("AuthUser");
+        })
+        .catch((error) => {
+            console.log(error);
+            ToastAndroid.show(error, ToastAndroid.SHORT);
+        });
+    };
+
     render() {
         const navig = this.props.navigation;
         return (
             <View style = { styleCSS.container }> 
+
                 <Text style = { styleCSS.title }>CoffiDa Login Page</Text>
+
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
                     onChangeText = {(email) => this.setState({email})}
-                    autoCapitalize="none" defaultValue={this.state.username}
+                    autoCapitalize="none" value={this.state.email}
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true}
                     onChangeText = {(password) => this.setState({password})}
-                    autoCapitalize="none" defaultValue={this.state.password} 
+                    autoCapitalize="none" value={this.state.password} 
                 />
                 <View style = {styleCSS.login}>
-                    <Button title = 'Login' onPress={this._signIn} >
-                        //onPress={() => navig.navigate('AuthUser')}
-                    </Button>
+                    <Button title = 'Login' onPress={() => this.onLogin()}/>
                 </View>
                 <View style = {styleCSS.register}>
-                    <Button title = 'Register' onPress={() => navig.navigate('Register')}>
-                    </Button>
+                    <Button title = 'Register' onPress={() => navig.navigate('Register')}/>
                 </View>
+
             </View>
         ); 
         
     }
-    _signIn = async() => {
-        if(adminSignIn.username === this.state.username && adminSignIn.password === this.state.password){
-            //await AsyncStorage.setItem('loggedIn', '1')
-            this.props.navigation.navigate('AuthUser')
-        } else {
-            alert("Incorrect Login Details!\nPlease Try Again.")
-        }
-    }   
 }
 
 

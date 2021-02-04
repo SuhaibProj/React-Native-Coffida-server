@@ -1,7 +1,7 @@
-import React from 'react'
-import { Component } from 'react'
-import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput, Alert, ToastAndroid } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import React from 'react';
+import { Component } from 'react';
+import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput, Alert, ToastAndroid } from 'react-native';
+//import AsyncStorage from '@react-native-async-storage/async-storage'
 export default class Register extends Component {
     constructor (props) {
         super(props)
@@ -14,7 +14,7 @@ export default class Register extends Component {
     }
 
     onRegister = () => {
-        let info = {
+        let database_info = {
             first_name: this.state.firstName,
             last_name: this.state.lastName,
             email: this.state.email,
@@ -25,19 +25,19 @@ export default class Register extends Component {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(info),
+                body: JSON.stringify(database_info),
             })
             .then((response) => {
                 if(response.status === 201) {
                     return response.json();
                 }else if (response.status === 400){
-                    throw 'Sorry couldnt connect.';
+                    alert("Sorry couldnt connect.");
                 }else{
                     throw 'Something didnt work';
                 }
             })
-            .then((ResponseJSON) => {
-                console.log("User ID Created: ", ResponseJSON)
+            .then((responseJSON) => {
+                console.log("User ID Created: ", responseJSON)
                 ToastAndroid.show("User Creation Successful",ToastAndroid.SHORT)
                 this.props.navigation.navigate("Login")
             })
@@ -67,7 +67,8 @@ export default class Register extends Component {
                     value={this.state.email} 
                 />
                 <Text style={ styleCSS.text }>Create your New Password:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
+                <TextInput style = {styleCSS.input} placeholder={'Password'} 
+                    secureTextEntry = {true} 
                     onChangeText = {(password) => this.setState({password})} 
                     value={this.state.password} 
                 />
