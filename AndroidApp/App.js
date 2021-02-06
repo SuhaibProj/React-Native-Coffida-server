@@ -1,6 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 import React from 'react'
+
 import HomeScreen from './components/screens/Home'
 
 import LoginScreen from './components/screens/Login'
@@ -35,8 +39,8 @@ export default class App extends React.Component {
             <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
             <Stack.Screen name="Register" component={RegisterScreen}/>
             <Stack.Screen name="Login" component={LoginScreen}/>
-            <Stack.Screen name="AuthUser" component={AuthUserScreen} options={{ title: 'My Home' }}/>
-            <Stack.Screen name="MyAccount" component={MyAccountScreen} options={{ title: 'My Account' }}/>
+            <Stack.Screen name="AuthUser" component={AuthUserScreen} options={{ title: 'My Home', headerLeft:null  }}/>
+            <Stack.Screen name="MyAccount" component={MyAccountScreen} options={{ title: 'My Account'}}/>
             <Stack.Screen name="UpdateUserDetails" component={UpdateUserDetails} options={{ title: 'Update Account' }}/>
             <Stack.Screen name="ReviewMgmt" component={ReviewMgmtScreen} options={{ title: 'Review Management' }}/>
             <Stack.Screen name="SearchReviews" component={SearchReviewsScreen} options={{ title: 'Reviews' }}/>
@@ -52,3 +56,4 @@ export default class App extends React.Component {
     );
   }
 }
+

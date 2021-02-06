@@ -1,10 +1,22 @@
-import React from 'react'
-import { Component } from 'react'
-import { Text, View, Button, StyleSheet, Image} from 'react-native'
+import React from 'react';
+import { Component } from 'react';
+import { Text, View, Button, StyleSheet, Image} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Home extends Component {
     constructor (props) {
         super(props)
+    }
+    componentDidMount(){
+        this.checkLoggedIn()
+    }
+
+    checkLoggedIn = async () => {
+        let checkToken = await AsyncStorage.getItem('@session_token')
+        console.log("Session token is: ",checkToken)
+        if (checkToken !== null) { //check if session token stored already
+              this.props.navigation.navigate('AuthUser')
+        }
     }
     render() {
         const navig = this.props.navigation;
@@ -15,14 +27,13 @@ export default class Home extends Component {
                 <Text style ={styleCSS.text}>This is THE platform for reviews 
                     {"\n"}on the best local coffee spots.</Text>
                 <View style = {styleCSS.signIn}> 
-                    <Button 
-                        title = 'Sign In' 
-                        onPress={() => navig.navigate('Login')}>
-                    </Button>
+                    <Button title = 'Sign In' onPress={() => navig.navigate('Login')}/>
                 </View>
             </View>
         );    
     }
+    
+    
 }
 
 const styleCSS = StyleSheet.create({

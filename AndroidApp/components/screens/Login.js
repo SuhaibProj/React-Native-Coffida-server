@@ -31,7 +31,7 @@ export default class Login extends Component {
             if(response.status === 200) {
                 return response.json();
             }else if (response.status === 400){
-                alert("Incorrect Credentials");
+                throw "Incorrect Credentials";
             }else{
                 throw 'Something didnt work';
             }

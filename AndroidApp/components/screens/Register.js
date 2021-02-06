@@ -1,7 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
 import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput, Alert, ToastAndroid } from 'react-native';
-//import AsyncStorage from '@react-native-async-storage/async-storage'
 export default class Register extends Component {
     constructor (props) {
         super(props)
@@ -22,16 +21,14 @@ export default class Register extends Component {
         }
             return fetch('http://10.0.2.2:3333/api/1.0.0/user', {
                 method: 'post',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: {'Content-Type': 'application/json',},
                 body: JSON.stringify(database_info),
             })
             .then((response) => {
                 if(response.status === 201) {
                     return response.json();
                 }else if (response.status === 400){
-                    alert("Sorry couldnt connect.");
+                    throw "Sorry couldnt connect";
                 }else{
                     throw 'Something didnt work';
                 }

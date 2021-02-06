@@ -1,11 +1,28 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, Image} from 'react-native'
+import { Text, View, Button, StyleSheet, Image, BackHandler} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class AuthUser extends Component {
     constructor (props) {
         super(props)
+
+        this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick)
+    }
+
+    handleBackButtonClick() {
+        return true;
+    }
+    
+    logOut = async () => {
+        await AsyncStorage.removeItem('@session_token')
+        this.props.navigation.navigate('Home')
+    }
+
     render() {
         const navig = this.props.navigation;
         return (
@@ -13,34 +30,19 @@ export default class AuthUser extends Component {
                 <Text style ={styleCSS.title}>Welcome to your Personal Home Page</Text>
                 <Image source={require('../Images/bg.png')} style={styleCSS.imageConfig}/>
                 <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'My Account' 
-                        onPress={() => navig.navigate('MyAccount')}>
-                    </Button>
+                    <Button title = 'My Account' onPress={() => navig.navigate('MyAccount')}/>
                 </View>
                 <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'Search Reviews' 
-                        onPress={() => navig.navigate('Reviews')}>
-                    </Button>
+                    <Button title = 'Search Reviews' onPress={() => navig.navigate('Reviews')}/>
                 </View>
                 <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'Review Management' 
-                        onPress={() => navig.navigate('ReviewMgmt')}>
-                    </Button>
+                    <Button title = 'Review Management' onPress={() => navig.navigate('ReviewMgmt')}/>
                 </View>
                 <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'Locations' 
-                        onPress={() => navig.navigate('Locations')}>
-                    </Button>
+                    <Button title = 'Locations' onPress={() => navig.navigate('Locations')}/>
                 </View>
                 <View style = {styleCSS.logout}> 
-                    <Button 
-                        title = 'Logout' 
-                        onPress={() => navig.navigate('Home')}>
-                    </Button>
+                    <Button title = 'Logout' onPress={() => this.logOut()}/>
                 </View>
             </View>
             
