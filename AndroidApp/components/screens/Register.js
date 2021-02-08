@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput, Alert, ToastAndroid } from 'react-native';
+import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput, ToastAndroid } from 'react-native';
 export default class Register extends Component {
     constructor (props) {
         super(props)
@@ -19,29 +19,25 @@ export default class Register extends Component {
             email: this.state.email,
             password: this.state.password,
         }
-            return fetch('http://10.0.2.2:3333/api/1.0.0/user', {
-                method: 'post',
-                headers: {'Content-Type': 'application/json',},
-                body: JSON.stringify(database_info),
-            })
-            .then((response) => {
-                if(response.status === 201) {
-                    return response.json();
-                }else if (response.status === 400){
-                    throw "Sorry couldnt connect";
-                }else{
-                    throw 'Something didnt work';
-                }
-            })
-            .then((responseJSON) => {
-                console.log("User ID Created: ", responseJSON)
-                ToastAndroid.show("User Creation Successful",ToastAndroid.SHORT)
-                this.props.navigation.navigate("Login")
-            })
-            .catch((error) => {
-                console.log(error)
-                ToastAndroid.show(error, ToastAndroid.SHORT)
-            });
+        return fetch('http://10.0.2.2:3333/api/1.0.0/user', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json',},
+            body: JSON.stringify(database_info),
+        })
+        .then((response) => {
+            if(response.status === 201) { return response.json(); }
+            else if (response.status === 400){ throw "Sorry couldnt connect"; }
+            else{ throw 'Something didnt work'; }
+        })
+        .then((responseJSON) => {
+            console.log("User ID Created: ", responseJSON)
+            ToastAndroid.show("User Creation Successful",ToastAndroid.SHORT)
+            this.props.navigation.navigate("Login")
+        })
+        .catch((error) => {
+            console.log(error)
+            ToastAndroid.show(error, ToastAndroid.SHORT)
+        });
     };
     
     render() {

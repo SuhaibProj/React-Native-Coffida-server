@@ -14,7 +14,6 @@ export default class MyAccount extends Component {
             email: '',
             password: '',
             listDetails: [],
-            isLoading: true,
         }
 
     }
@@ -23,52 +22,36 @@ export default class MyAccount extends Component {
         this.getDetails();
     }
 
-    /*  setID = async(id) => {
-        await AsyncStorage.setItem('id', id) 
-    }
-
-    storeID = () => {
-        const id = this.state.id;
-        this.setID(id);  
-    } */
-
     getDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token')
-        const id = await AsyncStorage.getItem('@id')
+        const id = await AsyncStorage.getItem('id')
+        console.log("User ID: "+id)
         return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id + '/', {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
         .then((response) => {
-            if(response.status === 200) { return response.json(); }
-            else if (response.status === 401){ throw "Unauthorised"; }
-            else if (response.status === 404){ throw "Not Found"; }
-            else if (response.status === 500){ throw "Server Error"; }
-            else{ throw 'Something didnt work'; }
+            if(response.status === 200) {
+                return response.json();
+            }else if (response.status === 401){
+                throw "Unauthorised";
+            }else if (response.status === 404){
+                throw "Not Found";
+            }else if (response.status === 500){
+                throw "Server Error";
+            }else{
+                throw 'Something didnt work';
+            }
         })
         .then((responseJSON) => {
-            console.log(responseJSON)
             this.setState({
-                isLoading: false, 
-                id: responseJSON.user_id,
-                email: responseJSON.email,  
-                firstName: responseJSON.first_name,
-                lastName: responseJSON.last_name
-            });
-/*             this.setState({
-                isLoading: false, listDetails: responseJSON,
-            }); */
-            
+                listDetails: responseJSON.token
+            })
         })
         .catch((error) => {
             console.log(error);
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
-    }
-
-    /*{ <Text>{this.state.id}</Text>
-                    <Text>{this.state.email}</Text>
-                    <Text>{this.state.firstName}</Text>
-                    <Text>{this.state.lastName}</Text> }*/
+    } 
 
     render() {
         const navig = this.props.navigation;
@@ -76,13 +59,17 @@ export default class MyAccount extends Component {
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Account</Text>
                 <Text style ={styleCSS.text}>My Details:</Text>
-                <View style = {{borderRadius: 25, borderWidth: 2, marginVertical: 10, fontSize: 15, textAlign: 'center',}}>     
-                    <Text style = {styleCSS.textDetails}>Account ID: {this.state.id}</Text>
-                    <Text style = {styleCSS.textDetails}>Email: {this.state.email}</Text>
-                    <Text style = {styleCSS.textDetails}>First Name: {this.state.firstName}</Text>
-                    <Text style = {styleCSS.textDetails}>Last Name: {this.state.lastName}</Text>
-                </View>
-                <View style ={styleCSS.buttonGeneric}>
+                { <FlatList data = {this.state.listDetails}
+                    renderItem={({item}) => (
+                        <View>
+                            <Text>Your Account Details are: </Text>
+                            <Text>{item.first_name}</Text>
+                            <Text>{item.last_name}</Text>
+                        </View>
+                    )}
+                    keyExtractor={({id}, index) => id}
+                /> }
+                <View style = {styleCSS.buttonGeneric}>
                     <Button 
                         title = 'Update Account Details' 
                         onPress={() => navig.navigate('UpdateUserDetails')}>
@@ -132,10 +119,5 @@ const styleCSS = StyleSheet.create({
         width: 250,
         height: 250,
         alignSelf: 'center',
-    },
-    textDetails: {
-        fontSize: 15,
-        textAlign: 'center',
-        color: 'red',
     },
 });

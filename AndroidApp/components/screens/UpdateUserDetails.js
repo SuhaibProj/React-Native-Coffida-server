@@ -1,11 +1,13 @@
 import React from 'react'
 import { Component } from 'react'
 import { Text, View, Button, StyleSheet, TextInput } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class UpdateDeails extends Component {
     constructor (props) {
         super(props)
         this.state = {
+            id: '',
             firstName: '',
             lastName: '',
             email: '',
@@ -13,6 +15,38 @@ export default class UpdateDeails extends Component {
         };
     }
     
+    onUpdate  = async () => {
+        let database_info = {
+            first_name: this.state.firstName,
+            last_name: this.state.lastName,
+            email: this.state.email,
+            password: this.state.password,
+        }
+        return fetch('http://10.0.2.2:3333/api/1.0.0/user'+ id + '/', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
+            body: JSON.stringify(database_info),
+        })
+        .then((response) => {
+            if(response.status === 200) { return response.json(); }
+            else if (response.status === 400){ throw "Bad Request"; }
+            else if (response.status === 401){ throw "Unauthorised"; }
+            else if (response.status === 403){ throw "Forbidden"; }
+            else if (response.status === 404){ throw "Not Found"; }
+            else if (response.status === 500){ throw "Server Error"; }
+            else{ throw 'Something didnt work'; }
+        })
+        .then((responseJSON) => {
+            console.log("User ID Created: ", responseJSON)
+            ToastAndroid.show("User Creation Successful",ToastAndroid.SHORT)
+            this.props.navigation.navigate("AuthUser")
+        })
+        .catch((error) => {
+            console.log(error)
+            ToastAndroid.show(error, ToastAndroid.SHORT)
+        });
+    };
+
     render() {
         const navig = this.props.navigation;
         return (
@@ -34,10 +68,10 @@ export default class UpdateDeails extends Component {
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
                     onChangeText = {(password) => this.setState({password})} value={this.state.password}
                 />
-                <View style = {styleCSS.login }>
+                <View style = { styleCSS.login }>
                     <Button 
                         title = 'Submit' 
-                        onPress={() => navig.navigate('AuthUser')}>
+                        onPress={() => this.onUpdate()}>
                     </Button>
                 </View>
             </View>

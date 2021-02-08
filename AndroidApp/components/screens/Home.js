@@ -8,16 +8,21 @@ export default class Home extends Component {
         super(props)
     }
     componentDidMount(){
-        this.checkLoggedIn()
+        this.verifyLoggedIn()
     }
 
-    checkLoggedIn = async () => {
+    componentWillUnmount(){
+        this.verifyLoggedIn()
+    }
+    //check if session token stored already thus sign in already.
+    verifyLoggedIn = async () => {
         let checkToken = await AsyncStorage.getItem('@session_token')
         console.log("Session token is: ",checkToken)
-        if (checkToken !== null) { //check if session token stored already
+        if (checkToken !== null) { 
               this.props.navigation.navigate('AuthUser')
         }
     }
+
     render() {
         const navig = this.props.navigation;
         return (

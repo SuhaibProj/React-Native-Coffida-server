@@ -4,41 +4,39 @@ import { Text, View, Button, StyleSheet, ToastAndroid } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
 export default class Login extends Component {
     constructor (props) {
         super(props)
         this.state = {
+            id:'',
             email: '',
             password: '',
             token: '',
         };
     }
 
-    onLogin = async() => {
-            
+    onLogin = async() => {        
         let database_info = {
             email: this.state.email,
             password: this.state.password,
         }
         return fetch('http://10.0.2.2:3333/api/1.0.0/user/login', {
             method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: {'Content-Type': 'application/json',},
             body: JSON.stringify(database_info),
         })
         .then((response) => {
-            if(response.status === 200) {
-                return response.json();
-            }else if (response.status === 400){
-                throw "Incorrect Credentials";
-            }else{
-                throw 'Something didnt work';
-            }
+            if(response.status === 200) { return response.json(); }
+            else if (response.status === 400){ throw "Incorrect Credentials"; }
+            else{ throw 'Something didnt work'; }
         })
         .then(async(responseJSON) => {
-            console.log(responseJSON)
-            await AsyncStorage.setItem('@session_token', responseJSON.token);
+            console.log(responseJSON);
+            await AsyncStorage.setItem('@id', JSON.stringify(responseJSON.id)) 
+            await AsyncStorage.setItem('@session_token', JSON.stringify(responseJSON.token));
+            const id = await AsyncStorage.getItem('@id');
+            console.log("Here: "+id);
             ToastAndroid.show("User Log-In Successful",ToastAndroid.SHORT);
             this.props.navigation.navigate("AuthUser");
         })
@@ -48,13 +46,12 @@ export default class Login extends Component {
         });
     };
 
+
     render() {
         const navig = this.props.navigation;
         return (
             <View style = { styleCSS.container }> 
-
                 <Text style = { styleCSS.title }>CoffiDa Login Page</Text>
-
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
                     onChangeText = {(email) => this.setState({email})}
                     autoCapitalize="none" value={this.state.email}
@@ -69,10 +66,8 @@ export default class Login extends Component {
                 <View style = {styleCSS.register}>
                     <Button title = 'Register' onPress={() => navig.navigate('Register')}/>
                 </View>
-
             </View>
-        ); 
-        
+        );  
     }
 }
 
