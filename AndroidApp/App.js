@@ -8,6 +8,7 @@ import React from 'react'
 import HomeScreen from './components/screens/Home'
 
 import LoginScreen from './components/screens/Login'
+import LogoutScreen from './components/screens/Logout'
 
 import RegisterScreen from './components/screens/Register'
 
@@ -39,6 +40,7 @@ export default class App extends React.Component {
             <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
             <Stack.Screen name="Register" component={RegisterScreen}/>
             <Stack.Screen name="Login" component={LoginScreen}/>
+            <Stack.Screen name="Logout" component={LogoutScreen}/>
             <Stack.Screen name="AuthUser" component={AuthUserScreen} options={{ title: 'My Home', headerLeft:null  }}/>
             <Stack.Screen name="MyAccount" component={MyAccountScreen} options={{ title: 'My Account'}}/>
             <Stack.Screen name="UpdateUserDetails" component={UpdateUserDetails} options={{ title: 'Update Account' }}/>

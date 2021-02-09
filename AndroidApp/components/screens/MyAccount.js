@@ -23,19 +23,11 @@ export default class MyAccount extends Component {
         this.getDetails();
     }
 
-    /*  setID = async(id) => {
-        await AsyncStorage.setItem('id', id) 
-    }
-
-    storeID = () => {
-        const id = this.state.id;
-        this.setID(id);  
-    } */
-
     getDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token')
         const id = await AsyncStorage.getItem('@id')
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id + '/', {
+        console.log("Session Variable: " + session)
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
         .then((response) => {
@@ -54,21 +46,12 @@ export default class MyAccount extends Component {
                 firstName: responseJSON.first_name,
                 lastName: responseJSON.last_name
             });
-/*             this.setState({
-                isLoading: false, listDetails: responseJSON,
-            }); */
-            
         })
         .catch((error) => {
             console.log(error);
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     }
-
-    /*{ <Text>{this.state.id}</Text>
-                    <Text>{this.state.email}</Text>
-                    <Text>{this.state.firstName}</Text>
-                    <Text>{this.state.lastName}</Text> }*/
 
     render() {
         const navig = this.props.navigation;
@@ -82,24 +65,16 @@ export default class MyAccount extends Component {
                     <Text style = {styleCSS.textDetails}>First Name: {this.state.firstName}</Text>
                     <Text style = {styleCSS.textDetails}>Last Name: {this.state.lastName}</Text>
                 </View>
-                <View style ={styleCSS.buttonGeneric}>
+                <View style ={styleCSS.update}>
                     <Button 
                         title = 'Update Account Details' 
                         onPress={() => navig.navigate('UpdateUserDetails')}>
-                    </Button>
-                </View>
-                <View style = {styleCSS.logout}> 
-                    <Button 
-                        title = 'Logout' 
-                        onPress={() => navig.navigate('Home')}>
                     </Button>
                 </View>
             </View>
         );    
     }
 }
-
-//keyExtractor={(item,id) => item.usr_id.toString()}
 
 const styleCSS = StyleSheet.create({
     container: {
@@ -121,7 +96,7 @@ const styleCSS = StyleSheet.create({
         width: '75%',
         alignSelf: 'center',
     },
-    logout: {
+    update: {
         flex: 1,
         justifyContent: 'flex-end',
         width: '75%',

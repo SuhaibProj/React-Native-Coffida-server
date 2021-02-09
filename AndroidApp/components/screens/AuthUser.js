@@ -18,10 +18,30 @@ export default class AuthUser extends Component {
         return true;
     }
     
-    logOut = async () => {
+    /* logout = async () => {
+        const session = await AsyncStorage.getItem('@session_token')
+        return fetch('http://10.0.2.2:3333/api/1.0.0/user/logout', {
+            method: 'post',
+            headers: {'X-Authorization': session,}, 
+        })
+        .then((response) => {
+            if(response.status === 200) { return response.json(); }
+            else if (response.status === 401){ throw "Unauthorized"; }
+            else if (response.status === 500){ throw "Server Error"; }
+            else { throw 'Something didnt work'; }
+        })
+        .then(async(responseJSON) => {
+            console.log(responseJSON);
+            await AsyncStorage.removeItem('@session_token')
+            ToastAndroid.show("Successively Logged-Out",ToastAndroid.SHORT);
+            this.props.navigation.navigate("Home");
+        })
+    } */ 
+
+    /*  logout = async () => {
         await AsyncStorage.removeItem('@session_token')
         this.props.navigation.navigate('Home')
-    }
+    } */
 
     render() {
         const navig = this.props.navigation;
@@ -42,7 +62,7 @@ export default class AuthUser extends Component {
                     <Button title = 'Locations' onPress={() => navig.navigate('Locations')}/>
                 </View>
                 <View style = {styleCSS.logout}> 
-                    <Button title = 'Logout' onPress={() => this.logOut()}/>
+                    <Button title = 'Logout' onPress={() => navig.navigate('Logout')}/>
                 </View>
             </View>
             
