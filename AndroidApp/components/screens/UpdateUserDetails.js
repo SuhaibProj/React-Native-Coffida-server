@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, TextInput } from 'react-native'
+import { Text, View, Button, StyleSheet, TextInput, ToastAndroid } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class UpdateDeails extends Component {
@@ -14,7 +14,7 @@ export default class UpdateDeails extends Component {
             password: '',
         };
     }
-    
+
     onUpdate  = async () => {
         let database_info = {
             first_name: this.state.firstName,
@@ -22,24 +22,31 @@ export default class UpdateDeails extends Component {
             email: this.state.email,
             password: this.state.password,
         }
-        return fetch('http://10.0.2.2:3333/api/1.0.0/user'+ id + '/', {
-            method: 'post',
+        const session = await AsyncStorage.getItem('@session_token')
+        const id = await AsyncStorage.getItem('@id')
+        console.log("User ID in UpdateUser: "+id);
+        console.log("User Session Token in UpdateUser: "+session);
+        return fetch('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
+            method: 'patch',
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
-            body: JSON.stringify(database_info),
+            body: JSON.stringify(database_info)
         })
+        /*.then((response) => {
+            console.log("User Details Updated");
+            ToastAndroid.show("Details Updated",ToastAndroid.SHORT);
+            this.props.navigation.navigate("AuthUser"); 
+        }) */
         .then((response) => {
-            if(response.status === 200) { return response.json(); }
+            if(response.status === 200) { 
+                console.log("User Details Updated");
+                ToastAndroid.show("Details Updated",ToastAndroid.SHORT);
+                this.props.navigation.navigate("MyAccount"); 
+            }
             else if (response.status === 400){ throw "Bad Request"; }
             else if (response.status === 401){ throw "Unauthorised"; }
             else if (response.status === 403){ throw "Forbidden"; }
             else if (response.status === 404){ throw "Not Found"; }
             else if (response.status === 500){ throw "Server Error"; }
-            else{ throw 'Something didnt work'; }
-        })
-        .then((responseJSON) => {
-            console.log("User ID Created: ", responseJSON)
-            ToastAndroid.show("User Creation Successful",ToastAndroid.SHORT)
-            this.props.navigation.navigate("AuthUser")
         })
         .catch((error) => {
             console.log(error)
@@ -52,21 +59,21 @@ export default class UpdateDeails extends Component {
         return (
             <View style = { styleCSS.container }> 
                 <Text style={ styleCSS.title }>Edit Account Details</Text>
+                <Text style={ styleCSS.text }>Edit your Email:</Text>
+                <TextInput style = {styleCSS.input} placeholder={'Email'} 
+                    onChangeText = {(email) => this.setState({email})} defaultValue={this.state.email}
+                />
                 <Text style={ styleCSS.text }>Edit your First Name:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'First name'} 
-                onChangeText = {(firstName) => this.setState({firstName})} value={this.state.firstName}
+                <TextInput style = {styleCSS.input} placeholder={'First Name'} 
+                onChangeText = {(firstName) => this.setState({firstName})} defaultValue={this.state.firstName}
                 />
                 <Text style={ styleCSS.text }>Edit your Last Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
-                onChangeText = {(lastName) => this.setState({lastName})} value={this.state.lastName}
-                />
-                <Text style={ styleCSS.text }>Edit your Email:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Email'} 
-                    onChangeText = {(email) => this.setState({email})} value={this.state.email}
+                onChangeText = {(lastName) => this.setState({lastName})} defaultValue={this.state.lastName}
                 />
                 <Text style={ styleCSS.text }>Enter your New Password:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
-                    onChangeText = {(password) => this.setState({password})} value={this.state.password}
+                    onChangeText = {(password) => this.setState({password})} defaultValue={this.state.password}
                 />
                 <View style = { styleCSS.login }>
                     <Button 
