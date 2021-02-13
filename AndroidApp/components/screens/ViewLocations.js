@@ -1,20 +1,22 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, FlatList, ToastAndroid } from 'react-native'
+import { Text, View, Button, StyleSheet, FlatList, ToastAndroid, TouchableOpacity, Image } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ListItem, Body, Container, Left, List, Thumbnail } from 'native-base';
+import { ListItem, Body, Left, Thumbnail, Right } from 'native-base';
 
 export default class Locations extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            locationData: [],
+            notFollowing: true,
+            imageFollowing: []
         }
     }
 
     componentDidMount = async() => {
         this.getLocations();
     }
+
 
     getLocations = async () => {
         const session = await AsyncStorage.getItem('@session_token')
@@ -42,19 +44,17 @@ export default class Locations extends Component {
         });
     }
 
-     /*<FlatList
-        data={this.state.locationData}
-        keyExtractor={item => item.location_id.toString()}
-        renderItem={({item}) => (  
-            <View>
-                <Text style = {styleCSS.textDetails}>ID: {item.location_id.toString()}</Text>
-                <Text style = {styleCSS.textDetails}>Location: {item.location_name}</Text>
-                <Text style = {styleCSS.textDetails}>Town: {item.location_town}</Text>
-            </View>
-        )}   
-    />*/
 
     render() {
+        const locationDetails = (id) => {
+            console.log("The Location ID for this is: ",id);
+        }
+        let checkFollowing = (id) => {
+            console.log("The Location ID for this is: ",id);
+            this.setState({ 
+                notFollowing: !this.state.notFollowing, 
+            })
+        }
         const navig = this.props.navigation;
         return (
             <View style = {styleCSS.container}> 
@@ -64,13 +64,28 @@ export default class Locations extends Component {
                     keyExtractor={item => item.location_id.toString()}
                     renderItem={({item}) => (  
                         <ListItem key={item.location_id} avatar>
-                            <Left>
-                                <Thumbnail source={require('../Images/WC_1.png')}/>
+                            <Left >
+                                <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
+                                    <Thumbnail source={require('../Images/WC_1.png')}/>
+                                </TouchableOpacity>
                             </Left>
                             <Body>
-                                <Text style = {styleCSS.textDetails}>{item.location_name}</Text>
-                                <Text note>{item.location_town}</Text>
+                                <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
+                                    <Text style = {styleCSS.textDetails}>{item.location_name}</Text>
+                                    <Text note>{item.location_town}</Text>
+                                </TouchableOpacity>
                             </Body>
+                            <Right style = {{justifyContent: 'center'}}>
+                                <TouchableOpacity onPress={() => checkFollowing(item.location_id)}>
+                                    <Image
+                                        style={styleCSS.hearts}
+                                        resizeMode='contain'
+                                        source={ this.state.notFollowing == true 
+                                            ? require('../Images/H.png') :    
+                                            require('../Images/H_RED.png')}
+                                    />
+                                </TouchableOpacity>
+                            </Right>
                         </ListItem>
                     )}    
                 />
@@ -81,8 +96,6 @@ export default class Locations extends Component {
         );
     }
 }
-
-
 
 
 
@@ -107,4 +120,9 @@ const styleCSS = StyleSheet.create({
         fontSize: 20,
         color: 'red',
     },
+    hearts: {
+        justifyContent: 'center', 
+        width: 20, 
+        height: 20,
+    }
 });
