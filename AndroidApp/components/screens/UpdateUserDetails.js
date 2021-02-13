@@ -27,15 +27,10 @@ export default class UpdateDeails extends Component {
         console.log("User ID in UpdateUser: "+id);
         console.log("User Session Token in UpdateUser: "+session);
         return fetch('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
-            method: 'patch',
+            method: 'put',
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
             body: JSON.stringify(database_info)
         })
-        /*.then((response) => {
-            console.log("User Details Updated");
-            ToastAndroid.show("Details Updated",ToastAndroid.SHORT);
-            this.props.navigation.navigate("AuthUser"); 
-        }) */
         .then((response) => {
             if(response.status === 200) { 
                 console.log("User Details Updated");
@@ -55,7 +50,6 @@ export default class UpdateDeails extends Component {
     };
 
     render() {
-        const navig = this.props.navigation;
         return (
             <View style = { styleCSS.container }> 
                 <Text style={ styleCSS.title }>Edit Account Details</Text>

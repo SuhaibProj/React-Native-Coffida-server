@@ -36,6 +36,7 @@ export default class Login extends Component {
             
             await AsyncStorage.setItem('@id', JSON.stringify(responseJSON.id));
             await AsyncStorage.setItem('@session_token', responseJSON.token);
+            
             const id = await AsyncStorage.getItem('@id');
             const session = await AsyncStorage.getItem('@session_token');
             console.log("Here token is:"+session);

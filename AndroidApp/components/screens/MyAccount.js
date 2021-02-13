@@ -103,11 +103,6 @@ const styleCSS = StyleSheet.create({
         alignSelf: 'center',
         marginBottom: 30,
     },
-    imageConfig: {
-        width: 250,
-        height: 250,
-        alignSelf: 'center',
-    },
     textDetails: {
         fontSize: 15,
         textAlign: 'center',

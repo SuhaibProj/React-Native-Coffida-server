@@ -28,7 +28,7 @@ export default class Home extends Component {
         return (
             <View style = {styleCSS.container}>
                 <Text style ={styleCSS.title}>CoffiDa Home Page</Text>
-                <Image source={require('../Images/bg.png')} style={styleCSS.imageConfig}/> 
+                <Image source={require('../Images/BG.png')} style={styleCSS.imageConfig}/> 
                 <Text style ={styleCSS.text}>This is THE platform for reviews 
                     {"\n"}on the best local coffee spots.</Text>
                 <View style = {styleCSS.signIn}> 
