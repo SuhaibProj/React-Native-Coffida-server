@@ -8,8 +8,9 @@ export default class Locations extends Component {
     constructor (props) {
         super(props)
         this.state = {
+            locationData: [],
             notFollowing: true,
-            imageFollowing: []
+            location_id: ''
         }
     }
 
@@ -20,7 +21,7 @@ export default class Locations extends Component {
 
     getLocations = async () => {
         const session = await AsyncStorage.getItem('@session_token')
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/find?', {
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/find', {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
         .then((response) => {
@@ -31,12 +32,11 @@ export default class Locations extends Component {
             else{ throw 'Something didnt work'; }
         })
         .then((responseJSON) => {
-            console.log(responseJSON)
             this.setState({
                 locationData: responseJSON,
             })
             this.state.locationData.toString()
-            console.log('The Location Data is:', this.state.locationData )
+            console.log('The Entire Location Details are:', this.state.locationData )
         })
         .catch((error) => {
             console.log(error);
@@ -46,8 +46,10 @@ export default class Locations extends Component {
 
 
     render() {
-        const locationDetails = (id) => {
-            console.log("The Location ID for this is: ",id);
+        let locationDetails = async(location_id) => {
+            await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
+            console.log("The Location ID for this is: ",location_id);
+            this.props.navigation.navigate('LocationDetails');
         }
         let checkFollowing = (id) => {
             console.log("The Location ID for this is: ",id);
@@ -56,6 +58,7 @@ export default class Locations extends Component {
             })
         }
         const navig = this.props.navigation;
+
         return (
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>View All Locations</Text>

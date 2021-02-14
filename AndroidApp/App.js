@@ -26,7 +26,7 @@ import AddReviewPhotoScreen from './components/screens/AddReviewPhoto'
 import SearchReviewPhotoScreen from './components/screens/SearchReviewPhoto'
 import DeleteReviewPhotoScreen from './components/screens/DeleteReviewPhoto'
 
-
+import LocationDetailsScreen from './components/screens/LocationDetails'
 import ViewLocationsScreen from './components/screens/ViewLocations'
 
 
@@ -53,6 +53,7 @@ export default class App extends React.Component {
             <Stack.Screen name="SearchReviewPhoto" component={SearchReviewPhotoScreen} options={{ title: 'All Review Photos' }}/>
             <Stack.Screen name="DeleteReviewPhoto" component={DeleteReviewPhotoScreen} options={{ title: 'Delete Review Photo' }}/>
             <Stack.Screen name="Locations" component={ViewLocationsScreen} options={{ title: 'All Locations' }}/>
+            <Stack.Screen name="LocationDetails" component={LocationDetailsScreen} options={{ title: 'Location Details' }}/>
           </Stack.Navigator>
         </NavigationContainer>
     );
