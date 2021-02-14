@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, FlatList, ToastAndroid, TouchableOpacity, Image } from 'react-native'
+import { Text, View, Button, StyleSheet, FlatList, ToastAndroid, TouchableOpacity, Image, SafeAreaView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right } from 'native-base';
 
@@ -51,8 +51,8 @@ export default class Locations extends Component {
             console.log("The Location ID for this is: ",location_id);
             this.props.navigation.navigate('LocationDetails');
         }
-        let checkFollowing = (id) => {
-            console.log("The Location ID for this is: ",id);
+        let checkFollowing = (location_id) => {
+            console.log("The Location ID for this is: ",location_id);
             this.setState({ 
                 notFollowing: !this.state.notFollowing, 
             })
@@ -60,7 +60,7 @@ export default class Locations extends Component {
         const navig = this.props.navigation;
 
         return (
-            <View style = {styleCSS.container}> 
+            <SafeAreaView style = {styleCSS.container}>
                 <Text style ={styleCSS.title}>View All Locations</Text>
                 <FlatList
                     data={this.state.locationData}
@@ -83,19 +83,21 @@ export default class Locations extends Component {
                                     <Image
                                         style={styleCSS.hearts}
                                         resizeMode='contain'
-                                        source={ this.state.notFollowing == true 
-                                            ? require('../Images/H.png') :    
-                                            require('../Images/H_RED.png')}
+                                        source={ this.state.notFollowing == true ? 
+                                            require('../Images/H.png') : require('../Images/H_RED.png')}
                                     />
                                 </TouchableOpacity>
                             </Right>
                         </ListItem>
                     )}    
                 />
-                <View style = {styleCSS.MyAccount}>
-                    <Button title = 'My Account' onPress={() => navig.navigate('MyAccount')}/>
+                <View style = {styleCSS.Home}>
+                    <Button title = 'Liked Locations' onPress={() => navig.navigate('LikedLocations')}/>
                 </View>
-            </View>
+                <View style = {styleCSS.Home}>
+                    <Button title = 'Home' onPress={() => navig.navigate('AuthUser')}/>
+                </View>
+            </SafeAreaView>
         );
     }
 }
@@ -112,7 +114,7 @@ const styleCSS = StyleSheet.create({
         fontSize: 20,
         alignSelf: 'center',
     },
-    MyAccount: {
+    Home: {
         flex: 1,
         justifyContent: 'flex-end',
         width: '75%',

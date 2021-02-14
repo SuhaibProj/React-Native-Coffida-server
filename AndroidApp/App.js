@@ -1,8 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import React from 'react'
 
 import HomeScreen from './components/screens/Home'
@@ -28,6 +26,7 @@ import DeleteReviewPhotoScreen from './components/screens/DeleteReviewPhoto'
 
 import LocationDetailsScreen from './components/screens/LocationDetails'
 import ViewLocationsScreen from './components/screens/ViewLocations'
+import LikedLocationsScreeen from './components/screens/LikedLocations';
 
 
 const Stack = createStackNavigator();
@@ -52,8 +51,9 @@ export default class App extends React.Component {
             <Stack.Screen name="AddReviewPhoto" component={AddReviewPhotoScreen} options={{ title: 'Insert Review Photo' }}/>
             <Stack.Screen name="SearchReviewPhoto" component={SearchReviewPhotoScreen} options={{ title: 'All Review Photos' }}/>
             <Stack.Screen name="DeleteReviewPhoto" component={DeleteReviewPhotoScreen} options={{ title: 'Delete Review Photo' }}/>
-            <Stack.Screen name="Locations" component={ViewLocationsScreen} options={{ title: 'All Locations' }}/>
+            <Stack.Screen name="ViewLocations" component={ViewLocationsScreen} options={{ title: 'All Locations' }}/>
             <Stack.Screen name="LocationDetails" component={LocationDetailsScreen} options={{ title: 'Location Details' }}/>
+            <Stack.Screen name="LikedLocations" component={LikedLocationsScreeen} options={{ title: 'Locations Followed' }}/>
           </Stack.Navigator>
         </NavigationContainer>
     );

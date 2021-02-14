@@ -18,7 +18,9 @@ export default class AuthUser extends Component {
     }
 
     render() {
+        
         const navig = this.props.navigation;
+
         return (
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Personal Home Page</Text>
@@ -27,16 +29,10 @@ export default class AuthUser extends Component {
                     <Button title = 'My Account' onPress={() => navig.navigate('MyAccount')}/>
                 </View>
                 <View style = {styleCSS.buttonGeneric}>
-                    <Button title = 'View Reviews' onPress={() => navig.navigate('Reviews')}/>
+                    <Button title = 'Reviews' onPress={() => navig.navigate('ReviewMgmt')}/>
                 </View>
                 <View style = {styleCSS.buttonGeneric}>
-                    <Button title = 'View Locations' onPress={() => navig.navigate('Locations')}/>
-                </View>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button title = 'Review Management' onPress={() => navig.navigate('ReviewMgmt')}/>
-                </View>
-                <View style = {styleCSS.buttonGeneric}> 
-                    <Button title = 'Location Management' onPress={() => navig.navigate('LocationMgmt')}/>
+                    <Button title = 'Locations' onPress={() => navig.navigate('ViewLocations')}/>
                 </View>
                 <View style = {styleCSS.logout}> 
                     <Button title = 'Logout' onPress={() => navig.navigate('Logout')}/>
