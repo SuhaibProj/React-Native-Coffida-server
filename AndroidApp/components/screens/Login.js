@@ -1,9 +1,9 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, Button, StyleSheet, ToastAndroid } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, ToastAndroid } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Divider from 'react-native-divider'
 
 export default class Login extends Component {
     constructor (props) {
@@ -64,12 +64,14 @@ export default class Login extends Component {
                     onChangeText = {(password) => this.setState({password})}
                     autoCapitalize="none" value={this.state.password} 
                 />
-                <View style = {styleCSS.login}>
-                    <Button title = 'Login' onPress={() => this.onLogin()}/>
-                </View>
-                <View style = {styleCSS.register}>
-                    <Button title = 'Register' onPress={() => navig.navigate('Register')}/>
-                </View>
+                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onLogin()}>
+                    <Text style = {styleCSS.textDetails}>Login</Text>
+                </TouchableOpacity>
+                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('Register')}>
+                    <Text style = {styleCSS.textDetails}>Register</Text>
+                </TouchableOpacity>
             </View>
         );  
     }
@@ -96,18 +98,21 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         alignSelf: 'center',
     },
-    register: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        width: '75%',
-        alignSelf: 'center',
-        marginBottom: 30,
-    },
     login: {
         alignSelf: 'center',
         marginVertical: 20, 
         width: 100,
-    }
+    },
+    textDetails: {
+        alignSelf: 'center',
+    },
+    button: {
+        alignSelf: 'center',
+        marginVertical: 10,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
+    },
 
 });
 

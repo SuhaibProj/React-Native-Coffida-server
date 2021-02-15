@@ -1,6 +1,7 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, TextInput } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, TextInput } from 'react-native'
+import Divider from 'react-native-divider'
 
 export default class AddReview extends Component {
     constructor (props) {
@@ -10,7 +11,7 @@ export default class AddReview extends Component {
             overallRating: '',
             priceRating: '',
             qualityRating: '',
-            cleanlinessRating: '',
+            clenlinessRating: '',
             comments: '',
         };
     }
@@ -29,17 +30,15 @@ export default class AddReview extends Component {
                     onChangeText = {(qualityRating) => this.setState({qualityRating})} value={this.state.qualityRating}
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
-                    onChangeText = {(cleanlinessRating) => this.setState({cleanlinessRating})} value={this.state.cleanlinessRating}
+                    onChangeText = {(cleanlinessRating) => this.setState({clenlinessRating})} value={this.state.clenlinessRating}
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
                     onChangeText = {(comments) => this.setState({comments})} value={this.state.comments}
                 />
-                <View style = {styleCSS.submit}>
-                    <Button 
-                        title = 'Submit' 
-                        onPress={() => navig.navigate('AuthUser')}>
-                    </Button>
-                </View>
+                <Divider color="#fff" orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AuthUser')}>
+                    <Text style = {styleCSS.textDetails}>Submit</Text>
+                </TouchableOpacity>
             </View>
         );    
     }
@@ -72,6 +71,16 @@ const styleCSS = StyleSheet.create({
         width: '75%',
         alignSelf: 'center',
         marginBottom: 30,
+    },
+    button: {
+        alignSelf: 'center',
+        marginVertical: 10,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
+    },
+    textDetails: {
+        alignSelf: 'center',
     },
 
 });

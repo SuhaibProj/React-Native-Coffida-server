@@ -1,8 +1,9 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, FlatList, ToastAndroid, TouchableOpacity, Image, SafeAreaView } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList, ToastAndroid, SafeAreaView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ListItem, Body, Left, Thumbnail, Right } from 'native-base';
+import { ListItem, Body, Left, Thumbnail} from 'native-base';
+import Divider from 'react-native-divider'
 
 export default class Locations extends Component {
     constructor (props) {
@@ -44,6 +45,16 @@ export default class Locations extends Component {
         });
     }
 
+/* <Right style = {{justifyContent: 'center'}}>
+<TouchableOpacity onPress={() => checkFollowing(item.location_id)}>
+    <Image
+        style={styleCSS.hearts}
+        resizeMode='contain'
+        source={ this.state.notFollowing == true ? 
+            require('../Images/H.png') : require('../Images/H_RED.png')}
+    />
+</TouchableOpacity>
+</Right> */
 
     render() {
         let locationDetails = async(location_id) => {
@@ -51,16 +62,10 @@ export default class Locations extends Component {
             console.log("The Location ID for this is: ",location_id);
             this.props.navigation.navigate('LocationDetails');
         }
-        let checkFollowing = (location_id) => {
-            console.log("The Location ID for this is: ",location_id);
-            this.setState({ 
-                notFollowing: !this.state.notFollowing, 
-            })
-        }
         const navig = this.props.navigation;
 
         return (
-            <SafeAreaView style = {styleCSS.container}>
+            <View style = {styleCSS.container}>
                 <Text style ={styleCSS.title}>View All Locations</Text>
                 <FlatList
                     data={this.state.locationData}
@@ -74,30 +79,19 @@ export default class Locations extends Component {
                             </Left>
                             <Body>
                                 <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
-                                    <Text style = {styleCSS.textDetails}>{item.location_name}</Text>
-                                    <Text note>{item.location_town}</Text>
+                                    <Text style = {{fontSize: 20}}>{item.location_name}</Text>
+                                    <Text style = {{color: 'grey'}} note>{item.location_town}</Text>
                                 </TouchableOpacity>
                             </Body>
-                            <Right style = {{justifyContent: 'center'}}>
-                                <TouchableOpacity onPress={() => checkFollowing(item.location_id)}>
-                                    <Image
-                                        style={styleCSS.hearts}
-                                        resizeMode='contain'
-                                        source={ this.state.notFollowing == true ? 
-                                            require('../Images/H.png') : require('../Images/H_RED.png')}
-                                    />
-                                </TouchableOpacity>
-                            </Right>
                         </ListItem>
                     )}    
                 />
-                <View style = {styleCSS.Home}>
-                    <Button title = 'Liked Locations' onPress={() => navig.navigate('LikedLocations')}/>
-                </View>
-                <View style = {styleCSS.Home}>
-                    <Button title = 'Home' onPress={() => navig.navigate('AuthUser')}/>
-                </View>
-            </SafeAreaView>
+                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('LikedLocations')}>
+                    <Text style = {styleCSS.textDetails}>Liked Locations</Text>
+                </TouchableOpacity>
+
+            </View>
         );
     }
 }
@@ -122,12 +116,13 @@ const styleCSS = StyleSheet.create({
         marginBottom: 30,
     },
     textDetails: {
-        fontSize: 20,
-        color: 'red',
+        alignSelf: 'center',
     },
-    hearts: {
-        justifyContent: 'center', 
-        width: 20, 
-        height: 20,
-    }
+    button: {
+        alignSelf: 'center',
+        marginVertical: 10,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
+    },
 });

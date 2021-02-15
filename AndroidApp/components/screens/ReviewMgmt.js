@@ -1,6 +1,7 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet} from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet} from 'react-native'
+import Divider from 'react-native-divider'
 
 export default class ReviewMgmt extends Component {
     constructor (props) {
@@ -11,48 +12,25 @@ export default class ReviewMgmt extends Component {
         return (
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Review Management</Text>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'Add Review' 
-                        onPress={() => navig.navigate('AddReview')}>
-                    </Button>
-                </View>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'Update Review' 
-                        onPress={() => navig.navigate('UpdateReview')}>
-                    </Button>
-                </View>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'Delete Review' 
-                        onPress={() => navig.navigate('DeleteReview')}>
-                    </Button>
-                </View>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'Search Review Photo(s)' 
-                        onPress={() => navig.navigate('SearchReviewPhoto')}>
-                    </Button>
-                </View>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'Add Review Photo(s)' 
-                        onPress={() => navig.navigate('AddReviewPhoto')}>
-                    </Button>
-                </View>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button 
-                        title = 'Delete Review Photo(s)' 
-                        onPress={() => navig.navigate('DeleteReviewPhoto')}>
-                    </Button>
-                </View>
-                <View style = {styleCSS.logout}> 
-                    <Button 
-                        title = 'Logout' 
-                        onPress={() => navig.navigate('Home')}>
-                    </Button>
-                </View>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AddReview')}>
+                    <Text style = {styleCSS.textDetails}>Add Review</Text>
+                </TouchableOpacity>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('UpdateReview')}>
+                    <Text style = {styleCSS.textDetails}>Update Review</Text>
+                </TouchableOpacity>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('DeleteReview')}>
+                    <Text style = {styleCSS.textDetails}>Delete Review</Text>
+                </TouchableOpacity>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('SearchReviewPhoto')}>
+                    <Text style = {styleCSS.textDetails}>Search Review Photo(s)</Text>
+                </TouchableOpacity>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AddReviewPhoto')}>
+                    <Text style = {styleCSS.textDetails}>Add Review Photo(s)</Text>
+                </TouchableOpacity>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('DeleteReviewPhoto')}>
+                    <Text style = {styleCSS.textDetails}>Delete Review Photo(s)</Text>
+                </TouchableOpacity>
+                
             </View>
         );    
     }
@@ -68,26 +46,19 @@ const styleCSS = StyleSheet.create({
         fontSize: 20,
         alignSelf: 'center',
     },
-    text: {
-        marginVertical: 25,
-        fontSize: 15,
-        textAlign: 'center',
-    },
-    buttonGeneric: {
-        marginVertical: 10,
-        width: '75%',
-        alignSelf: 'center',
-    },
-    logout: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        width: '75%',
-        alignSelf: 'center',
-        marginBottom: 30,
-    },
     imageConfig: {
         width: 250,
         height: 250,
         alignSelf: 'center',
+    },
+    textDetails: {
+        alignSelf: 'center',
+    },
+    button: {
+        alignSelf: 'center',
+        marginVertical: 10,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
     },
 });

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, Button, StyleSheet, ToastAndroid } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { FlatList } from 'react-native-gesture-handler';
+import Divider from 'react-native-divider'
 
 export default class MyAccount extends Component {
     constructor (props) {
@@ -14,9 +14,7 @@ export default class MyAccount extends Component {
             email: '',
             password: '',
             listDetails: [],
-            isLoading: true,
         }
-
     }
 
     componentDidMount = async() => {
@@ -40,11 +38,10 @@ export default class MyAccount extends Component {
         .then((responseJSON) => {
             console.log(responseJSON)
             this.setState({
-                isLoading: false, 
                 id: responseJSON.user_id,
                 email: responseJSON.email,  
                 firstName: responseJSON.first_name,
-                lastName: responseJSON.last_name
+                lastName: responseJSON.last_name,
             });
         })
         .catch((error) => {
@@ -58,19 +55,18 @@ export default class MyAccount extends Component {
         return (
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Account</Text>
-                <Text style ={styleCSS.text}>My Details:</Text>
-                <View style = {{borderRadius: 25, borderWidth: 2, marginVertical: 10, fontSize: 15, textAlign: 'center',}}>     
-                    <Text style = {styleCSS.textDetails}>Account ID: {this.state.id}</Text>
-                    <Text style = {styleCSS.textDetails}>Email: {this.state.email}</Text>
-                    <Text style = {styleCSS.textDetails}>First Name: {this.state.firstName}</Text>
-                    <Text style = {styleCSS.textDetails}>Last Name: {this.state.lastName}</Text>
+                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                <View style = {styleCSS.textDetails}>  
+                    <Text>My Details:</Text>   
+                    <Text>Account ID: {this.state.id}</Text>
+                    <Text>Email: {this.state.email}</Text>
+                    <Text>First Name: {this.state.firstName}</Text>
+                    <Text>Last Name: {this.state.lastName}</Text>
                 </View>
-                <View style ={styleCSS.update}>
-                    <Button 
-                        title = 'Update Account Details' 
-                        onPress={() => navig.navigate('UpdateUserDetails')}>
-                    </Button>
-                </View>
+                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('UpdateUserDetails')}>
+                    <Text style = {styleCSS.textDetails}>Update Account Details</Text>
+                </TouchableOpacity>
             </View>
         );    
     }
@@ -86,26 +82,14 @@ const styleCSS = StyleSheet.create({
         fontSize: 20,
         alignSelf: 'center',
     },
-    text: {
-        marginVertical: 25,
-        fontSize: 15,
-        textAlign: 'center',
-    },
-    buttonGeneric: {
-        marginVertical: 10,
-        width: '75%',
-        alignSelf: 'center',
-    },
-    update: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        width: '75%',
-        alignSelf: 'center',
-        marginBottom: 30,
-    },
     textDetails: {
-        fontSize: 15,
-        textAlign: 'center',
-        color: 'red',
+        alignSelf: 'center',
+    },
+    button: {
+        alignSelf: 'center',
+        marginVertical: 10,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
     },
 });

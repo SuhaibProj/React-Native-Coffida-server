@@ -1,6 +1,7 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, Image, BackHandler} from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image, BackHandler} from 'react-native'
+import Divider from 'react-native-divider'
 
 export default class AuthUser extends Component {
     constructor (props) {
@@ -25,18 +26,21 @@ export default class AuthUser extends Component {
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Personal Home Page</Text>
                 <Image source={require('../Images/BG.png')} style={styleCSS.imageConfig}/>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button title = 'My Account' onPress={() => navig.navigate('MyAccount')}/>
-                </View>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button title = 'Reviews' onPress={() => navig.navigate('ReviewMgmt')}/>
-                </View>
-                <View style = {styleCSS.buttonGeneric}>
-                    <Button title = 'Locations' onPress={() => navig.navigate('ViewLocations')}/>
-                </View>
-                <View style = {styleCSS.logout}> 
-                    <Button title = 'Logout' onPress={() => navig.navigate('Logout')}/>
-                </View>
+                
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('MyAccount')}>
+                    <Text style = {styleCSS.textDetails}>My Account</Text>
+                </TouchableOpacity>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ReviewMgmt')}>
+                    <Text style = {styleCSS.textDetails}>Reviews</Text>
+                </TouchableOpacity>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ViewLocations')}>
+                    <Text style = {styleCSS.textDetails}>Locations</Text>
+                </TouchableOpacity>
+                <Divider color="#fff" orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('Logout')}>
+                    <Text style = {styleCSS.textDetails}>Logout</Text>
+                </TouchableOpacity>
+
             </View>
             
         );    
@@ -53,21 +57,19 @@ const styleCSS = StyleSheet.create({
         fontSize: 20,
         alignSelf: 'center',
     },
-    buttonGeneric: {
+    button: {
+        alignSelf: 'center',
         marginVertical: 10,
-        width: '75%',
-        alignSelf: 'center',
-    },
-    logout: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        width: '75%',
-        alignSelf: 'center',
-        marginBottom: 30,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
     },
     imageConfig: {
         width: 250,
         height: 250,
+        alignSelf: 'center',
+    },
+    textDetails: {
         alignSelf: 'center',
     },
 });

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Button, StyleSheet, TextInput, ToastAndroid } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Divider from 'react-native-divider'
 export default class UpdateDeails extends Component {
     constructor (props) {
         super(props)
@@ -53,28 +53,26 @@ export default class UpdateDeails extends Component {
         return (
             <View style = { styleCSS.container }> 
                 <Text style={ styleCSS.title }>Edit Account Details</Text>
-                <Text style={ styleCSS.text }>Edit your Email:</Text>
+                <Text style={ styleCSS.textDetails }>Edit your Email:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
                     onChangeText = {(email) => this.setState({email})} defaultValue={this.state.email}
                 />
-                <Text style={ styleCSS.text }>Edit your First Name:</Text>
+                <Text style={ styleCSS.textDetails }>Edit your First Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'First Name'} 
                 onChangeText = {(firstName) => this.setState({firstName})} defaultValue={this.state.firstName}
                 />
-                <Text style={ styleCSS.text }>Edit your Last Name:</Text>
+                <Text style={ styleCSS.textDetails }>Edit your Last Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
                 onChangeText = {(lastName) => this.setState({lastName})} defaultValue={this.state.lastName}
                 />
-                <Text style={ styleCSS.text }>Enter your New Password:</Text>
+                <Text style={ styleCSS.textDetails }>Enter your New Password:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
                     onChangeText = {(password) => this.setState({password})} defaultValue={this.state.password}
                 />
-                <View style = { styleCSS.login }>
-                    <Button 
-                        title = 'Submit' 
-                        onPress={() => this.onUpdate()}>
-                    </Button>
-                </View>
+                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onUpdate()}>
+                    <Text style = {styleCSS.textDetails}>Submit</Text>
+                </TouchableOpacity>
             </View>
         );    
     }
@@ -90,8 +88,7 @@ const styleCSS = StyleSheet.create({
         fontSize: 20,
         alignSelf: 'center',
     },
-    text: {
-        fontSize: 15,
+    textDetails: {
         alignSelf: 'center',
     },
     input: {
@@ -104,12 +101,12 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         alignSelf: 'center',
     },
-    login: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        width: '75%',
+    button: {
         alignSelf: 'center',
-        marginBottom: 30,
+        marginVertical: 10,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
     },
 
 });

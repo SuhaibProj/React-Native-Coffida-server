@@ -1,7 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, Button, StyleSheet, Image} from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Divider from 'react-native-divider'
 
 export default class Home extends Component {
     constructor (props) {
@@ -30,10 +31,13 @@ export default class Home extends Component {
                 <Text style ={styleCSS.title}>CoffiDa Home Page</Text>
                 <Image source={require('../Images/BG.png')} style={styleCSS.imageConfig}/> 
                 <Text style ={styleCSS.text}>This is THE platform for reviews 
-                    {"\n"}on the best local coffee spots.</Text>
-                <View style = {styleCSS.signIn}> 
-                    <Button title = 'Sign In' onPress={() => navig.navigate('Login')}/>
-                </View>
+                    {"\n"}on the best local coffee spots.
+                </Text>
+
+                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('Login')}>
+                    <Text style = {styleCSS.textDetails}>Sign In</Text>
+                </TouchableOpacity>
             </View>
         );    
     }
@@ -56,14 +60,19 @@ const styleCSS = StyleSheet.create({
         fontSize: 15,
         textAlign: 'center',
     },
-    signIn: {
-        marginVertical: '50%',
-        width: '75%',
+    textDetails: {
         alignSelf: 'center',
     },
     imageConfig: {
         width: 250,
         height: 250,
         alignSelf: 'center',
+    },
+    button: {
+        alignSelf: 'center',
+        marginVertical: 10,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
     },
 });

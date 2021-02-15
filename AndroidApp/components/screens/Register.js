@@ -1,6 +1,8 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, Button, StyleSheet, TouchableOpacity, TextInput, ToastAndroid } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native';
+import Divider from 'react-native-divider'
+
 export default class Register extends Component {
     constructor (props) {
         super(props)
@@ -65,10 +67,10 @@ export default class Register extends Component {
                     onChangeText = {(password) => this.setState({password})} 
                     value={this.state.password} 
                 />
-                <View style = {styleCSS.register }>
-                    <Button title = 'Register' onPress={() => this.onRegister()}/>
-                </View>
-
+                <Divider color="#fff" orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onRegister()}>
+                    <Text style = {styleCSS.textDetails}>Register</Text>
+                </TouchableOpacity>
             </View>
         );    
     }
@@ -88,6 +90,9 @@ const styleCSS = StyleSheet.create({
         fontSize: 15,
         alignSelf: 'center',
     },
+    textDetails: {
+        alignSelf: 'center',
+    },
     input: {
         justifyContent: 'center',
         height: 45,
@@ -98,12 +103,11 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         alignSelf: 'center',
     },
-    register: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        width: '75%',
+    button: {
         alignSelf: 'center',
-        marginBottom: 30,
+        marginVertical: 10,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
     },
-
 });

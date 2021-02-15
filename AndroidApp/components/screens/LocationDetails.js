@@ -1,13 +1,16 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, StyleSheet, FlatList, ToastAndroid , Button} from 'react-native'
+import { Text, View, StyleSheet, FlatList, TouchableOpacity, ToastAndroid , Button} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Item } from 'native-base';
+import Divider from 'react-native-divider'
 
 export default class LocationDetails extends Component {
     constructor (props) {
         super(props)
         this.state = {
+            notfollowing: true,
+            like: "Remove from Favourites",
+            normal: "Add to Favourites",
             reviewDetails:[],
             locationDetails:[],
             location_id:'',
@@ -33,6 +36,7 @@ export default class LocationDetails extends Component {
         this.locationDetails();
     }
 
+    
 
     locationDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token') 
@@ -79,41 +83,19 @@ export default class LocationDetails extends Component {
         });
     }
 
-    /* <FlatList
-        data={this.state.locationDeetails}
-        renderItem={({item}) => (  
-            <View>
-                <Text style = {styleCSS.textDetails}>Location: {item.location_name}</Text>
-                <Text style = {styleCSS.textDetails}>Town: {item.location_town}</Text>
-                <Text style = {styleCSS.textDetails}>Average Cleanliness Rating: {item.avg_clenliness_rating}</Text>
-                <Text style = {styleCSS.textDetails}>Average Overall Rating: {item.avg_overall_rating}</Text>
-                <Text style = {styleCSS.textDetails}>Average Price Rating: {item.avg_price_rating}</Text>
-                <Text style = {styleCSS.textDetails}>Latitude: {item.latitude}</Text>
-                <Text style = {styleCSS.textDetails}>Longitude: {item.longitude}</Text>
-            </View>
-        )}
-        keyExtractor={item => item.location_id.toString()}   
-    /> */
-
-    /* render() {
-        return (
-            <View style = {styleCSS.container}> 
-                <Text style ={styleCSS.title}>View Location Details</Text>
-                <Text style = {styleCSS.textDetails}>Location: {this.state.location_name}</Text>
-                <Text style = {styleCSS.textDetails}>Town: {this.state.location_town}</Text>
-                <Text style = {styleCSS.textDetails}>Average Cleanliness Rating: {this.state.avg_clenliness_rating}</Text>
-                <Text style = {styleCSS.textDetails}>Average Overall Rating: {this.state.avg_overall_rating}</Text>
-                <Text style = {styleCSS.textDetails}>Average Price Rating: {this.state.avg_price_rating}</Text>
-                <Text style = {styleCSS.textDetails}>Latitude: {this.state.latitude}</Text>
-                <Text style = {styleCSS.textDetails}>Longitude: {this.state.longitude}</Text>
-            </View>
-        );
-    } */
+    following = async() => {
+        
+        this.setState({
+            notFollowing: !(this.state.notFollowing)
+        })
+        
+        console.log("The User is currently Follwing Location: ",this.state.notFollowing)
+    };
 
     render() {
-
-        const navig = this.props.navigation;
-
+        
+        
+        const navig = this.props.navigation; 
         return (
             <View style = {styleCSS.container}>
                 <Text style={styleCSS.title}>Location Details: </Text>
@@ -126,28 +108,32 @@ export default class LocationDetails extends Component {
                     <Text>Latitude: {this.state.latitude}</Text>
                     <Text>Longitude: {this.state.longitude}</Text>
                 </View> 
+                
                 <Text style={styleCSS.title}>Review Details: </Text>
                 <View style = {styleCSS.textDetails}>
                     {this.state.reviewDetails.map(item => 
                         <Text style = {{color: 'red'}} key={item.review_id}>
                             Review ID: {item.review_id}{"\n"}
                             Review: {item.review_body}{"\n"}
-                            clenliness_rating: {item.clenliness_rating}{"\n"}
-                            likes: {item.likes}{"\n"}
-                            price_rating: {item.price_rating}{"\n"}
-                            quality_rating: {item.quality_rating}{"\n"}
+                            Cleanliness Rating: {item.clenliness_rating}{"\n"}
+                            Likes: {item.likes}{"\n"}
+                            Price Rating: {item.price_rating}{"\n"}
+                            Quality Rating: {item.quality_rating}{"\n"}
                         </Text>
                     )}
                 </View>
-                <View style = {styleCSS.Home}>
-                    <Button title = 'Home' onPress={() => navig.navigate('AuthUser')}/>
-                </View>
+                    <TouchableOpacity  style = {styleCSS.button} onPress={() => this.following()}>
+                        <Text style = {styleCSS.textDetails}>{this.state.notFollowing ? this.state.like : this.state.normal }</Text>
+                    </TouchableOpacity>
+                    <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                    <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AuthUser')}>
+                        <Text style = {styleCSS.textDetails}>Home</Text>
+                    </TouchableOpacity>
             </View>
         );
     }
 
 }
-
 
 
 const styleCSS = StyleSheet.create({
@@ -163,11 +149,18 @@ const styleCSS = StyleSheet.create({
     textDetails: {
         alignSelf: 'center',
     },
-    Home: {
+    home: {
         flex: 1,
         justifyContent: 'flex-end',
         width: '75%',
         alignSelf: 'center',
         marginBottom: 30,
+    },
+    button: {
+        alignSelf: 'center',
+        marginVertical: 40,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
     },
 });
