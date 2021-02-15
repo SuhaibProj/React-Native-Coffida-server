@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, ToastAndroid, StyleSheet, ActivityIndicator } from 'react-native'
+import { View, ToastAndroid, StyleSheet, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class Logout extends Component {
@@ -26,14 +26,10 @@ export default class Logout extends Component {
             this.props.navigation.navigate("Home");
         })
     }
-
     render() {
-        const navig = this.props.navigation;
         return (
             <View style = { styleCSS.container }> 
-                <Text style = { styleCSS.title }>CoffiDa Logout Page</Text>
-                <Text style = { styleCSS.text }>Logging Out...</Text>
-                <ActivityIndicator/>
+                <ActivityIndicator size="large" />
             </View>
         )
     }
@@ -44,17 +40,7 @@ const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#cccccc',
+        justifyContent:'center',
+        alignItems: 'center',
     },
-    title: {
-        marginVertical: 30,
-        fontSize: 20,
-        textAlign: 'center',
-    },
-    text: {
-        marginVertical: '50%',
-        width: '75%',
-        alignSelf: 'center',
-        textAlign: 'center',
-    },
-
 });

@@ -28,7 +28,7 @@ export default class Login extends Component {
         })
         .then((response) => {
             if(response.status === 200) { return response.json(); }
-            else if (response.status === 400){ throw "Incorrect Stupid Credentials"; }
+            else if (response.status === 400){ throw "Incorrect Credentials"; }
             else{ throw 'Something didnt work'; }
         })
         .then(async(responseJSON) => {
@@ -39,8 +39,8 @@ export default class Login extends Component {
             
             const id = await AsyncStorage.getItem('@id');
             const session = await AsyncStorage.getItem('@session_token');
-            console.log("Here token is:"+session);
-            console.log("Here ID is: "+id);
+            console.log("Login Token is:"+session);
+            console.log("Login ID is: "+id);
             ToastAndroid.show("User Log-In Successful",ToastAndroid.SHORT);
             this.props.navigation.navigate("AuthUser");
         })

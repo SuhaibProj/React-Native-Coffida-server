@@ -27,6 +27,8 @@ import DeleteReviewPhotoScreen from './components/screens/DeleteReviewPhoto'
 import LocationDetailsScreen from './components/screens/LocationDetails'
 import ViewLocationsScreen from './components/screens/ViewLocations'
 import FavouriteLocationsScreeen from './components/screens/FavouriteLocations';
+import RemoveFavouriteLocationsScreen from './components/screens/RemoveFavouriteLocations';
+import ViewFavouriteLocationsScreen from './components/screens/ViewFavouriteLocations';
 
 import ReviewDetailsScreeen from './components/screens/ReviewDetails';
 import AddReviewLocationsScreen from './components/screens/AddReviewLocations';
@@ -55,9 +57,11 @@ export default class App extends React.Component {
             <Stack.Screen name="DeleteReviewPhoto" component={DeleteReviewPhotoScreen} options={{ title: 'Delete Review Photo' }}/>
             <Stack.Screen name="ViewLocations" component={ViewLocationsScreen} options={{ title: 'All Locations' }}/>
             <Stack.Screen name="LocationDetails" component={LocationDetailsScreen} options={{ title: 'Location Details' }}/>
-            <Stack.Screen name="FavouriteLocations" component={FavouriteLocationsScreeen} options={{ title: 'Locations Following' }}/>
+            <Stack.Screen name="FavouriteLocation" component={FavouriteLocationsScreeen} options={{ title: 'Adding Favourite' }}/>
+            <Stack.Screen name="RemoveFavouriteLocations" component={RemoveFavouriteLocationsScreen} options={{ title: 'Remove Favourite' }}/>
             <Stack.Screen name="ReviewDetails" component={ReviewDetailsScreeen} options={{ title: 'Reviews' }}/>
             <Stack.Screen name="AddReviewLocations" component={AddReviewLocationsScreen} options={{ title: 'Select Locations' }}/>
+            <Stack.Screen name="ViewFavouriteLocations" component={ViewFavouriteLocationsScreen} options={{ title: 'View Favourites' }}/>
           </Stack.Navigator>
         </NavigationContainer>
     );

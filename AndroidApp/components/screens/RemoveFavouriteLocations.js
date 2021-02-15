@@ -3,7 +3,7 @@ import { Component } from 'react'
 import { View, StyleSheet, ToastAndroid, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default class FavouriteLocations extends Component {
+export default class RemoveFavouriteLocations extends Component {
     constructor (props) {
         super(props)
     }
@@ -16,11 +16,11 @@ export default class FavouriteLocations extends Component {
         const session = await AsyncStorage.getItem('@session_token')
         const location_id = await AsyncStorage.getItem('@location_id')
         return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id+'/favourite', {
-            method: 'post',    
+            method: 'delete',    
             headers: {'X-Authorization': session,},
         })
         .then(() => {
-            console.log("Adding Favourite Location")
+            console.log("deleting Favourite Location")
             this.props.navigation.navigate('ViewLocations')
         })
         .catch((error) => {
@@ -36,6 +36,7 @@ export default class FavouriteLocations extends Component {
             </View>
         );
     }
+
 }
 
 const styleCSS = StyleSheet.create({

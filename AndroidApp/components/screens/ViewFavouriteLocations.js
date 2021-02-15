@@ -3,7 +3,7 @@ import { Component } from 'react'
 import { Text, View, StyleSheet, ToastAndroid, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default class LikedLocations extends Component {
+export default class ViewFavouriteLocations extends Component {
     constructor (props) {
         super(props)
     }
@@ -34,7 +34,6 @@ export default class LikedLocations extends Component {
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     }
-
 }
 
 const styleCSS = StyleSheet.create({
