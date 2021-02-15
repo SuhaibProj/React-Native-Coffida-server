@@ -57,7 +57,7 @@ export default class App extends React.Component {
             <Stack.Screen name="DeleteReviewPhoto" component={DeleteReviewPhotoScreen} options={{ title: 'Delete Review Photo' }}/>
             <Stack.Screen name="ViewLocations" component={ViewLocationsScreen} options={{ title: 'All Locations' }}/>
             <Stack.Screen name="LocationDetails" component={LocationDetailsScreen} options={{ title: 'Location Details' }}/>
-            <Stack.Screen name="FavouriteLocation" component={FavouriteLocationsScreeen} options={{ title: 'Adding Favourite' }}/>
+            <Stack.Screen name="FavouriteLocations" component={FavouriteLocationsScreeen} options={{ title: 'Adding Favourite' }}/>
             <Stack.Screen name="RemoveFavouriteLocations" component={RemoveFavouriteLocationsScreen} options={{ title: 'Remove Favourite' }}/>
             <Stack.Screen name="ReviewDetails" component={ReviewDetailsScreeen} options={{ title: 'Reviews' }}/>
             <Stack.Screen name="AddReviewLocations" component={AddReviewLocationsScreen} options={{ title: 'Select Locations' }}/>

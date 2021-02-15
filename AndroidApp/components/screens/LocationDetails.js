@@ -63,8 +63,6 @@ export default class LocationDetails extends Component {
         });
     }
 
-
-
     following = async() => {
         this.setState({
             notFollowing: !(this.state.notFollowing)
@@ -74,8 +72,6 @@ export default class LocationDetails extends Component {
     }
 
     render() {
-        
-        
         const navig = this.props.navigation; 
         return (
             <View style = {styleCSS.container}>
@@ -92,14 +88,14 @@ export default class LocationDetails extends Component {
                 </View> 
 
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.following()}>
-                        <Text style = {styleCSS.textDetails}>{this.state.notFollowing ? this.state.like : this.state.normal }</Text>
+                        <Text style = {styleCSS.textDetails}>{this.state.notFollowing ? this.state.like : this.state.normal}</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ReviewDetails')}>
                         <Text style = {styleCSS.textDetails}>Reviews</Text>
                 </TouchableOpacity>
-                
-                
             </View>
         );
     }
@@ -119,13 +115,6 @@ const styleCSS = StyleSheet.create({
     },
     textDetails: {
         alignSelf: 'center',
-    },
-    home: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        width: '75%',
-        alignSelf: 'center',
-        marginBottom: 30,
     },
     button: {
         alignSelf: 'center',

@@ -50,7 +50,6 @@ export default class AddReview extends Component {
     };
 
     render() {
-        const navig = this.props.navigation;
         return (
             <View style = { styleCSS.container }> 
                 <Text style = { styleCSS.title }>Add Your Review</Text>

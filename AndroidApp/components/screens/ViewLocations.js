@@ -92,7 +92,7 @@ export default class Locations extends Component {
                 />
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ViewFavouriteLocations')}>
-                    <Text style = {styleCSS.textDetails}>Liked Locations</Text>
+                    <Text style = {styleCSS.textDetails}>Location Favourites</Text>
                 </TouchableOpacity>
 
             </View>
