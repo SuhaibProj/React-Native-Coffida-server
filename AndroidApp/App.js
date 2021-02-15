@@ -26,8 +26,10 @@ import DeleteReviewPhotoScreen from './components/screens/DeleteReviewPhoto'
 
 import LocationDetailsScreen from './components/screens/LocationDetails'
 import ViewLocationsScreen from './components/screens/ViewLocations'
-import LikedLocationsScreeen from './components/screens/LikedLocations';
+import FavouriteLocationsScreeen from './components/screens/FavouriteLocations';
 
+import ReviewDetailsScreeen from './components/screens/ReviewDetails';
+import AddReviewLocationsScreen from './components/screens/AddReviewLocations';
 
 const Stack = createStackNavigator();
 
@@ -53,7 +55,9 @@ export default class App extends React.Component {
             <Stack.Screen name="DeleteReviewPhoto" component={DeleteReviewPhotoScreen} options={{ title: 'Delete Review Photo' }}/>
             <Stack.Screen name="ViewLocations" component={ViewLocationsScreen} options={{ title: 'All Locations' }}/>
             <Stack.Screen name="LocationDetails" component={LocationDetailsScreen} options={{ title: 'Location Details' }}/>
-            <Stack.Screen name="LikedLocations" component={LikedLocationsScreeen} options={{ title: 'Locations Followed' }}/>
+            <Stack.Screen name="FavouriteLocations" component={FavouriteLocationsScreeen} options={{ title: 'Locations Following' }}/>
+            <Stack.Screen name="ReviewDetails" component={ReviewDetailsScreeen} options={{ title: 'Reviews' }}/>
+            <Stack.Screen name="AddReviewLocations" component={AddReviewLocationsScreen} options={{ title: 'Select Locations' }}/>
           </Stack.Navigator>
         </NavigationContainer>
     );

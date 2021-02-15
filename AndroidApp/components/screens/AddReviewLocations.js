@@ -3,9 +3,8 @@ import { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, FlatList, ToastAndroid } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
-import Divider from 'react-native-divider'
 
-export default class Locations extends Component {
+export default class AddReviewLocations extends Component {
     constructor (props) {
         super(props)
         this.state = {
@@ -61,19 +60,18 @@ export default class Locations extends Component {
         let locationDetails = async(location_id) => {
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
             console.log("The Location ID for this is: ",location_id);
-            this.props.navigation.navigate('LocationDetails');
+            this.props.navigation.navigate('AddReview');
         }
-        const navig = this.props.navigation;
 
         return (
             <View style = {styleCSS.container}>
-                <Text style ={styleCSS.title}>View All Locations</Text>
+                <Text style ={styleCSS.title}>Select Location to Add Review</Text>
                 <FlatList
                     data={this.state.locationData}
                     keyExtractor={item => item.location_id.toString()}
                     renderItem={({item}) => (  
                         <ListItem key={item.location_id} avatar>
-                            <Left >
+                            <Left>
                                 <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
                                     <Thumbnail source={require('../Images/WC_1.png')}/>
                                 </TouchableOpacity>
@@ -90,16 +88,10 @@ export default class Locations extends Component {
                         </ListItem>
                     )}    
                 />
-                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ViewFavouriteLocations')}>
-                    <Text style = {styleCSS.textDetails}>Liked Locations</Text>
-                </TouchableOpacity>
-
             </View>
         );
     }
 }
-
 
 
 const styleCSS = StyleSheet.create({

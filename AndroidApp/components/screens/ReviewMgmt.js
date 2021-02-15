@@ -12,7 +12,7 @@ export default class ReviewMgmt extends Component {
         return (
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Review Management</Text>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AddReview')}>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AddReviewLocations')}>
                     <Text style = {styleCSS.textDetails}>Add Review</Text>
                 </TouchableOpacity>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('UpdateReview')}>

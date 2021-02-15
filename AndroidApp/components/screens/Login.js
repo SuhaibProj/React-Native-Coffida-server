@@ -28,7 +28,7 @@ export default class Login extends Component {
         })
         .then((response) => {
             if(response.status === 200) { return response.json(); }
-            else if (response.status === 400){ throw "Incorrect Credentials"; }
+            else if (response.status === 400){ throw "Incorrect Stupid Credentials"; }
             else{ throw 'Something didnt work'; }
         })
         .then(async(responseJSON) => {

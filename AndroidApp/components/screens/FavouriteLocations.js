@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, StyleSheet, ToastAndroid, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class LikedLocations extends Component {
@@ -15,9 +15,9 @@ export default class LikedLocations extends Component {
     inputfavourite = async () => {
         const session = await AsyncStorage.getItem('@session_token')
         const location_id = await AsyncStorage.getItem('@location_id')
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ location_id+'/favourite', {
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id+'/favourite', {
             method: 'post',    
-            headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
+            headers: {'X-Authorization': session,},
         })
         .then((response) => {
             if(response.status === 200) { return response.json(); }
@@ -29,9 +29,6 @@ export default class LikedLocations extends Component {
         })
         .then((responseJSON) => {
             console.log(responseJSON)
-            this.setState({
-                
-            });
         })
         .catch((error) => {
             console.log(error);
@@ -39,8 +36,35 @@ export default class LikedLocations extends Component {
         });
     }
 
-    render(){
-        
+    render() {
+        return (
+            <View style = { styleCSS.container }> 
+                <ActivityIndicator/>
+            </View>
+        );
     }
 
 }
+
+const styleCSS = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#cccccc',
+    },
+    title: {
+        marginVertical: 30,
+        fontSize: 20,
+        textAlign: 'center',
+    },
+    button: {
+        alignSelf: 'center',
+        marginVertical: 10,
+        width: '75%', 
+        backgroundColor: "#808080",
+        padding: 10,
+    },
+    textDetails: {
+        alignSelf: 'center',
+    },
+
+});

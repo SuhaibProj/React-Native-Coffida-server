@@ -57,7 +57,7 @@ export default class MyAccount extends Component {
                 <Text style ={styleCSS.title}>Welcome to your Account</Text>
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 <View style = {styleCSS.textDetails}>  
-                    <Text>My Details:</Text>   
+                    <Text style = {styleCSS.text}>My Details:</Text>   
                     <Text>Account ID: {this.state.id}</Text>
                     <Text>Email: {this.state.email}</Text>
                     <Text>First Name: {this.state.firstName}</Text>
@@ -84,6 +84,9 @@ const styleCSS = StyleSheet.create({
     },
     textDetails: {
         alignSelf: 'center',
+    },
+    text: {
+        marginBottom: 10,
     },
     button: {
         alignSelf: 'center',
