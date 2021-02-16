@@ -8,10 +8,7 @@ export default class LocationDetails extends Component {
     constructor (props) {
         super(props)
         this.state = {
-
-            notfollowing: true,
-            like: "Remove from Favourites",
-            normal: "Add to Favourites",
+            notFollowing: true,
 
             location_id:'',
             location_name: '',
@@ -61,16 +58,28 @@ export default class LocationDetails extends Component {
         });
     }
 
-    following = async() => {
+    changeFavourites = async() => {
+        const newState = !this.state.notFollowing;
+        const {notFollowing} = this.state;
         this.setState({
-            notFollowing: !(this.state.notFollowing)
+            notFollowing:newState,
         });
         console.log("The User is currently Follwing Location: ",this.state.notFollowing);
+        notFollowing?this._Following():this._notFollowing();
+    }
+
+    _Following = () => {
         this.props.navigation.navigate('FavouriteLocations');
+    }
+
+    _notFollowing = () => {
+        this.props.navigation.navigate('RemoveFavouriteLocations');
     }
 
     render() {
         const navig = this.props.navigation; 
+        const {notFollowing} = this.state;
+        const textFollowing = notFollowing?"Add to Favourites":"Remove from Favourites";
         return (
             <View style = {styleCSS.container}>
                 <Text style={styleCSS.title}>Location Details: </Text>
@@ -87,8 +96,8 @@ export default class LocationDetails extends Component {
 
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.following()}>
-                        <Text style = {styleCSS.textDetails}>{this.state.notFollowing ? this.state.like : this.state.normal}</Text>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.changeFavourites()}>
+                        <Text style = {styleCSS.textDetails}>{textFollowing}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ReviewDetails')}>

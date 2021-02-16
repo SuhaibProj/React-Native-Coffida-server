@@ -21,7 +21,7 @@ export default class RemoveFavouriteLocations extends Component {
         })
         .then(() => {
             console.log("deleting Favourite Location");
-            this.props.navigation.navigate('ViewLocations');
+            this.props.navigation.navigate('LocationDetails');
         })
         .catch((error) => {
             console.log(error);

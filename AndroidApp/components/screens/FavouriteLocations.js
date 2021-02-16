@@ -21,7 +21,7 @@ export default class FavouriteLocations extends Component {
         })
         .then(() => {
             console.log("Adding Favourite Location");
-            this.props.navigation.navigate('ViewLocations');
+            this.props.navigation.navigate('LocationDetails');
         })
         .catch((error) => {
             console.log(error);
