@@ -31,7 +31,7 @@ export default class Locations extends Component {
             else if (response.status === 400){ throw "Bad Request"; }
             else if (response.status === 401){ throw "Unauthorised"; }
             else if (response.status === 500){ throw "Server Error"; }
-            else{ throw 'Something didnt work'; }
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then((responseJSON) => {
             this.setState({
@@ -46,16 +46,16 @@ export default class Locations extends Component {
         });
     }
 
-/* <Right style = {{justifyContent: 'center'}}>
-<TouchableOpacity onPress={() => checkFollowing(item.location_id)}>
-    <Image
-        style={styleCSS.hearts}
-        resizeMode='contain'
-        source={ this.state.notFollowing == true ? 
-            require('../Images/H.png') : require('../Images/H_RED.png')}
-    />
-</TouchableOpacity>
-</Right> */
+                            /* <Right style = {{justifyContent: 'center'}}>
+                            <TouchableOpacity onPress={() => checkFollowing(item.location_id)}>
+                                <Image
+                                    style={styleCSS.hearts}
+                                    resizeMode='contain'
+                                    source={ this.state.notFollowing == true ? 
+                                        require('../Images/H.png') : require('../Images/H_RED.png')}
+                                />
+                            </TouchableOpacity>
+                            </Right> */
 
     render() {
         let locationDetails = async(location_id) => {
@@ -85,12 +85,12 @@ export default class Locations extends Component {
                                 </TouchableOpacity>
                             </Body>
                             <Right>
-                                <Text style={{color: 'grey'}}>{this.state.arrow}</Text>
+                                <Text style={{color: 'grey', fontSize: 20}}>{this.state.arrow}</Text>
                             </Right>
                         </ListItem>
                     )}    
                 />
-                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ViewFavouriteLocations')}>
                     <Text style = {styleCSS.textDetails}>Location Favourites</Text>
                 </TouchableOpacity>
@@ -118,9 +118,10 @@ const styleCSS = StyleSheet.create({
     button: {
         alignSelf: 'center',
         marginVertical: 10,
-        width: '75%', 
+        marginBottom: 40,
+        width: '50%', 
         backgroundColor: "#808080",
         padding: 10,
-        marginBottom: 30,
+        borderRadius:40,
     },
 });

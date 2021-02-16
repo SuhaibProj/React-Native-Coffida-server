@@ -7,18 +7,49 @@ export default class UpdateDeails extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            id: '',
-            firstName: '',
-            lastName: '',
+            first_name: '',
+            last_name: '',
             email: '',
             password: '',
         };
     }
 
+    componentDidMount(){
+        this.getDetails();
+    }
+
+    getDetails = async () => {
+        const session = await AsyncStorage.getItem('@session_token')
+        const id = await AsyncStorage.getItem('@id')
+        console.log("Session Variable: " + session)
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
+            headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
+        })
+        .then((response) => {
+            if(response.status === 200) { return response.json(); }
+            else if (response.status === 401){ throw "Unauthorised"; }
+            else if (response.status === 404){ throw "Not Found"; }
+            else if (response.status === 500){ throw "Server Error"; }
+            else{ throw 'Something didnt work'; }
+        })
+        .then((responseJSON) => {
+            console.log(responseJSON)
+            this.setState({
+                email: responseJSON.email,  
+                first_name: responseJSON.first_name,
+                last_name: responseJSON.last_name,
+            });
+        })
+        .catch((error) => {
+            console.log(error);
+            ToastAndroid.show(error, ToastAndroid.SHORT);
+        });
+    }
+
     onUpdate  = async () => {
         let database_info = {
-            first_name: this.state.firstName,
-            last_name: this.state.lastName,
+            first_name: this.state.first_name,
+            last_name: this.state.last_name,
             email: this.state.email,
             password: this.state.password,
         }
@@ -27,7 +58,7 @@ export default class UpdateDeails extends Component {
         console.log("User ID in UpdateUser: "+id);
         console.log("User Session Token in UpdateUser: "+session);
         return fetch('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
-            method: 'put',
+            method: 'patch',
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
             body: JSON.stringify(database_info)
         })
@@ -35,18 +66,20 @@ export default class UpdateDeails extends Component {
             if(response.status === 200) { 
                 console.log("User Details Updated");
                 ToastAndroid.show("Details Updated",ToastAndroid.SHORT);
-                this.props.navigation.navigate("MyAccount"); 
+                this.props.navigation.navigate("MyAccount");
+                ToastAndroid.show("Refresh Page for Updates",ToastAndroid.SHORT); 
             }
             else if (response.status === 400){ throw "Bad Request"; }
             else if (response.status === 401){ throw "Unauthorised"; }
             else if (response.status === 403){ throw "Forbidden"; }
             else if (response.status === 404){ throw "Not Found"; }
             else if (response.status === 500){ throw "Server Error"; }
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .catch((error) => {
             console.log(error)
             ToastAndroid.show(error, ToastAndroid.SHORT)
-        });
+        })
     };
 
     render() {
@@ -55,19 +88,19 @@ export default class UpdateDeails extends Component {
                 <Text style={ styleCSS.title }>Edit Account Details</Text>
                 <Text style={ styleCSS.textDetails }>Edit your Email:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
-                    onChangeText = {(email) => this.setState({email})} defaultValue={this.state.email}
+                    onChangeText = {(email) => this.setState({email})} value={this.state.email}
                 />
                 <Text style={ styleCSS.textDetails }>Edit your First Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'First Name'} 
-                onChangeText = {(firstName) => this.setState({firstName})} defaultValue={this.state.firstName}
+                onChangeText = {(first_name) => this.setState({first_name})} value={this.state.first_name}
                 />
                 <Text style={ styleCSS.textDetails }>Edit your Last Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
-                onChangeText = {(lastName) => this.setState({lastName})} defaultValue={this.state.lastName}
+                onChangeText = {(last_name) => this.setState({last_name})} value={this.state.last_name}
                 />
                 <Text style={ styleCSS.textDetails }>Enter your New Password:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
-                    onChangeText = {(password) => this.setState({password})} defaultValue={this.state.password}
+                    onChangeText = {(password) => this.setState({password})} value={this.state.password}
                 />
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onUpdate()}>
@@ -104,9 +137,10 @@ const styleCSS = StyleSheet.create({
     button: {
         alignSelf: 'center',
         marginVertical: 10,
-        width: '75%', 
+        width: '50%', 
         backgroundColor: "#808080",
         padding: 10,
+        borderRadius:40,
     },
 
 });

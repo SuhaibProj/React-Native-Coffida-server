@@ -42,7 +42,7 @@ export default class LocationDetails extends Component {
             else if (response.status === 400){ throw "Bad Request"; }
             else if (response.status === 401){ throw "Unauthorised"; }
             else if (response.status === 500){ throw "Server Error"; }
-            else{ throw 'Something didnt work'; }
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then((responseJSON) => {
             this.setState({
@@ -55,7 +55,6 @@ export default class LocationDetails extends Component {
                 latitude: responseJSON.latitude,
                 longitude: responseJSON.longitude
             });
-            console.log('The Location Details are:', this.state.locationDetails )
         })
         .catch((error) => {
             console.log(error);
@@ -122,6 +121,6 @@ const styleCSS = StyleSheet.create({
         width: '50%', 
         backgroundColor: "#808080",
         padding: 10,
-        marginBottom: 20,
+        borderRadius:40,
     },
 });

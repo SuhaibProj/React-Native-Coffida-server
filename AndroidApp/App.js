@@ -14,8 +14,6 @@ import AuthUserScreen from './components/screens/AuthUser'
 import MyAccountScreen from './components/screens/MyAccount'
 import UpdateUserDetails from './components/screens/UpdateUserDetails'
 
-import ViewReviewsScreen from './components/screens/ViewReviews'
-
 import ReviewMgmtScreen from './components/screens/ReviewMgmt'
 import AddReviewScreen from './components/screens/AddReview'
 import UpdateReviewScreen from './components/screens/UpdateReview'
@@ -48,7 +46,6 @@ export default class App extends React.Component {
             <Stack.Screen name="MyAccount" component={MyAccountScreen} options={{ title: 'My Account'}}/>
             <Stack.Screen name="UpdateUserDetails" component={UpdateUserDetails} options={{ title: 'Update Account' }}/>
             <Stack.Screen name="ReviewMgmt" component={ReviewMgmtScreen} options={{ title: 'Review Management' }}/>
-            <Stack.Screen name="ViewReviews" component={ViewReviewsScreen} options={{ title: 'ViewReviews' }}/>
             <Stack.Screen name="AddReview" component={AddReviewScreen} options={{ title: 'Insert Review' }}/>
             <Stack.Screen name="UpdateReview" component={UpdateReviewScreen} options={{ title: 'Update Review' }}/>
             <Stack.Screen name="DeleteReview" component={DeleteReviewScreen} options={{ title: 'Delete Review' }}/>

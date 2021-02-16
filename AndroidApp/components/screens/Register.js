@@ -28,8 +28,9 @@ export default class Register extends Component {
         })
         .then((response) => {
             if(response.status === 201) { return response.json(); }
-            else if (response.status === 400){ throw "Sorry couldnt connect"; }
-            else{ throw 'Something didnt work'; }
+            else if (response.status === 400) { throw "Bad Request"; }
+            else if (response.status === 500) {throw "Server Error"}
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then((responseJSON) => {
             console.log("User ID Created: ", responseJSON)
@@ -106,8 +107,9 @@ const styleCSS = StyleSheet.create({
     button: {
         alignSelf: 'center',
         marginVertical: 10,
-        width: '75%', 
+        width: '50%', 
         backgroundColor: "#808080",
         padding: 10,
+        borderRadius:40,
     },
 });

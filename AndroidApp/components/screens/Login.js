@@ -29,7 +29,8 @@ export default class Login extends Component {
         .then((response) => {
             if(response.status === 200) { return response.json(); }
             else if (response.status === 400){ throw "Incorrect Credentials"; }
-            else{ throw 'Something didnt work'; }
+            else if (response.status === 500) {throw "Server Error"}
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then(async(responseJSON) => {
             console.log(responseJSON);
@@ -68,7 +69,6 @@ export default class Login extends Component {
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onLogin()}>
                     <Text style = {styleCSS.textDetails}>Login</Text>
                 </TouchableOpacity>
-                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('Register')}>
                     <Text style = {styleCSS.textDetails}>Register</Text>
                 </TouchableOpacity>
@@ -109,9 +109,10 @@ const styleCSS = StyleSheet.create({
     button: {
         alignSelf: 'center',
         marginVertical: 10,
-        width: '75%', 
+        width: '50%', 
         backgroundColor: "#808080",
         padding: 10,
+        borderRadius:40,
     },
 
 });

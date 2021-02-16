@@ -63,6 +63,7 @@ const styleCSS = StyleSheet.create({
         width: '75%', 
         backgroundColor: "#808080",
         padding: 10,
+        borderRadius:40,
     },
     imageConfig: {
         width: 250,
@@ -72,4 +73,5 @@ const styleCSS = StyleSheet.create({
     textDetails: {
         alignSelf: 'center',
     },
+
 });

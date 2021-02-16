@@ -27,7 +27,7 @@ export default class ViewFavouriteLocations extends Component {
             else if (response.status === 401){ throw "Unauthorised"; }
             else if (response.status === 404){ throw "Not Found"; }
             else if (response.status === 500){ throw "Server Error"; }
-            else{ throw 'Something didnt work'; }
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then((responseJSON) => {
             console.log(responseJSON)
@@ -88,6 +88,6 @@ const styleCSS = StyleSheet.create({
         width: '50%', 
         backgroundColor: "#808080",
         padding: 10,
-        marginBottom: 20,
+        borderRadius:40,
     },
 });
