@@ -13,15 +13,15 @@ export default class RemoveFavouriteLocations extends Component {
     }
 
     inputfavourite = async () => {
-        const session = await AsyncStorage.getItem('@session_token')
-        const location_id = await AsyncStorage.getItem('@location_id')
+        const session = await AsyncStorage.getItem('@session_token');
+        const location_id = await AsyncStorage.getItem('@location_id');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id+'/favourite', {
             method: 'delete',    
             headers: {'X-Authorization': session,},
         })
         .then(() => {
-            console.log("deleting Favourite Location")
-            this.props.navigation.navigate('ViewLocations')
+            console.log("deleting Favourite Location");
+            this.props.navigation.navigate('ViewLocations');
         })
         .catch((error) => {
             console.log(error);

@@ -43,7 +43,7 @@ export default class ReviewDetails extends Component {
             this.setState({
                 reviewDetails: responseJSON.location_reviews
             });
-            console.log('The Review Details are:', this.state.reviewDetails )
+            console.log('The Review Details are:', this.state.reviewDetails);
         })
         .catch((error) => {
             console.log(error);

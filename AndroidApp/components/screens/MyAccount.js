@@ -22,9 +22,9 @@ export default class MyAccount extends Component {
     }
 
     getDetails = async () => {
-        const session = await AsyncStorage.getItem('@session_token')
-        const id = await AsyncStorage.getItem('@id')
-        console.log("Session Variable: " + session)
+        const session = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@id');
+        console.log("Session Variable: " + session);
         return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })

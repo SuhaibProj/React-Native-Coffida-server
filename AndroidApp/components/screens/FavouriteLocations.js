@@ -13,15 +13,15 @@ export default class FavouriteLocations extends Component {
     }
 
     inputfavourite = async () => {
-        const session = await AsyncStorage.getItem('@session_token')
-        const location_id = await AsyncStorage.getItem('@location_id')
+        const session = await AsyncStorage.getItem('@session_token');
+        const location_id = await AsyncStorage.getItem('@location_id');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id +'/favourite', {
             method: 'post',    
             headers: {'X-Authorization': session,},
         })
         .then(() => {
-            console.log("Adding Favourite Location")
-            this.props.navigation.navigate('ViewLocations')
+            console.log("Adding Favourite Location");
+            this.props.navigation.navigate('ViewLocations');
         })
         .catch((error) => {
             console.log(error);

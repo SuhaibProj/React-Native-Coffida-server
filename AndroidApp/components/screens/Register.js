@@ -20,7 +20,7 @@ export default class Register extends Component {
             last_name: this.state.lastName,
             email: this.state.email,
             password: this.state.password,
-        }
+        };
         return fetch('http://10.0.2.2:3333/api/1.0.0/user', {
             method: 'post',
             headers: {'Content-Type': 'application/json',},
@@ -33,13 +33,13 @@ export default class Register extends Component {
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then((responseJSON) => {
-            console.log("User ID Created: ", responseJSON)
-            ToastAndroid.show("User Creation Successful",ToastAndroid.SHORT)
-            this.props.navigation.navigate("Login")
+            console.log("User ID Created: ", responseJSON);
+            ToastAndroid.show("User Creation Successful",ToastAndroid.SHORT);
+            this.props.navigation.navigate("Login");
         })
         .catch((error) => {
-            console.log(error)
-            ToastAndroid.show(error, ToastAndroid.SHORT)
+            console.log(error);
+            ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     };
     

@@ -52,9 +52,9 @@ export default class UpdateDeails extends Component {
             last_name: this.state.last_name,
             email: this.state.email,
             password: this.state.password,
-        }
-        const session = await AsyncStorage.getItem('@session_token')
-        const id = await AsyncStorage.getItem('@id')
+        };
+        const session = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@id');
         console.log("User ID in UpdateUser: "+id);
         console.log("User Session Token in UpdateUser: "+session);
         return fetch('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
@@ -77,8 +77,8 @@ export default class UpdateDeails extends Component {
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .catch((error) => {
-            console.log(error)
-            ToastAndroid.show(error, ToastAndroid.SHORT)
+            console.log(error);
+            ToastAndroid.show(error, ToastAndroid.SHORT);
         })
     };
 

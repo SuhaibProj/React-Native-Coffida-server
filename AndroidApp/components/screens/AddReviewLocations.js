@@ -35,9 +35,9 @@ export default class AddReviewLocations extends Component {
         .then((responseJSON) => {
             this.setState({
                 locationData: responseJSON,
-            })
-            this.state.locationData.toString()
-            console.log('The Entire Location Details are:', this.state.locationData )
+            });
+            this.state.locationData.toString();
+            console.log('The Entire Location Details are:', this.state.locationData);
         })
         .catch((error) => {
             console.log(error);
@@ -45,23 +45,12 @@ export default class AddReviewLocations extends Component {
         });
     }
 
-/* <Right style = {{justifyContent: 'center'}}>
-<TouchableOpacity onPress={() => checkFollowing(item.location_id)}>
-    <Image
-        style={styleCSS.hearts}
-        resizeMode='contain'
-        source={ this.state.notFollowing == true ? 
-            require('../Images/H.png') : require('../Images/H_RED.png')}
-    />
-</TouchableOpacity>
-</Right> */
-
     render() {
         let locationDetails = async(location_id) => {
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
             console.log("The Location ID for this is: ",location_id);
             this.props.navigation.navigate('AddReview');
-        }
+        };
 
         return (
             <View style = {styleCSS.container}>

@@ -36,7 +36,6 @@ export default class LocationDetails extends Component {
         return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
-
         .then((response) => {
             if(response.status === 200) { return response.json(); }
             else if (response.status === 400){ throw "Bad Request"; }

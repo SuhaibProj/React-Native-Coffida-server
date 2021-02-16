@@ -17,9 +17,9 @@ export default class Home extends Component {
     }
     //check if session token stored already thus sign in already.
     verifyLoggedIn = async () => {
-        let checkToken = await AsyncStorage.getItem('@session_token')
-        console.log("Session token at HomePage is: ",checkToken)
-        if (checkToken !== null) { this.props.navigation.navigate('AuthUser') }
+        let checkToken = await AsyncStorage.getItem('@session_token');
+        console.log("Session token at HomePage is: ",checkToken);
+        if (checkToken !== null) { this.props.navigation.navigate('AuthUser'); }
     }
 
     render() {

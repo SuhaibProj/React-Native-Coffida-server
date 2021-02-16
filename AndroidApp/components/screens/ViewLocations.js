@@ -22,7 +22,7 @@ export default class Locations extends Component {
 
 
     getLocations = async () => {
-        const session = await AsyncStorage.getItem('@session_token')
+        const session = await AsyncStorage.getItem('@session_token');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/find', {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
@@ -36,9 +36,9 @@ export default class Locations extends Component {
         .then((responseJSON) => {
             this.setState({
                 locationData: responseJSON,
-            })
-            this.state.locationData.toString()
-            console.log('The Entire Location Details are:', this.state.locationData )
+            });
+            this.state.locationData.toString();
+            console.log('The Entire Location Details are:', this.state.locationData );
         })
         .catch((error) => {
             console.log(error);
@@ -62,7 +62,7 @@ export default class Locations extends Component {
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
             console.log("The Location ID for this is: ",location_id);
             this.props.navigation.navigate('LocationDetails');
-        }
+        };
         const navig = this.props.navigation;
 
         return (

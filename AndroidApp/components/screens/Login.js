@@ -20,7 +20,7 @@ export default class Login extends Component {
         let database_info = {
             email: this.state.email,
             password: this.state.password,
-        }
+        };
         return fetch('http://10.0.2.2:3333/api/1.0.0/user/login', {
             method: 'post',
             headers: {'Content-Type': 'application/json',},
@@ -29,7 +29,7 @@ export default class Login extends Component {
         .then((response) => {
             if(response.status === 200) { return response.json(); }
             else if (response.status === 400){ throw "Incorrect Credentials"; }
-            else if (response.status === 500) {throw "Server Error"}
+            else if (response.status === 500) {throw "Server Error";}
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then(async(responseJSON) => {

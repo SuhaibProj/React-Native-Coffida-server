@@ -33,7 +33,7 @@ export default class ViewFavouriteLocations extends Component {
             console.log(responseJSON)
             this.setState({
                 favouriteLocations: responseJSON,
-            })
+            });
         })
         .catch((error) => {
             console.log(error);

@@ -24,7 +24,7 @@ export default class AddReview extends Component {
             price_rating: parseInt(this.state.price_rating),
             quality_rating: parseInt(this.state.quality_rating),
             overall_rating: parseInt(this.state.overall_rating),
-        }
+        };
         
         const session = await AsyncStorage.getItem('@session_token') ;
         const location_id = await AsyncStorage.getItem('@location_id');
@@ -42,12 +42,14 @@ export default class AddReview extends Component {
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then((responseJSON) => {
-            console.log("Review ID Created: ", responseJSON)
-            ToastAndroid.show("Review Added",ToastAndroid.SHORT)
+            console.log("Review ID Created: ", responseJSON);
+            ToastAndroid.show("Review Added",ToastAndroid.SHORT);
+            this.props.navigation.navigate('Review Details');
+            ToastAndroid.show("Refresh Page for Updates",ToastAndroid.SHORT);
         })
         .catch((error) => {
-            console.log(error)
-            ToastAndroid.show(error, ToastAndroid.SHORT)
+            console.log(error);
+            ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     };
 
