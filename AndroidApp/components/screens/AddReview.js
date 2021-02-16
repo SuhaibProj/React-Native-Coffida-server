@@ -18,7 +18,13 @@ export default class AddReview extends Component {
     }
 
     addReview = async() => {
-        
+        let database_info = {
+            review_body: this.state.review_body,
+            clenliness_rating: parseInt(this.state.clenliness_rating),
+            price_rating: parseInt(this.state.price_rating),
+            quality_rating: parseInt(this.state.quality_rating),
+            overall_rating: parseInt(this.state.overall_rating),
+        }
         
         const session = await AsyncStorage.getItem('@session_token') ;
         const location_id = await AsyncStorage.getItem('@location_id');
