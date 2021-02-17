@@ -12,14 +12,11 @@ export default class ReviewMgmt extends Component {
         return (
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Review Management</Text>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('MyReviews')}>
+                    <Text style = {styleCSS.textDetails}>My Reviews</Text>
+                </TouchableOpacity>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AddReviewLocations')}>
                     <Text style = {styleCSS.textDetails}>Add Review</Text>
-                </TouchableOpacity>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('UpdateReview')}>
-                    <Text style = {styleCSS.textDetails}>Update Review</Text>
-                </TouchableOpacity>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('DeleteReview')}>
-                    <Text style = {styleCSS.textDetails}>Delete Review</Text>
                 </TouchableOpacity>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('SearchReviewPhoto')}>
                     <Text style = {styleCSS.textDetails}>Search Review Photo(s)</Text>
@@ -58,7 +55,7 @@ const styleCSS = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 10,
         width: '50%', 
-        backgroundColor: "#808080",
+        backgroundColor: "#6666FF",
         padding: 10,
         borderRadius:40,
     },

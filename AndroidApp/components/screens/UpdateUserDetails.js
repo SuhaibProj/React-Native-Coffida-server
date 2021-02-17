@@ -138,7 +138,7 @@ const styleCSS = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 10,
         width: '50%', 
-        backgroundColor: "#808080",
+        backgroundColor: "#6666FF",
         padding: 10,
         borderRadius:40,
     },

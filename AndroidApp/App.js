@@ -15,6 +15,7 @@ import MyAccountScreen from './components/screens/MyAccount'
 import UpdateUserDetails from './components/screens/UpdateUserDetails'
 
 import ReviewMgmtScreen from './components/screens/ReviewMgmt'
+import MyReviewsScreen from './components/screens/MyReviews'
 import AddReviewScreen from './components/screens/AddReview'
 import UpdateReviewScreen from './components/screens/UpdateReview'
 import DeleteReviewScreen from './components/screens/DeleteReview'
@@ -59,6 +60,7 @@ export default class App extends React.Component {
             <Stack.Screen name="ReviewDetails" component={ReviewDetailsScreeen} options={{ title: 'Reviews' }}/>
             <Stack.Screen name="AddReviewLocations" component={AddReviewLocationsScreen} options={{ title: 'Select Locations' }}/>
             <Stack.Screen name="ViewFavouriteLocations" component={ViewFavouriteLocationsScreen} options={{ title: 'View Favourites' }}/>
+            <Stack.Screen name="MyReviews" component={MyReviewsScreen} options={{ title: 'My Reviews' }}/>
           </Stack.Navigator>
         </NavigationContainer>
     );
