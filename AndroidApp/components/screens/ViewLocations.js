@@ -46,17 +46,6 @@ export default class Locations extends Component {
         });
     }
 
-                            /* <Right style = {{justifyContent: 'center'}}>
-                            <TouchableOpacity onPress={() => checkFollowing(item.location_id)}>
-                                <Image
-                                    style={styleCSS.hearts}
-                                    resizeMode='contain'
-                                    source={ this.state.notFollowing == true ? 
-                                        require('../Images/H.png') : require('../Images/H_RED.png')}
-                                />
-                            </TouchableOpacity>
-                            </Right> */
-
     render() {
         let locationDetails = async(location_id) => {
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
@@ -71,24 +60,29 @@ export default class Locations extends Component {
                 <FlatList
                     data={this.state.locationData}
                     keyExtractor={item => item.location_id.toString()}
-                    renderItem={({item}) => (  
-                        <ListItem key={item.location_id} avatar>
-                            <Left >
-                                <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
-                                    <Thumbnail source={require('../Images/WC_1.png')}/>
-                                </TouchableOpacity>
-                            </Left>
-                            <Body>
-                                <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
-                                    <Text style = {{fontSize: 20}}>{item.location_name}</Text>
-                                    <Text style = {{color: 'grey'}} note>{item.location_town}</Text>
-                                </TouchableOpacity>
-                            </Body>
-                            <Right>
-                                <Text style={{color: 'grey', fontSize: 20}}>{this.state.arrow}</Text>
-                            </Right>
-                        </ListItem>
-                    )}    
+                    renderItem={({item}) => ( 
+                        <View style={styleCSS.list}>  
+                            <ListItem key={item.location_id} avatar>
+                                <Left >
+                                    <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
+                                        <View style={styleCSS.location}>
+                                            <Thumbnail source={require('../Images/WC.png')}/>
+                                        </View>
+                                    </TouchableOpacity>
+                                </Left>
+                                <Body>
+                                    <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
+                                        <Text style = {{fontSize: 20}}>{item.location_name}</Text>
+                                        <Text style = {{color: 'grey'}} note>{item.location_town}</Text>
+                                    </TouchableOpacity>
+                                </Body>
+                                <Right>
+                                    <Text style={{color: 'grey', fontSize: 20, marginTop:10, justifyContent:'flex-end'}}>{this.state.arrow}</Text>
+                                </Right>
+                            </ListItem>
+                        </View>
+                    )} 
+                       
                 />
                 <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ViewFavouriteLocations')}>
@@ -124,7 +118,23 @@ const styleCSS = StyleSheet.create({
         marginBottom: 40,
         width: '50%', 
         backgroundColor: "#f1c50b",
-        padding: 10,
+        padding: 15,
         borderRadius:10,
+    },
+    list: {
+        marginVertical: 10, 
+        marginHorizontal:10,
+        backgroundColor: "#f1c50b",
+        padding: 5,
+        borderRadius:10,
+    },
+    location: {
+        alignSelf:'center',
+        textShadowRadius:5,
+        marginRight:10,
+        marginBottom:15,
+        borderColor:'white',
+        paddingRight:20,
+        borderRightWidth:1,  
     },
 });

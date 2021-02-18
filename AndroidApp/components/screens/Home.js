@@ -60,33 +60,31 @@ const styleCSS = StyleSheet.create({
         color:'white',
     },
     text: {
-        marginVertical: 25,
+        marginVertical: 30,
         fontSize: 15,
         textAlign: 'center',
         color:'white',
     },
     textDetails: {
+        
         alignSelf: 'center',
         textShadowRadius:5,
         fontSize: 15,
     },
-    imageConfig: {
-        width: 250,
-        height: 250,
-        alignSelf: 'center',
-    },
     edit: {
-        width:200,
-        height:200,
+        marginTop:40,
+        marginBottom: 10,
+        width:150,
+        height:150,
         alignSelf: 'center',
         
     },
     button: {
         alignSelf: 'center',
-        marginVertical: 10,
+        marginVertical: 20,
         width: '50%', 
         backgroundColor: "#f1c50b",
-        padding: 10,
+        padding: 15,
         borderRadius:10,
     },
 });

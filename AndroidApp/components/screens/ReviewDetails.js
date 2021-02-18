@@ -52,6 +52,9 @@ export default class ReviewDetails extends Component {
     }
 
     render() { 
+        let like = (review_id) =>{
+            console.log("The review ID is: ",review_id);
+        };
         const navig = this.props.navigation;
         return (
             <View style = {styleCSS.container}>
@@ -61,22 +64,24 @@ export default class ReviewDetails extends Component {
                     data={this.state.reviewDetails}
                     keyExtractor={item => item.review_id.toString()}
                     renderItem={({item}) => (  
-                        <ListItem key={item.review_id} avatar>
-                            <Body>
-                                <Text>Review ID: {item.review_id}</Text>
-                                <Text>Overall Rating: {item.overall_rating}</Text>
-                                <Text>Cleanliness Rating: {item.clenliness_rating}</Text>
-                                <Text>Likes: {item.likes}</Text>
-                                <Text>Price Rating: {item.price_rating}</Text>
-                                <Text>Quality Rating: {item.quality_rating}</Text>
-                                <Text>Details: {item.review_body}</Text>
-                            </Body>
-                            <Right style={{padding:40, marginRight: 20, marginTop: 10}}>
-                                <TouchableOpacity  style = {styleCSS.like}>
-                                    <Text style = {styleCSS.textDetails}>Like</Text>
-                                </TouchableOpacity>
-                            </Right>
-                        </ListItem>
+                        <View style={styleCSS.list}>
+                            <ListItem key={item.review_id} avatar>
+                                <Body>
+                                    <Text>Review ID: {item.review_id}</Text>
+                                    <Text>Overall Rating: {item.overall_rating}</Text>
+                                    <Text>Cleanliness Rating: {item.clenliness_rating}</Text>
+                                    <Text>Likes: {item.likes}</Text>
+                                    <Text>Price Rating: {item.price_rating}</Text>
+                                    <Text>Quality Rating: {item.quality_rating}</Text>
+                                    <Text>Details: {item.review_body}</Text>
+                                </Body>
+                                <Right style={{padding:40, marginRight: 20, marginTop: 10}}>
+                                    <TouchableOpacity style = {styleCSS.like} onPress={() => like(item.review_id)}>
+                                        <Text style = {styleCSS.textDetails}>Like</Text>
+                                    </TouchableOpacity>
+                                </Right>
+                            </ListItem>
+                        </View>
                     )}    
                 />
                 <Divider color="#fff" orientation="center"></Divider>
@@ -120,7 +125,7 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         width: '50%', 
         backgroundColor: "#f1c50b",
-        padding: 10,
+        padding: 15,
         borderRadius:10,
         marginBottom: '20%',
     },
@@ -130,5 +135,21 @@ const styleCSS = StyleSheet.create({
         justifyContent:'center',
         alignSelf: 'center',
         borderRadius:40,
-    }
+    },
+    list: {
+        marginVertical: 10, 
+        marginHorizontal:10,
+        backgroundColor: "#f1c50b",
+        padding: 5,
+        borderRadius:10,
+    },
+    location: {
+        alignSelf:'center',
+        textShadowRadius:5,
+        marginRight:10,
+        marginBottom:15,
+        borderColor:'white',
+        paddingRight:20,
+        borderRightWidth:1,  
+    },
 });

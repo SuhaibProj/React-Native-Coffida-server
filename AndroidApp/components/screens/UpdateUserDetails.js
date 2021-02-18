@@ -1,12 +1,13 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid, Image, ScrollView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
 export default class UpdateDeails extends Component {
     constructor (props) {
         super(props)
         this.state = {
+            user_id:'',
             first_name: '',
             last_name: '',
             email: '',
@@ -20,9 +21,9 @@ export default class UpdateDeails extends Component {
 
     getDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token')
-        const id = await AsyncStorage.getItem('@id')
+        const user_id = await AsyncStorage.getItem('@id')
         console.log("Session Variable: " + session)
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ user_id, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
         .then((response) => {
@@ -35,6 +36,7 @@ export default class UpdateDeails extends Component {
         .then((responseJSON) => {
             console.log(responseJSON)
             this.setState({
+                user_id: responseJSON.user_id,
                 email: responseJSON.email,  
                 first_name: responseJSON.first_name,
                 last_name: responseJSON.last_name,
@@ -86,22 +88,22 @@ export default class UpdateDeails extends Component {
         return (
             <View style = { styleCSS.container }> 
                 <Text style={ styleCSS.title }>Edit Account Details</Text>
-                <Text style={ styleCSS.textDetails }>Edit your Email:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Email'} 
-                    onChangeText = {(email) => this.setState({email})} value={this.state.email}
-                />
-                <Text style={ styleCSS.textDetails }>Edit your First Name:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'First Name'} 
-                onChangeText = {(first_name) => this.setState({first_name})} value={this.state.first_name}
-                />
-                <Text style={ styleCSS.textDetails }>Edit your Last Name:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
-                onChangeText = {(last_name) => this.setState({last_name})} value={this.state.last_name}
-                />
-                <Text style={ styleCSS.textDetails }>Enter your New Password:</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
-                    onChangeText = {(password) => this.setState({password})} value={this.state.password}
-                />
+                <ScrollView>
+                <Image style={styleCSS.edit} source={require('../Images/UG.png')}/>
+                    
+                    <TextInput style = {styleCSS.input} placeholder={'Email'} 
+                        onChangeText = {(email) => this.setState({email})} value={this.state.email}
+                    />
+                    <TextInput style = {styleCSS.input} placeholder={'First Name'} 
+                    onChangeText = {(first_name) => this.setState({first_name})} value={this.state.first_name}
+                    />
+                    <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
+                    onChangeText = {(last_name) => this.setState({last_name})} value={this.state.last_name}
+                    />
+                    <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
+                        onChangeText = {(password) => this.setState({password})} value={this.state.password}
+                    />
+                </ScrollView>
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onUpdate()}>
                     <Text style = {styleCSS.textDetails}>Submit</Text>
@@ -126,6 +128,7 @@ const styleCSS = StyleSheet.create({
         alignSelf: 'center',
         textShadowRadius:5,
         fontSize: 15,
+        color:'white',
     },
     input: {
         justifyContent: 'center',
@@ -143,8 +146,24 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         width: '50%', 
         backgroundColor: "#f1c50b",
-        padding: 10,
+        padding: 15,
         borderRadius:10,
+        marginBottom:30,
     },
-
+    edit: {
+        resizeMode:'contain',
+        marginTop:20,
+        marginBottom: 40,
+        width:150,
+        height:150,
+        alignSelf: 'center',
+    },
+    location: {
+        width:70,
+        height:70,
+        alignContent:'flex-start',
+        marginRight:30,
+        borderColor:'white',
+        borderRightWidth:3,  
+    },
 });

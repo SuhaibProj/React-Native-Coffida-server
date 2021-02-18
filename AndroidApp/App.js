@@ -39,28 +39,28 @@ export default class App extends React.Component {
     return (
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }}/>
-            <Stack.Screen name="Register" component={RegisterScreen}/>
-            <Stack.Screen name="Login" component={LoginScreen}/>
-            <Stack.Screen name="Logout" component={LogoutScreen}/>
-            <Stack.Screen name="AuthUser" component={AuthUserScreen} options={{ title: 'My Home', headerLeft:null  }}/>
-            <Stack.Screen name="MyAccount" component={MyAccountScreen} options={{ title: 'My Account'}}/>
-            <Stack.Screen name="UpdateUserDetails" component={UpdateUserDetails} options={{ title: 'Update Account' }}/>
-            <Stack.Screen name="ReviewMgmt" component={ReviewMgmtScreen} options={{ title: 'Review Management' }}/>
-            <Stack.Screen name="AddReview" component={AddReviewScreen} options={{ title: 'Insert Review' }}/>
-            <Stack.Screen name="UpdateReview" component={UpdateReviewScreen} options={{ title: 'Update Review' }}/>
-            <Stack.Screen name="DeleteReview" component={DeleteReviewScreen} options={{ title: 'Delete Review' }}/>
-            <Stack.Screen name="AddReviewPhoto" component={AddReviewPhotoScreen} options={{ title: 'Insert Review Photo' }}/>
-            <Stack.Screen name="SearchReviewPhoto" component={SearchReviewPhotoScreen} options={{ title: 'All Review Photos' }}/>
-            <Stack.Screen name="DeleteReviewPhoto" component={DeleteReviewPhotoScreen} options={{ title: 'Delete Review Photo' }}/>
-            <Stack.Screen name="ViewLocations" component={ViewLocationsScreen} options={{ title: 'All Locations' }}/>
-            <Stack.Screen name="LocationDetails" component={LocationDetailsScreen} options={{ title: 'Location Details' }}/>
-            <Stack.Screen name="FavouriteLocations" component={FavouriteLocationsScreeen} options={{ title: 'Adding Favourite' }}/>
-            <Stack.Screen name="RemoveFavouriteLocations" component={RemoveFavouriteLocationsScreen} options={{ title: 'Remove Favourite' }}/>
-            <Stack.Screen name="ReviewDetails" component={ReviewDetailsScreeen} options={{ title: 'Reviews' }}/>
-            <Stack.Screen name="AddReviewLocations" component={AddReviewLocationsScreen} options={{ title: 'Select Locations' }}/>
-            <Stack.Screen name="ViewFavouriteLocations" component={ViewFavouriteLocationsScreen} options={{ title: 'View Favourites' }}/>
-            <Stack.Screen name="MyReviews" component={MyReviewsScreen} options={{ title: 'My Reviews' }}/>
+            <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="Register" component={RegisterScreen} options={{ title: 'Register', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Login', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="Logout" component={LogoutScreen} options={{ title: 'Logout', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="AuthUser" component={AuthUserScreen} options={{ title: 'My Home', headerLeft:null, headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="MyAccount" component={MyAccountScreen} options={{ title: 'My Account', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
+            <Stack.Screen name="UpdateUserDetails" component={UpdateUserDetails} options={{ title: 'Update Account', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="ReviewMgmt" component={ReviewMgmtScreen} options={{ title: 'Review Management', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="AddReview" component={AddReviewScreen} options={{ title: 'Insert Review', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="UpdateReview" component={UpdateReviewScreen} options={{ title: 'Update Review', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="DeleteReview" component={DeleteReviewScreen} options={{ title: 'Delete Review', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="AddReviewPhoto" component={AddReviewPhotoScreen} options={{ title: 'Insert Review Photo', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="SearchReviewPhoto" component={SearchReviewPhotoScreen} options={{ title: 'All Review Photos', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="DeleteReviewPhoto" component={DeleteReviewPhotoScreen} options={{ title: 'Delete Review Photo', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="ViewLocations" component={ViewLocationsScreen} options={{ title: 'All Locations', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="LocationDetails" component={LocationDetailsScreen} options={{ title: 'Location Details', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="FavouriteLocations" component={FavouriteLocationsScreeen} options={{ title: 'Adding Favourite', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="RemoveFavouriteLocations" component={RemoveFavouriteLocationsScreen} options={{ title: 'Remove Favourite', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="ReviewDetails" component={ReviewDetailsScreeen} options={{ title: 'Reviews' , headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
+            <Stack.Screen name="AddReviewLocations" component={AddReviewLocationsScreen} options={{ title: 'Select Locations', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="ViewFavouriteLocations" component={ViewFavouriteLocationsScreen} options={{ title: 'View Favourites', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="MyReviews" component={MyReviewsScreen} options={{ title: 'My Reviews' , headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
           </Stack.Navigator>
         </NavigationContainer>
     );

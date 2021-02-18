@@ -68,8 +68,9 @@ const styleCSS = StyleSheet.create({
         borderRadius:10,
     },
     imageConfig: {
-        width: 200,
-        height: 200,
+        marginBottom: 20,
+        width:175,
+        height:175,
         alignSelf: 'center',
     },
     textDetails: {

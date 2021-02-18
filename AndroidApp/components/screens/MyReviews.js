@@ -64,7 +64,7 @@ export default class MyReviews extends Component {
         };
         return (
             <View style = {styleCSS.container}>
-                <View style={{padding:10}}></View>
+                <Text style={ styleCSS.title }>View All Reviews</Text>
                 <FlatList
                     data={this.state.reviewDetails.reviews}
                     keyExtractor={item => item.review.review_id.toString()}
@@ -72,14 +72,17 @@ export default class MyReviews extends Component {
                         <View style={styleCSS.list}>    
                             <ListItem key={item.review.review_id} key={item.location.location_id} avatar>
                                 <Left>
-                                    <View style={styleCSS.location}>
-                                        <Text style={{fontSize:15,textShadowRadius:5,textAlign:'center'}}>{item.location.location_name}{' \n'}{item.location.location_town}</Text>
-                                    </View>
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ViewLocations')}>
+                                        <View style={styleCSS.location}>
+                                            <Thumbnail style={{alignSelf:'center'}} source={require('../Images/H.png')}/>
+                                            <Text style={{textAlign:'center'}}>{item.location.location_name}</Text>
+                                            <Text style={{textAlign:'center'}}>{item.location.location_town}</Text>
+                                        </View>
+                                    </TouchableOpacity>
                                 </Left>
                                 <Body>
                                     <Text style={styleCSS.textDetails}>Overall Rating: {item.review.overall_rating}</Text>
                                     <Text style={styleCSS.textDetails}>Cleanliness Rating: {item.review.clenliness_rating}</Text>
-                                    <Text style={styleCSS.textDetails}>Likes: {item.review.likes}</Text>
                                     <Text style={styleCSS.textDetails}>Price Rating: {item.review.price_rating}</Text>
                                     <Text style={styleCSS.textDetails}>Quality Rating: {item.review.quality_rating}</Text>
                                     <Text style={styleCSS.textDetails}>Details: {item.review.review_body}</Text>
@@ -136,7 +139,6 @@ const styleCSS = StyleSheet.create({
         backgroundColor: "#f1c50b",
         padding: 10,
         borderRadius:10,
-        
     },
     bin: {
         width:20,
@@ -147,11 +149,12 @@ const styleCSS = StyleSheet.create({
         height:20,
     },
     location: {
-        justifyContent:'center',
-        marginTop:'30%',
-        padding:10,
+        alignSelf:'center',
+        textShadowRadius:5,
+        marginTop:'5%',
+        marginRight:10,
         borderColor:'white',
-        borderRightWidth:1,
-        
+        paddingRight:20,
+        borderRightWidth:1,  
     },
 });

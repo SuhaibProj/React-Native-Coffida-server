@@ -21,7 +21,9 @@ export default class RemoveFavouriteLocations extends Component {
         })
         .then(() => {
             console.log("deleting Favourite Location");
-            this.props.navigation.navigate('LocationDetails');
+            ToastAndroid.show("Details Updated",ToastAndroid.SHORT);
+            this.props.navigation.navigate('ViewFavouriteLocations');
+            ToastAndroid.show("Refresh Page for Updates",ToastAndroid.SHORT); 
         })
         .catch((error) => {
             console.log(error);

@@ -2,8 +2,8 @@ import React from 'react';
 import { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Right, ListItem, Left,Thumbnail } from 'native-base';
 import Divider from 'react-native-divider'
-
 export default class MyAccount extends Component {
     constructor (props) {
         super(props)
@@ -55,15 +55,22 @@ export default class MyAccount extends Component {
         return (
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Account</Text>
-                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
-                <View style = {styleCSS.textDetails}>  
-                    <Text style = {styleCSS.textDetails}>My Details:</Text>   
-                    <Text style = {styleCSS.textDetails}>Account ID: {this.state.id}</Text>
-                    <Text style = {styleCSS.textDetails}>Email: {this.state.email}</Text>
-                    <Text style = {styleCSS.textDetails}>First Name: {this.state.firstName}</Text>
-                    <Text style = {styleCSS.textDetails}>Last Name: {this.state.lastName}</Text>
+                <View style={styleCSS.list}>
+                    <ListItem key={this.state.id} avatar>
+                        <Left>
+                            <Thumbnail style={styleCSS.location} source={require('../Images/UG.png')}/>
+                        </Left>
+                            <View style = {styleCSS.textDetails}>  
+                                <Text style = {styleCSS.textDetails}>My Details:</Text>   
+                                <Text style = {styleCSS.textDetails}>Account ID: {this.state.id}</Text>
+                                <Text style = {styleCSS.textDetails}>Email: {this.state.email}</Text>
+                                <Text style = {styleCSS.textDetails}>First Name: {this.state.firstName}</Text>
+                                <Text style = {styleCSS.textDetails}>Last Name: {this.state.lastName}</Text>
+                            </View>
+                        
+                    </ListItem>
                 </View>
-                <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
+                <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('UpdateUserDetails')}>
                     <Text style = {styleCSS.textDetails}>Update Account Details</Text>
                 </TouchableOpacity>
@@ -93,7 +100,22 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         width: '50%', 
         backgroundColor: "#f1c50b",
+        padding: 15,
+        borderRadius:10,
+    },
+    list: {
+        marginVertical: 10, 
+        marginHorizontal:10,
+        backgroundColor: "#f1c50b",
         padding: 10,
         borderRadius:10,
+    },
+    location: {
+        width:70,
+        height:70,
+        alignContent:'flex-start',
+        marginRight:30,
+        borderColor:'white',
+        borderRightWidth:3,  
     },
 });

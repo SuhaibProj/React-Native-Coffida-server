@@ -108,14 +108,13 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         alignSelf: 'center',
         color:'white',
-        
     },
     button: {
         alignSelf: 'center',
         marginVertical: 10,
         width: '50%', 
         backgroundColor: "#f1c50b",
-        padding: 10,
+        padding: 15,
         borderRadius:10,
     },
     textDetails: {

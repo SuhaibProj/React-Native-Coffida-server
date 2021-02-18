@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, StyleSheet, ToastAndroid, FlatList } from 'react-native'
+import { Text, View, StyleSheet, ToastAndroid, FlatList, Image, TouchableOpacity } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
 
@@ -42,6 +42,11 @@ export default class ViewFavouriteLocations extends Component {
     }
 
     render(){
+        let bin = async(location_id) => {
+            await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
+            console.log("My Location ID:" , location_id);
+            this.props.navigation.navigate('RemoveFavouriteLocations');
+        };
         return(
             <View style = {styleCSS.container}>
                 <Text style = {styleCSS.title}>View All Favourites</Text>
@@ -49,18 +54,28 @@ export default class ViewFavouriteLocations extends Component {
                     data={this.state.favouriteLocations}
                     keyExtractor={item => item.location_id.toString()}
                     renderItem={({item}) => (  
+                        <View style={styleCSS.list}>  
                         <ListItem key={item.location_id} avatar>
                             <Left >
-                                <Thumbnail source={require('../Images/WC_1.png')}/>
+                                <View style={styleCSS.location}>
+                                    <Thumbnail source={require('../Images/WC.png')}/>
+                                </View>
                             </Left>
                             <Body>
-                                <Text style = {{color:'white', fontSize: 20}}>{item.location_name}</Text>
+                                <Text style = {{fontSize: 20}}>{item.location_name}</Text>
                                 <Text style = {{color: 'grey'}} note>{item.location_town}</Text>
                             </Body>
                             <Right>
-                                <Text style={{color: 'grey'}}>{this.state.arrow}</Text>
+                                <TouchableOpacity onPress={() => bin(item.location_id)}>
+                                    <Image
+                                        style={styleCSS.bin}
+                                        resizeMode='contain'
+                                        source={ require('../Images/D.png')}
+                                    />
+                                </TouchableOpacity>
                             </Right>
                         </ListItem>
+                        </View>
                     )}    
                 />
             </View>
@@ -86,12 +101,24 @@ const styleCSS = StyleSheet.create({
         textShadowRadius:5,
         fontSize: 15,
     },
-    button: {
-        alignSelf: 'center',
-        marginVertical: 10,
-        width: '50%', 
+    list: {
+        marginVertical: 10, 
+        marginHorizontal:10,
         backgroundColor: "#f1c50b",
-        padding: 10,
+        padding: 5,
         borderRadius:10,
+    },
+    location: {
+        alignSelf:'center',
+        textShadowRadius:5,
+        marginRight:10,
+        marginBottom:15,
+        borderColor:'white',
+        paddingRight:20,
+        borderRightWidth:1,  
+    },
+    bin: {
+        width:20,
+        height:20,
     },
 });

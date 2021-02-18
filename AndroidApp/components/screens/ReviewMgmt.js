@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet} from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'
 import Divider from 'react-native-divider'
 
 export default class ReviewMgmt extends Component {
@@ -10,8 +10,9 @@ export default class ReviewMgmt extends Component {
     render() {
         const navig = this.props.navigation;
         return (
-            <View style = {styleCSS.container}> 
+            <ScrollView style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Review Management</Text>
+                <Image style={styleCSS.edit} source={require('../Images/R.png')}/>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('MyReviews')}>
                     <Text style = {styleCSS.textDetails}>My Reviews</Text>
                 </TouchableOpacity>
@@ -26,9 +27,8 @@ export default class ReviewMgmt extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('DeleteReviewPhoto')}>
                     <Text style = {styleCSS.textDetails}>Delete Review Photo(s)</Text>
-                </TouchableOpacity>
-                
-            </View>
+                </TouchableOpacity>  
+            </ScrollView>
         );    
     }
 }
@@ -58,9 +58,17 @@ const styleCSS = StyleSheet.create({
     button: {
         alignSelf: 'center',
         marginVertical: 10,
-        width: '50%', 
+        width: '75%', 
         backgroundColor: "#f1c50b",
-        padding: 10,
+        padding: 15,
         borderRadius:10,
+    },
+    edit: {
+        resizeMode:'contain',
+        marginTop:10,
+        marginBottom: 30,
+        width:150,
+        height:150,
+        alignSelf: 'center',
     },
 });

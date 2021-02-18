@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, ToastAndroid } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, ToastAndroid, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
@@ -57,11 +57,14 @@ export default class Login extends Component {
         return (
             <View style = { styleCSS.container }> 
                 <Text style = { styleCSS.title }>CoffiDa Login Page</Text>
+                <Image style={styleCSS.edit} source={require('../Images/UG.png')}/>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
+                    underlineColorAndroid="transparent"
                     onChangeText = {(email) => this.setState({email})}
                     autoCapitalize="none" value={this.state.email}
                 />
-                <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true}
+                <TextInput style = {styleCSS.input} placeholder={'Password'} 
+                    secureTextEntry = {true} underlineColorAndroid="transparent"
                     onChangeText = {(password) => this.setState({password})}
                     autoCapitalize="none" value={this.state.password} 
                 />
@@ -69,8 +72,8 @@ export default class Login extends Component {
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onLogin()}>
                     <Text style = {styleCSS.textDetails}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('Register')}>
-                    <Text style = {styleCSS.textDetails}>Register</Text>
+                <TouchableOpacity onPress={() => navig.navigate('Register')}>
+                    <Text style = {styleCSS.register}>Not Registered?</Text>
                 </TouchableOpacity>
             </View>
         );  
@@ -111,13 +114,28 @@ const styleCSS = StyleSheet.create({
         textShadowRadius:5,
         fontSize: 15,
     },
+    register: {
+        alignSelf: 'center',
+        color: 'grey',
+        marginTop:10,
+        textShadowRadius:5,
+        fontSize: 15,
+    },
     button: {
         alignSelf: 'center',
         marginVertical: 10,
         width: '50%', 
         backgroundColor: "#f1c50b",
-        padding: 10,
+        padding: 15,
         borderRadius:10,
+    },
+    edit: {
+        resizeMode:'contain',
+        marginTop:40,
+        marginBottom: 20,
+        width:150,
+        height:150,
+        alignSelf: 'center',
     },
 
 });

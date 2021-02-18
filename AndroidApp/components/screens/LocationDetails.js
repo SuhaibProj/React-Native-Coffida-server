@@ -3,6 +3,7 @@ import { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
+import { Right, ListItem, Left,Thumbnail } from 'native-base';
 
 export default class LocationDetails extends Component {
     constructor (props) {
@@ -83,16 +84,29 @@ export default class LocationDetails extends Component {
         return (
             <View style = {styleCSS.container}>
                 <Text style={styleCSS.title}>Location Details: </Text>
-                <View style = {styleCSS.text}>
-                    <Text>Location ID: {this.state.location_id}</Text>
-                    <Text>Location: {this.state.location_name}</Text>
-                    <Text>Town: {this.state.location_town}</Text>
-                    <Text>Average Cleanliness Rating: {this.state.avg_clenliness_rating}</Text>
-                    <Text>Average Overall Rating: {this.state.avg_overall_rating}</Text>
-                    <Text>Average Price Rating: {this.state.avg_price_rating}</Text>
-                    <Text>Latitude: {this.state.latitude}</Text>
-                    <Text>Longitude: {this.state.longitude}</Text>
-                </View> 
+                <View style={styleCSS.list}>
+                    <ListItem key={this.state.location_id} avatar>
+                        <Left>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate('ViewLocations')}>
+                                <View style={styleCSS.location}>
+                                    <Thumbnail style={{alignSelf: 'center'}} source={require('../Images/H.png')}/>
+                                    <Text style={{textAlign:'center'}}>{this.state.location_name}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </Left>
+                        <View style = {styleCSS.textDetails}>  
+                            <Text>Location: {this.state.location_town}</Text>
+                            <Text>Average Cleanliness Rating: {this.state.avg_clenliness_rating}</Text>
+                            <Text>Average Overall Rating: {this.state.avg_overall_rating}</Text>
+                            <Text>Average Price Rating: {this.state.avg_price_rating}</Text>
+                            <Text>Latitude: {this.state.latitude}</Text>
+                            <Text>Longitude: {this.state.longitude}</Text>
+                        </View>
+                        <Right>
+                            
+                        </Right>
+                    </ListItem>
+                </View>
 
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 
@@ -137,7 +151,23 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         width: '50%', 
         backgroundColor: "#f1c50b",
+        padding: 15,
+        borderRadius:10,
+    },
+    list: {
+        marginVertical: 10, 
+        marginHorizontal:10,
+        backgroundColor: "#f1c50b",
         padding: 10,
         borderRadius:10,
+    },
+    location: {
+        alignSelf:'center',
+        textShadowRadius:5,
+        marginTop:'5%',
+        marginRight:20,
+        borderColor:'white',
+        paddingRight:10,
+        borderRightWidth:1,  
     },
 });

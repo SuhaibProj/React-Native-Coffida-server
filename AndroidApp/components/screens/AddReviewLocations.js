@@ -59,10 +59,13 @@ export default class AddReviewLocations extends Component {
                     data={this.state.locationData}
                     keyExtractor={item => item.location_id.toString()}
                     renderItem={({item}) => (  
+                        <View style={styleCSS.list}> 
                         <ListItem key={item.location_id} avatar>
                             <Left>
                                 <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
-                                    <Thumbnail source={require('../Images/WC_1.png')}/>
+                                    <View style={styleCSS.location}>
+                                        <Thumbnail source={require('../Images/WC.png')}/>
+                                    </View>
                                 </TouchableOpacity>
                             </Left>
                             <Body>
@@ -75,6 +78,7 @@ export default class AddReviewLocations extends Component {
                                 <Text style={{color: 'grey'}}>{this.state.arrow}</Text>
                             </Right>
                         </ListItem>
+                        </View>
                     )}    
                 />
             </View>
@@ -105,7 +109,23 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10,
         width: '50%', 
         backgroundColor: "#f1c50b",
+        padding: 15,
+        borderRadius:10,
+    },
+    list: {
+        marginVertical: 10, 
+        marginHorizontal:10,
+        backgroundColor: "#f1c50b",
         padding: 10,
         borderRadius:10,
+    },
+    location: {
+        alignSelf:'center',
+        textShadowRadius:5,
+        marginRight:10,
+        marginBottom:15,
+        borderColor:'white',
+        paddingRight:20,
+        borderRightWidth:1,  
     },
 });
