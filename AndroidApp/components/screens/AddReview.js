@@ -90,12 +90,13 @@ export default class AddReview extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#cccccc',
+        backgroundColor: '#282828',
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
         textAlign: 'center',
+        color:'white',
     },
     input: {
         justifyContent: 'center',
@@ -103,20 +104,25 @@ const styleCSS = StyleSheet.create({
         width: 300,
         paddingStart: 20,
         fontSize: 15,
-        backgroundColor: 'rgba(0,0,0,0.20)',
+        backgroundColor: '#404040',
         marginVertical: 10,
         alignSelf: 'center',
+        color:'white',
+        
     },
     button: {
         alignSelf: 'center',
         marginVertical: 10,
         width: '50%', 
-        backgroundColor: "#6666FF",
+        backgroundColor: "#f1c50b",
         padding: 10,
-        borderRadius:40,
+        borderRadius:10,
     },
     textDetails: {
         alignSelf: 'center',
+        textShadowColor:'black',
+        textShadowRadius:5,
+        fontSize: 15,
     },
 
 });

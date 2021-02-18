@@ -105,23 +105,26 @@ export default class Locations extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#cccccc',
+        backgroundColor: '#282828',
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
         alignSelf: 'center',
+        color:'white',
     },
     textDetails: {
         alignSelf: 'center',
+        textShadowRadius:5,
+        fontSize: 15,
     },
     button: {
         alignSelf: 'center',
         marginVertical: 10,
         marginBottom: 40,
         width: '50%', 
-        backgroundColor: "#6666FF",
+        backgroundColor: "#f1c50b",
         padding: 10,
-        borderRadius:40,
+        borderRadius:10,
     },
 });

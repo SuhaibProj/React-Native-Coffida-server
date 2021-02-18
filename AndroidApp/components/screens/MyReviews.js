@@ -55,12 +55,12 @@ export default class MyReviews extends Component {
             this.props.navigation.navigate('DeleteReview');
         };
     
-        let update = async(review_id,location_id) => {
+        let update = async(review_id , location_id) => {
             await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
             console.log("My Review ID:" , review_id);
             console.log("My Location ID:" , location_id);
-            //this.props.navigation.navigate('UpdateReview');
+            this.props.navigation.navigate('UpdateReview');
         };
         return (
             <View style = {styleCSS.container}>
@@ -73,16 +73,16 @@ export default class MyReviews extends Component {
                             <ListItem key={item.review.review_id} key={item.location.location_id} avatar>
                                 <Left>
                                     <View style={styleCSS.location}>
-                                        <Text style={{fontSize:15,textAlign:'center'}}>{item.location.location_name}{' \n'}{item.location.location_town}</Text>
+                                        <Text style={{fontSize:15,textShadowRadius:5,textAlign:'center'}}>{item.location.location_name}{' \n'}{item.location.location_town}</Text>
                                     </View>
                                 </Left>
                                 <Body>
-                                    <Text>Overall Rating: {item.review.overall_rating}</Text>
-                                    <Text>Cleanliness Rating: {item.review.clenliness_rating}</Text>
-                                    <Text>Likes: {item.review.likes}</Text>
-                                    <Text>Price Rating: {item.review.price_rating}</Text>
-                                    <Text>Quality Rating: {item.review.quality_rating}</Text>
-                                    <Text>Details: {item.review.review_body}</Text>
+                                    <Text style={styleCSS.textDetails}>Overall Rating: {item.review.overall_rating}</Text>
+                                    <Text style={styleCSS.textDetails}>Cleanliness Rating: {item.review.clenliness_rating}</Text>
+                                    <Text style={styleCSS.textDetails}>Likes: {item.review.likes}</Text>
+                                    <Text style={styleCSS.textDetails}>Price Rating: {item.review.price_rating}</Text>
+                                    <Text style={styleCSS.textDetails}>Quality Rating: {item.review.quality_rating}</Text>
+                                    <Text style={styleCSS.textDetails}>Details: {item.review.review_body}</Text>
                                 </Body>
                                 <Right>
                                     <TouchableOpacity onPress={() => update(item.review.review_id, item.location.location_id)}>
@@ -117,23 +117,26 @@ export default class MyReviews extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#cccccc',
+        backgroundColor: '#282828',
         
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
         alignSelf: 'center',
+        color:'white',
     },
     textDetails: {
-        alignSelf: 'center',
+        textShadowRadius:5,
+        fontSize: 15,
     },
     list: {
         marginVertical: 10, 
-        backgroundColor: "#6666FF",
         marginHorizontal:10,
-        padding: 5,
-        borderRadius:40,
+        backgroundColor: "#f1c50b",
+        padding: 10,
+        borderRadius:10,
+        
     },
     bin: {
         width:20,
@@ -145,9 +148,10 @@ const styleCSS = StyleSheet.create({
     },
     location: {
         justifyContent:'center',
-        marginTop:'40%',
+        marginTop:'30%',
         padding:10,
         borderColor:'white',
         borderRightWidth:1,
+        
     },
 });

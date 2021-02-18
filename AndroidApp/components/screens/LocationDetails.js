@@ -83,7 +83,7 @@ export default class LocationDetails extends Component {
         return (
             <View style = {styleCSS.container}>
                 <Text style={styleCSS.title}>Location Details: </Text>
-                <View style = {styleCSS.textDetails}>
+                <View style = {styleCSS.text}>
                     <Text>Location ID: {this.state.location_id}</Text>
                     <Text>Location: {this.state.location_name}</Text>
                     <Text>Town: {this.state.location_town}</Text>
@@ -113,22 +113,31 @@ export default class LocationDetails extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#cccccc',
+        backgroundColor: '#282828',
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
         alignSelf: 'center',
+        color:'white',
     },
     textDetails: {
         alignSelf: 'center',
+        textShadowRadius:5,
+        fontSize: 15,
+    },
+    text: {
+        color:'white',
+        alignSelf: 'center',
+        textShadowRadius:5,
+        fontSize: 15,
     },
     button: {
         alignSelf: 'center',
         marginVertical: 10,
         width: '50%', 
-        backgroundColor: "#6666FF",
+        backgroundColor: "#f1c50b",
         padding: 10,
-        borderRadius:40,
+        borderRadius:10,
     },
 });

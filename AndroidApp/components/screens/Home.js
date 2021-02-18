@@ -15,6 +15,7 @@ export default class Home extends Component {
     componentWillUnmount(){
         this.verifyLoggedIn();
     }
+
     //check if session token stored already thus sign in already.
     verifyLoggedIn = async () => {
         let checkToken = await AsyncStorage.getItem('@session_token');
@@ -27,7 +28,11 @@ export default class Home extends Component {
         return (
             <View style = {styleCSS.container}>
                 <Text style ={styleCSS.title}>CoffiDa Home Page</Text>
-                <Image source={require('../Images/BG.png')} style={styleCSS.imageConfig}/> 
+                <Image
+                    style={styleCSS.edit}
+                    resizeMode='contain'
+                    source={ require('../Images/BG.png')}
+                />
                 <Text style ={styleCSS.text}>This is THE platform for reviews 
                     {"\n"}on the best local coffee spots.
                 </Text>
@@ -46,32 +51,42 @@ export default class Home extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#cccccc',
+        backgroundColor: '#282828',
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
         textAlign: 'center',
+        color:'white',
     },
     text: {
         marginVertical: 25,
         fontSize: 15,
         textAlign: 'center',
+        color:'white',
     },
     textDetails: {
         alignSelf: 'center',
+        textShadowRadius:5,
+        fontSize: 15,
     },
     imageConfig: {
         width: 250,
         height: 250,
         alignSelf: 'center',
     },
+    edit: {
+        width:200,
+        height:200,
+        alignSelf: 'center',
+        
+    },
     button: {
         alignSelf: 'center',
         marginVertical: 10,
-        width: '75%', 
-        backgroundColor: "#6666FF",
+        width: '50%', 
+        backgroundColor: "#f1c50b",
         padding: 10,
-        borderRadius:40,
+        borderRadius:10,
     },
 });

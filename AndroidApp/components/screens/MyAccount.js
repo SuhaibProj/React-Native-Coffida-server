@@ -57,11 +57,11 @@ export default class MyAccount extends Component {
                 <Text style ={styleCSS.title}>Welcome to your Account</Text>
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 <View style = {styleCSS.textDetails}>  
-                    <Text style = {styleCSS.text}>My Details:</Text>   
-                    <Text>Account ID: {this.state.id}</Text>
-                    <Text>Email: {this.state.email}</Text>
-                    <Text>First Name: {this.state.firstName}</Text>
-                    <Text>Last Name: {this.state.lastName}</Text>
+                    <Text style = {styleCSS.textDetails}>My Details:</Text>   
+                    <Text style = {styleCSS.textDetails}>Account ID: {this.state.id}</Text>
+                    <Text style = {styleCSS.textDetails}>Email: {this.state.email}</Text>
+                    <Text style = {styleCSS.textDetails}>First Name: {this.state.firstName}</Text>
+                    <Text style = {styleCSS.textDetails}>Last Name: {this.state.lastName}</Text>
                 </View>
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('UpdateUserDetails')}>
@@ -75,25 +75,25 @@ export default class MyAccount extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#cccccc',
+        backgroundColor: '#282828',
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
         alignSelf: 'center',
+        color:'white',
     },
     textDetails: {
         alignSelf: 'center',
-    },
-    text: {
-        marginBottom: 10,
+        textShadowRadius:5,
+        fontSize: 15,
     },
     button: {
         alignSelf: 'center',
         marginVertical: 10,
         width: '50%', 
-        backgroundColor: "#6666FF",
+        backgroundColor: "#f1c50b",
         padding: 10,
-        borderRadius:40,
+        borderRadius:10,
     },
 });

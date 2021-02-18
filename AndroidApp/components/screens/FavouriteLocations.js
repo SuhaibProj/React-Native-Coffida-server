@@ -41,7 +41,7 @@ export default class FavouriteLocations extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#cccccc',
+        backgroundColor: '#282828',
         justifyContent: 'center',
         alignItems: 'center',
     },

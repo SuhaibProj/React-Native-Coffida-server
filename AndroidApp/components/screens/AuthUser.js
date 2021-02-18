@@ -25,8 +25,9 @@ export default class AuthUser extends Component {
         return (
             <View style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Personal Home Page</Text>
-                <Image source={require('../Images/BG.png')} style={styleCSS.imageConfig}/>
-                
+                <View style={{marginVertical:30}}>
+                    <Image source={require('../Images/BG.png')} style={styleCSS.imageConfig}/>
+                </View>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('MyAccount')}>
                     <Text style = {styleCSS.textDetails}>My Account</Text>
                 </TouchableOpacity>
@@ -50,28 +51,31 @@ export default class AuthUser extends Component {
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#cccccc',
+        backgroundColor: '#282828',
     },
     title: {
         marginVertical: 30,
         fontSize: 20,
         alignSelf: 'center',
+        color:'white',
     },
     button: {
         alignSelf: 'center',
         marginVertical: 10,
         width: '75%', 
-        backgroundColor: "#6666FF",
-        padding: 10,
-        borderRadius:40,
+        backgroundColor: "#f1c50b",
+        padding: 15,
+        borderRadius:10,
     },
     imageConfig: {
-        width: 250,
-        height: 250,
+        width: 200,
+        height: 200,
         alignSelf: 'center',
     },
     textDetails: {
         alignSelf: 'center',
+        textShadowRadius:5,
+        fontSize: 15,
     },
 
 });
