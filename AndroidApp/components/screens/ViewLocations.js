@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, FlatList, ToastAndroid } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, FlatList, ToastAndroid, Image } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
 import Divider from 'react-native-divider'
@@ -77,12 +77,13 @@ export default class Locations extends Component {
                                     </TouchableOpacity>
                                 </Body>
                                 <Right>
-                                    <Text style={{color: 'grey', fontSize: 20, marginTop:10, justifyContent:'flex-end'}}>{this.state.arrow}</Text>
+                                    <TouchableOpacity onPress={() => locationDetails(item.location_id)}>
+                                        <Image style={styleCSS.edit} source={require('../Images/A.png')}/>
+                                    </TouchableOpacity>
                                 </Right>
                             </ListItem>
                         </View>
-                    )} 
-                       
+                    )}       
                 />
                 <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ViewFavouriteLocations')}>
@@ -136,5 +137,12 @@ const styleCSS = StyleSheet.create({
         borderColor:'white',
         paddingRight:20,
         borderRightWidth:1,  
+    },
+    edit: {
+        resizeMode:'contain',
+        marginTop:10,
+        width:40,
+        height:40,
+        alignSelf:'center',
     },
 });

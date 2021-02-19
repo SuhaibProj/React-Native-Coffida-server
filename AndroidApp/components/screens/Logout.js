@@ -22,7 +22,7 @@ export default class Logout extends Component {
         .then(async() => {
             console.log("Logging Out");
             await AsyncStorage.removeItem('@session_token');
-            ToastAndroid.show("Successively Logged-Out",ToastAndroid.SHORT);
+            ToastAndroid.show("Successfully Logged-Out",ToastAndroid.SHORT);
             this.props.navigation.navigate("Home");
         })
     }

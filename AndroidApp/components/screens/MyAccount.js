@@ -62,17 +62,16 @@ export default class MyAccount extends Component {
                         </Left>
                             <View style = {styleCSS.textDetails}>  
                                 <Text style = {styleCSS.textDetails}>My Details:</Text>   
-                                <Text style = {styleCSS.textDetails}>Account ID: {this.state.id}</Text>
+                                <View style = {{marginVertical:5}}></View>
                                 <Text style = {styleCSS.textDetails}>Email: {this.state.email}</Text>
                                 <Text style = {styleCSS.textDetails}>First Name: {this.state.firstName}</Text>
                                 <Text style = {styleCSS.textDetails}>Last Name: {this.state.lastName}</Text>
                             </View>
-                        
                     </ListItem>
                 </View>
                 <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('UpdateUserDetails')}>
-                    <Text style = {styleCSS.textDetails}>Update Account Details</Text>
+                    <Text style = {{textShadowRadius:5, fontSize: 15, alignSelf:'center'}}>Update Account Details</Text>
                 </TouchableOpacity>
             </View>
         );    
@@ -91,7 +90,6 @@ const styleCSS = StyleSheet.create({
         color:'white',
     },
     textDetails: {
-        alignSelf: 'center',
         textShadowRadius:5,
         fontSize: 15,
     },

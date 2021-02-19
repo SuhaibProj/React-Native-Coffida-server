@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native';
 import Divider from 'react-native-divider'
 
 export default class Register extends Component {
@@ -45,34 +45,34 @@ export default class Register extends Component {
     
     render() {
         return (
-            <View style = { styleCSS.container }> 
+            <ScrollView style = { styleCSS.container }> 
                 <Text style={ styleCSS.title }>CoffiDa Registration Page</Text>
                 <Text style={ styleCSS.text }>Enter your First Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'First Name'} 
                     onChangeText = {(firstName) => this.setState({firstName})} 
-                    value={this.state.firstName}
+                    value={this.state.firstName} placeholderTextColor='grey'
                 />
                 <Text style={ styleCSS.text }>Enter your Last Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
                     onChangeText = {(lastName) => this.setState({lastName})} 
-                    value={this.state.lastName} 
+                    value={this.state.lastName} placeholderTextColor='grey'
                 />
                 <Text style={ styleCSS.text }>Register your Email:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
                     onChangeText = {(email) => this.setState({email})} 
-                    value={this.state.email} 
+                    value={this.state.email} placeholderTextColor='grey'
                 />
                 <Text style={ styleCSS.text }>Create your New Password:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Password'} 
                     secureTextEntry = {true} 
                     onChangeText = {(password) => this.setState({password})} 
-                    value={this.state.password} 
+                    value={this.state.password} placeholderTextColor='grey'
                 />
                 <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onRegister()}>
                     <Text style = {styleCSS.textDetails}>Register</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );    
     }
 }

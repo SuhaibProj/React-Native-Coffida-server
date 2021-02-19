@@ -1,5 +1,5 @@
 import React from 'react'
-import { Component } from 'react'
+import { Component, useState } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid, Image, ScrollView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
@@ -85,30 +85,38 @@ export default class UpdateDeails extends Component {
     };
 
     render() {
+        
         return (
-            <View style = { styleCSS.container }> 
-                <Text style={ styleCSS.title }>Edit Account Details</Text>
-                <ScrollView>
+            <ScrollView style = { styleCSS.container }> 
+                <Text style={ styleCSS.title }>Account Details</Text>
                 <Image style={styleCSS.edit} source={require('../Images/UG.png')}/>
-                    
-                    <TextInput style = {styleCSS.input} placeholder={'Email'} 
-                        onChangeText = {(email) => this.setState({email})} value={this.state.email}
+                <View>
+                    <TextInput style = {[styleCSS.input]} placeholder={'Email'} 
+                        onChangeText = {(email) => this.setState({email})} 
+                        value={this.state.email} 
+                        placeholderTextColor='grey'   
                     />
-                    <TextInput style = {styleCSS.input} placeholder={'First Name'} 
-                    onChangeText = {(first_name) => this.setState({first_name})} value={this.state.first_name}
+                    <TextInput style = {styleCSS.input} placeholder={'First Name'}  
+                        onChangeText = {(first_name) => this.setState({first_name})} 
+                        value={this.state.first_name} 
+                        placeholderTextColor='grey' 
                     />
                     <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
-                    onChangeText = {(last_name) => this.setState({last_name})} value={this.state.last_name}
+                        onChangeText = {(last_name) => this.setState({last_name})} 
+                        value={this.state.last_name}  
+                        placeholderTextColor='grey'  
                     />
                     <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
-                        onChangeText = {(password) => this.setState({password})} value={this.state.password}
+                        onChangeText = {(password) => this.setState({password})} 
+                        value={this.state.password} 
+                        placeholderTextColor='grey' 
                     />
-                </ScrollView>
+                </View>    
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onUpdate()}>
-                    <Text style = {styleCSS.textDetails}>Submit</Text>
+                    <Text style = {styleCSS.textDetails}>Update</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );    
     }
 }
@@ -128,15 +136,14 @@ const styleCSS = StyleSheet.create({
         alignSelf: 'center',
         textShadowRadius:5,
         fontSize: 15,
-        color:'white',
     },
     input: {
         justifyContent: 'center',
+        backgroundColor: '#404040',
         height: 45,
         width: 300,
         paddingStart: 20,
         fontSize: 15,
-        backgroundColor: '#404040',
         marginVertical: 10,
         alignSelf: 'center',
         color:'white',
@@ -152,8 +159,8 @@ const styleCSS = StyleSheet.create({
     },
     edit: {
         resizeMode:'contain',
-        marginTop:20,
-        marginBottom: 40,
+        marginTop:10,
+        marginBottom:20,
         width:150,
         height:150,
         alignSelf: 'center',

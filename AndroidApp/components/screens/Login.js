@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, ToastAndroid, Image } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, ToastAndroid, Image, ScrollView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
@@ -55,15 +55,17 @@ export default class Login extends Component {
     render() {
         const navig = this.props.navigation;
         return (
-            <View style = { styleCSS.container }> 
+            <ScrollView style = { styleCSS.container }> 
                 <Text style = { styleCSS.title }>CoffiDa Login Page</Text>
                 <Image style={styleCSS.edit} source={require('../Images/UG.png')}/>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
+                    placeholderTextColor='grey'
                     underlineColorAndroid="transparent"
                     onChangeText = {(email) => this.setState({email})}
                     autoCapitalize="none" value={this.state.email}
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Password'} 
+                    placeholderTextColor='grey'
                     secureTextEntry = {true} underlineColorAndroid="transparent"
                     onChangeText = {(password) => this.setState({password})}
                     autoCapitalize="none" value={this.state.password} 
@@ -75,7 +77,7 @@ export default class Login extends Component {
                 <TouchableOpacity onPress={() => navig.navigate('Register')}>
                     <Text style = {styleCSS.register}>Not Registered?</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );  
     }
 }
@@ -133,8 +135,8 @@ const styleCSS = StyleSheet.create({
         resizeMode:'contain',
         marginTop:40,
         marginBottom: 20,
-        width:150,
-        height:150,
+        width:120,
+        height:120,
         alignSelf: 'center',
     },
 

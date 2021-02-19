@@ -1,17 +1,16 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid, FlatList} from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native'
 import Divider from 'react-native-divider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ListItem, Body, Left, Thumbnail, Right, Header} from 'native-base';
-import { ScrollView } from 'react-native-gesture-handler'
 export default class UpdateReview extends Component {
     constructor (props) {
         super(props)
         this.state = {
             reviewDetails:[],
-            
-            review_id:'',
+            arrow:'>',
+
             overall_rating:'',
             price_rating:'',
             quality_rating:'',
@@ -40,7 +39,6 @@ export default class UpdateReview extends Component {
         .then((responseJSON) => {
             this.setState({
                 reviewDetails:responseJSON.reviews.review,
-                review_id: responseJSON.review_id,
                 overall_rating: responseJSON.reviews.review.overall_rating,
                 price_rating:responseJSON.reviews.review.price_rating,
                 quality_rating:responseJSON.reviews.review.quality_rating,
@@ -48,8 +46,6 @@ export default class UpdateReview extends Component {
                 review_body:responseJSON.reviews.review.review_body,
             });
             console.log('Your Personal Reviews:', this.state.reviewDetails);
-            console.log('Your Personal Overall Rating is:', this.state.overall_rating);
-
         })
         .catch((error) => {
             console.log(error);
@@ -94,37 +90,29 @@ export default class UpdateReview extends Component {
     };
 
     render() {
-        
         return (
             <View style = { styleCSS.container }> 
-                <Text style={ styleCSS.title }>Edit Review Details</Text> 
-                   
-                <View>
-                    <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
-                        onChangeText = {(overall_rating) => this.setState({overall_rating})} 
-                        value={this.state.overall_rating} placeholderTextColor='grey'
-                    />
-                    <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
-                        onChangeText = {(price_rating) => this.setState({price_rating})} 
-                        value={this.state.price_rating} placeholderTextColor='grey'
-                    />
-                    <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
-                        onChangeText = {(quality_rating) => this.setState({quality_rating})} 
-                        value={this.state.quality_rating} placeholderTextColor='grey'
-                    />
-                    <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
-                        onChangeText = {(clenliness_rating) => this.setState({clenliness_rating})} 
-                        value={this.state.clenliness_rating} placeholderTextColor='grey'
-                    />
-                    <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
-                        onChangeText = {(review_body) => this.setState({review_body})} 
-                        value={this.state.review_body} placeholderTextColor='grey'
-                    />
-                </View>
-                
-                
-
-                
+                <Text style={ styleCSS.title }>Edit Review Details</Text>
+                <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
+                    onChangeText = {(overall_rating) => this.setState({overall_rating})} 
+                    value={this.state.overall_rating} placeholderTextColor='grey'
+                />
+                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
+                    onChangeText = {(price_rating) => this.setState({price_rating})} 
+                    value={this.state.price_rating} placeholderTextColor='grey'
+                />
+                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
+                    onChangeText = {(quality_rating) => this.setState({quality_rating})} 
+                    value={this.state.quality_rating} placeholderTextColor='grey'
+                />
+                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
+                    onChangeText = {(clenliness_rating) => this.setState({clenliness_rating})} 
+                    value={this.state.clenliness_rating} placeholderTextColor='grey'
+                />
+                <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
+                    onChangeText = {(review_body) => this.setState({review_body})} 
+                    value={this.state.review_body} placeholderTextColor='grey'
+                />
                 <Divider orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.updateReview()}>
                     <Text style = {styleCSS.textDetails}>Submit</Text>

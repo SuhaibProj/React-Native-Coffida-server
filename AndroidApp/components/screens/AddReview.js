@@ -19,11 +19,11 @@ export default class AddReview extends Component {
 
     addReview = async() => {
         let database_info = {
-            review_body: this.state.review_body,
-            clenliness_rating: parseInt(this.state.clenliness_rating),
+            overall_rating: parseInt(this.state.overall_rating),
             price_rating: parseInt(this.state.price_rating),
             quality_rating: parseInt(this.state.quality_rating),
-            overall_rating: parseInt(this.state.overall_rating),
+            clenliness_rating: parseInt(this.state.clenliness_rating),
+            review_body: this.state.review_body,
         };
         
         const session = await AsyncStorage.getItem('@session_token') ;
@@ -33,18 +33,10 @@ export default class AddReview extends Component {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
             body: JSON.stringify(database_info),
         })
-        .then((response) => {
-            if(response.status === 201) { return response.json(); }
-            else if (response.status === 400) { throw "Bad Request";}
-            else if (response.status === 401){ throw "Unauthorised" ;}
-            else if (response.status === 404){ throw "Not Found"; }
-            else if (response.status === 500) { throw "Server Error";}
-            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
-        })
         .then((responseJSON) => {
             console.log("Review ID Created: ", responseJSON);
             ToastAndroid.show("Review Added",ToastAndroid.SHORT);
-            this.props.navigation.navigate('Review Details');
+            this.props.navigation.navigate('MyReviews');
             ToastAndroid.show("Refresh Page for Updates",ToastAndroid.SHORT);
         })
         .catch((error) => {
@@ -59,23 +51,23 @@ export default class AddReview extends Component {
                 <Text style = { styleCSS.title }>Add Your Review</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
                     onChangeText = {(overall_rating) => this.setState({overall_rating})} 
-                    value={this.state.overall_rating}
+                    value={this.state.overall_rating} placeholderTextColor='grey'
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
                     onChangeText = {(price_rating) => this.setState({price_rating})} 
-                    value={this.state.price_rating}
+                    value={this.state.price_rating} placeholderTextColor='grey'
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
                     onChangeText = {(quality_rating) => this.setState({quality_rating})} 
-                    value={this.state.quality_rating}
+                    value={this.state.quality_rating} placeholderTextColor='grey'
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
                     onChangeText = {(clenliness_rating) => this.setState({clenliness_rating})} 
-                    value={this.state.clenliness_rating}
+                    value={this.state.clenliness_rating} placeholderTextColor='grey'
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
                     onChangeText = {(review_body) => this.setState({review_body})} 
-                    value={this.state.review_body}
+                    value={this.state.review_body} placeholderTextColor='grey'
                 />
                 <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.addReview()}>
