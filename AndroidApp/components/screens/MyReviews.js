@@ -53,6 +53,14 @@ export default class MyReviews extends Component {
             console.log("My Location ID:" , location_id);
             this.props.navigation.navigate('DeleteReview');
         };
+
+        let cam = async(review_id, location_id) => {
+            await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
+            await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
+            console.log("My Review ID:" , review_id);
+            console.log("My Location ID:" , location_id);
+            this.props.navigation.navigate('AddReviewPhoto');
+        };
     
         let update = async(item) => {
             this.props.navigation.navigate('UpdateReview', {'review':item});
@@ -87,7 +95,7 @@ export default class MyReviews extends Component {
                                 <Right>
                                     <TouchableOpacity onPress={() => update(item)}>
                                         <Image
-                                            style={styleCSS.edit}
+                                            style={styleCSS.icons}
                                             resizeMode='contain'
                                             source={ require('../Images/E.png')}
                                         />
@@ -95,9 +103,17 @@ export default class MyReviews extends Component {
                                     <View style ={{padding:5}}></View>
                                     <TouchableOpacity onPress={() => bin(item.review.review_id, item.location.location_id)}>
                                         <Image
-                                            style={styleCSS.bin}
+                                            style={styleCSS.icons}
                                             resizeMode='contain'
                                             source={ require('../Images/D.png')}
+                                        />
+                                    </TouchableOpacity>
+                                    <View style ={{padding:5}}></View>
+                                    <TouchableOpacity onPress={() => cam(item.review.review_id, item.location.location_id)}>
+                                        <Image
+                                            style={styleCSS.icons}
+                                            resizeMode='contain'
+                                            source={ require('../Images/C.png')}
                                         />
                                     </TouchableOpacity>
                                 </Right>
@@ -137,11 +153,7 @@ const styleCSS = StyleSheet.create({
         padding: 10,
         borderRadius:10,
     },
-    bin: {
-        width:20,
-        height:20,
-    },
-    edit: {
+    icons: {
         width:20,
         height:20,
     },

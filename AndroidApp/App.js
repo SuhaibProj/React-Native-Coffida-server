@@ -15,12 +15,15 @@ import MyAccountScreen from './components/screens/MyAccount'
 import UpdateUserDetails from './components/screens/UpdateUserDetails'
 
 import ReviewMgmtScreen from './components/screens/ReviewMgmt'
+import ReviewDetailsScreeen from './components/screens/ReviewDetails';
+
 import MyReviewsScreen from './components/screens/MyReviews'
 import AddReviewScreen from './components/screens/AddReview'
 import UpdateReviewScreen from './components/screens/UpdateReview'
 import DeleteReviewScreen from './components/screens/DeleteReview'
+
 import AddReviewPhotoScreen from './components/screens/AddReviewPhoto'
-import SearchReviewPhotoScreen from './components/screens/SearchReviewPhoto'
+import ViewReviewPhotoScreen from './components/screens/ViewReviewPhoto'
 import DeleteReviewPhotoScreen from './components/screens/DeleteReviewPhoto'
 
 import LocationDetailsScreen from './components/screens/LocationDetails'
@@ -28,9 +31,8 @@ import ViewLocationsScreen from './components/screens/ViewLocations'
 import FavouriteLocationsScreeen from './components/screens/FavouriteLocations';
 import RemoveFavouriteLocationsScreen from './components/screens/RemoveFavouriteLocations';
 import ViewFavouriteLocationsScreen from './components/screens/ViewFavouriteLocations';
-
-import ReviewDetailsScreeen from './components/screens/ReviewDetails';
 import AddReviewLocationsScreen from './components/screens/AddReviewLocations';
+
 import LikeReviewScreen from './components/screens/LikeReview';
 import RemoveLikedReviewScreen from './components/screens/RemoveLikedReview';
 import ViewLikedReviewsScreen from './components/screens/ViewLikedReviews';
@@ -54,7 +56,7 @@ export default class App extends React.Component {
             <Stack.Screen name="UpdateReview" component={UpdateReviewScreen} options={{ title: 'Update Review', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
             <Stack.Screen name="DeleteReview" component={DeleteReviewScreen} options={{ title: 'Delete Review', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
             <Stack.Screen name="AddReviewPhoto" component={AddReviewPhotoScreen} options={{ title: 'Insert Review Photo', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
-            <Stack.Screen name="SearchReviewPhoto" component={SearchReviewPhotoScreen} options={{ title: 'All Review Photos', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
+            <Stack.Screen name="ViewReviewPhoto" component={ViewReviewPhotoScreen} options={{ title: 'Review Photos', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
             <Stack.Screen name="DeleteReviewPhoto" component={DeleteReviewPhotoScreen} options={{ title: 'Delete Review Photo', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
             <Stack.Screen name="ViewLocations" component={ViewLocationsScreen} options={{ title: 'All Locations', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
             <Stack.Screen name="LocationDetails" component={LocationDetailsScreen} options={{ title: 'Location Details', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>

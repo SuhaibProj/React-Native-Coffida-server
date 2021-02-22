@@ -27,43 +27,20 @@ export default class UpdateReview extends Component {
     }
 
     componentDidMount(){
-        this.myReviews();
+        const review = this.props.route.params.review
+        this.setState({
+            overall_rating:review.review.overall_rating,
+            price_rating:review.review.price_rating,
+            quality_rating:review.review.quality_rating,
+            clenliness_rating:review.review.clenliness_rating,
+            review_body:review.review.review_body,
+        })
     }
-
-    myReviews = async () => {
-        const session = await AsyncStorage.getItem('@session_token') ;
-        const id = await AsyncStorage.getItem('@id');
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
-            headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
-        })
-        .then((response) => {
-            if(response.status === 200) { return response.json(); }
-            else if (response.status === 400){ throw "Bad Request"; }
-            else if (response.status === 401){ throw "Unauthorised"; }
-            else if (response.status === 500){ throw "Server Error"; }
-            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
-        })
-        .then((responseJSON) => {
-            this.setState({
-                reviewDetails:responseJSON
-            });
-            console.log("The reviewDetails array contains: ",this.state.reviewDetails)
-        
-        })
-        .catch((error) => {
-            console.log(error);
-            ToastAndroid.show(error, ToastAndroid.SHORT);
-        });
-    }  
-    /* overall_rating: parseInt(this.state.overall_rating),
-    price_rating: parseInt(this.state.price_rating),
-    quality_rating: parseInt(this.state.quality_rating),
-    clenliness_rating: parseInt(this.state.clenliness_rating),
-    review_body: this.state.review_body, */
     updateReview  = async () => {
         let database_info = { };
 
         const review = this.props.route.params.review;
+
         console.log("The Review variable is: ",review);
         console.log("overall_Rating:",review.review.overall_rating);
         console.log("price_rating:",review.review.price_rating);
@@ -71,17 +48,19 @@ export default class UpdateReview extends Component {
         console.log("clenliness_rating:",review.review.clenliness_rating);
         console.log("review_body:",review.review.review_body);
 
+        console.log(review.review.overall_rating != this.state.overall_rating, review.review.overall_rating, this.state.overall_rating)
+
         if (review.review.overall_rating != this.state.overall_rating){
-            database_info['overall_rating'] = this.state.overall_rating;
+            database_info['overall_rating'] = parseInt(this.state.overall_rating);
         }
         if (review.review.price_rating != this.state.price_rating){
-            database_info['price_rating'] = this.state.price_rating;
+            database_info['price_rating'] = parseInt(this.state.price_rating);
         }
         if (review.review.quality_rating != this.state.quality_rating){
-            database_info['quality_rating'] = this.state.quality_rating;
+            database_info['quality_rating'] = parseInt(this.state.quality_rating);
         }
         if (review.review.clenliness_rating != this.state.clenliness_rating){
-            database_info['clenliness_rating'] = this.state.clenliness_rating;
+            database_info['clenliness_rating'] = parseInt(this.state.clenliness_rating);
         }
         if (review.review.review_body != this.state.review_body){
             database_info['review_body'] = this.state.review_body;
@@ -118,41 +97,35 @@ export default class UpdateReview extends Component {
     };
 
     render() {
+        const review = this.props.route.params.review;
+        console.log(review)
         return (
             <View style = { styleCSS.container }> 
                 <Text style={ styleCSS.title }>Edit Review Details</Text> 
-                <FlatList
-                    data={this.state.reviewDetails.reviews}
-                    keyExtractor={item => item.review.review_id.toString()}
-                    renderItem={({item}) => (      
-                        <View style={{alignContent:'center'}}>
-                            <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
-                                onChangeText = {(overall_rating) => this.setState({overall_rating})} 
-                                defaultValue={item.review.overall_rating.toString()} placeholderTextColor='grey'
-                            />
-                            <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
-                                onChangeText = {(price_rating) => this.setState({price_rating})} 
-                                defaultValue={item.review.price_rating.toString()} placeholderTextColor='grey'
-                            />
-                            <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
-                                onChangeText = {(quality_rating) => this.setState({quality_rating})} 
-                                defaultValue={item.review.quality_rating.toString()} placeholderTextColor='grey'
-                            />
-                            <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
-                                onChangeText = {(clenliness_rating) => this.setState({clenliness_rating})} 
-                                defaultValue={item.review.clenliness_rating.toString()} placeholderTextColor='grey' 
-                            />
-                            <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
-                                onChangeText = {(review_body) => this.setState({review_body})} 
-                                defaultValue={item.review.review_body} placeholderTextColor='grey'
-                            />
-                            <Divider orientation="center"></Divider>
-                            <TouchableOpacity  style = {styleCSS.button} onPress={() => this.updateReview()}>
-                                <Text style = {styleCSS.textDetails}>Submit</Text>
-                            </TouchableOpacity>
-                        </View>
-                    )}    
+                <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
+                    onChangeText = {(overall_rating) => this.setState({overall_rating})} 
+                    defaultValue={review.review.overall_rating.toString()} placeholderTextColor='grey'
                 />
+                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
+                    onChangeText = {(price_rating) => this.setState({price_rating})} 
+                    defaultValue={review.review.price_rating.toString()} placeholderTextColor='grey'
+                />
+                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
+                    onChangeText = {(quality_rating) => this.setState({quality_rating})} 
+                    defaultValue={review.review.quality_rating.toString()} placeholderTextColor='grey'
+                />
+                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
+                    onChangeText = {(clenliness_rating) => this.setState({clenliness_rating})} 
+                    defaultValue={review.review.clenliness_rating.toString()} placeholderTextColor='grey' 
+                />
+                <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
+                    onChangeText = {(review_body) => this.setState({review_body})} 
+                    defaultValue={review.review.review_body} placeholderTextColor='grey'
+                />
+                <Divider orientation="center"></Divider>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.updateReview()}>
+                    <Text style = {styleCSS.textDetails}>Submit</Text>
+                </TouchableOpacity>
 
                 
                 

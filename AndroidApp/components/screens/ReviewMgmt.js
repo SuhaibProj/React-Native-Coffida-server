@@ -22,15 +22,6 @@ export default class ReviewMgmt extends Component {
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ViewLikedReviews')}>
                     <Text style = {styleCSS.textDetails}>View Liked Reviews</Text>
                 </TouchableOpacity> 
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('SearchReviewPhoto')}>
-                    <Text style = {styleCSS.textDetails}>Search Review Photo(s)</Text>
-                </TouchableOpacity>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AddReviewPhoto')}>
-                    <Text style = {styleCSS.textDetails}>Add Review Photo(s)</Text>
-                </TouchableOpacity>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('DeleteReviewPhoto')}>
-                    <Text style = {styleCSS.textDetails}>Delete Review Photo(s)</Text>
-                </TouchableOpacity> 
             </ScrollView>
         );    
     }
