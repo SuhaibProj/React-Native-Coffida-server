@@ -8,7 +8,7 @@ export default class FavouriteLocations extends Component {
         super(props)
     }
 
-    componentDidMount(){
+    componentDidMount = () => {
         this.inputfavourite();
     }
 

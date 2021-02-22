@@ -8,9 +8,11 @@ export default class Logout extends Component {
         super(props)
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.logOut();
     }
+
+ 
 
     logOut = async () => {
         const session = await AsyncStorage.getItem('@session_token');

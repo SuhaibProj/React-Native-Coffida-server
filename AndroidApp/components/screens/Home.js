@@ -12,9 +12,6 @@ export default class Home extends Component {
         this.verifyLoggedIn();
     }
 
-    componentWillUnmount(){
-        this.verifyLoggedIn();
-    }
 
     //check if session token stored already thus sign in already.
     verifyLoggedIn = async () => {

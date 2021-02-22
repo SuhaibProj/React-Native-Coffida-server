@@ -3,28 +3,27 @@ import { Component } from 'react'
 import { View, StyleSheet, ToastAndroid, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default class RemoveFavouriteLocations extends Component {
+export default class RemoveLikedReview extends Component {
     constructor (props) {
         super(props)
     }
 
-    componentDidMount(){
-        this.inputfavourite();
+    componentDidMount = () => {
+        this.deletelikes();
     }
 
-
-    inputfavourite = async () => {
+    deletelikes = async () => {
         const session = await AsyncStorage.getItem('@session_token');
+        const review_id = await AsyncStorage.getItem('@review_id');
         const location_id = await AsyncStorage.getItem('@location_id');
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id+'/favourite', {
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/' + location_id + '/review/' + review_id + '/like', {
             method: 'delete',    
             headers: {'X-Authorization': session,},
         })
         .then(() => {
-            console.log("Deleting Favourite Location");
-            ToastAndroid.show("Location Deleted",ToastAndroid.SHORT);
-            this.props.navigation.navigate('ViewFavouriteLocations');
-            ToastAndroid.show("Refresh Page for Updates",ToastAndroid.SHORT); 
+            console.log("Removing Liked Review");
+            ToastAndroid.show("Removed",ToastAndroid.SHORT);
+            this.props.navigation.navigate('ReviewDetails');
         })
         .catch((error) => {
             console.log(error);
@@ -39,7 +38,6 @@ export default class RemoveFavouriteLocations extends Component {
             </View>
         );
     }
-
 }
 
 const styleCSS = StyleSheet.create({

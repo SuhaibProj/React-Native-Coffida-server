@@ -22,11 +22,9 @@ export default class LocationDetails extends Component {
         };
     }
 
-    componentDidMount = async() => {
+    componentDidMount() {
         this.locationDetails();
     }
-
-    
 
     locationDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token') ;

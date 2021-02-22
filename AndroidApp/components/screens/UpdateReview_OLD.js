@@ -1,16 +1,16 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid, FlatList} from 'react-native'
 import Divider from 'react-native-divider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { ListItem, Body, Left, Thumbnail, Right, Header} from 'native-base';
+import { ScrollView } from 'react-native-gesture-handler'
 export default class UpdateReview extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            reviewDetails:[],
-            arrow:'>',
-
+            reviewDetails: '',
+            review_id:'',
             overall_rating:'',
             price_rating:'',
             quality_rating:'',
@@ -38,14 +38,10 @@ export default class UpdateReview extends Component {
         })
         .then((responseJSON) => {
             this.setState({
-                reviewDetails:responseJSON.reviews.review,
-                overall_rating: responseJSON.reviews.review.overall_rating,
-                price_rating:responseJSON.reviews.review.price_rating,
-                quality_rating:responseJSON.reviews.review.quality_rating,
-                clenliness_rating:responseJSON.reviews.review.clenliness_rating,
-                review_body:responseJSON.reviews.review.review_body,
+                reviewDetails:responseJSON
             });
-            console.log('Your Personal Reviews:', this.state.reviewDetails);
+            console.log("The reviewDetails array contains: ",this.state.reviewDetails)
+        
         })
         .catch((error) => {
             console.log(error);
@@ -90,33 +86,46 @@ export default class UpdateReview extends Component {
     };
 
     render() {
+        
         return (
             <View style = { styleCSS.container }> 
-                <Text style={ styleCSS.title }>Edit Review Details</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
-                    onChangeText = {(overall_rating) => this.setState({overall_rating})} 
-                    value={this.state.overall_rating} placeholderTextColor='grey'
+                <Text style={ styleCSS.title }>Edit Review Details</Text> 
+                
+                <FlatList
+                    data={this.state.reviewDetails.reviews}
+                    keyExtractor={item => item.review.review_id.toString()}
+                    renderItem={({item}) => (      
+                        <View style={{alignContent:'center'}}>
+                            <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
+                                onChangeText = {(overall_rating) => this.setState({overall_rating})} 
+                                defaultValue={item.review.overall_rating.toString()} placeholderTextColor='grey'
+                            />
+                            <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
+                                onChangeText = {(price_rating) => this.setState({price_rating})} 
+                                defaultValue={item.review.price_rating.toString()} placeholderTextColor='grey'
+                            />
+                            <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
+                                onChangeText = {(quality_rating) => this.setState({quality_rating})} 
+                                defaultValue={item.review.quality_rating.toString()} placeholderTextColor='grey'
+                            />
+                            <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
+                                onChangeText = {(clenliness_rating) => this.setState({clenliness_rating})} 
+                                defaultValue={item.review.clenliness_rating.toString()} placeholderTextColor='grey' 
+                            />
+                            <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
+                                onChangeText = {(review_body) => this.setState({review_body})} 
+                                defaultValue={item.review.review_body} placeholderTextColor='grey'
+                            />
+                            <Divider orientation="center"></Divider>
+                            <TouchableOpacity  style = {styleCSS.button} onPress={() => this.updateReview()}>
+                                <Text style = {styleCSS.textDetails}>Submit</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}    
                 />
-                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
-                    onChangeText = {(price_rating) => this.setState({price_rating})} 
-                    value={this.state.price_rating} placeholderTextColor='grey'
-                />
-                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
-                    onChangeText = {(quality_rating) => this.setState({quality_rating})} 
-                    value={this.state.quality_rating} placeholderTextColor='grey'
-                />
-                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
-                    onChangeText = {(clenliness_rating) => this.setState({clenliness_rating})} 
-                    value={this.state.clenliness_rating} placeholderTextColor='grey'
-                />
-                <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
-                    onChangeText = {(review_body) => this.setState({review_body})} 
-                    value={this.state.review_body} placeholderTextColor='grey'
-                />
-                <Divider orientation="center"></Divider>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.updateReview()}>
-                    <Text style = {styleCSS.textDetails}>Submit</Text>
-                </TouchableOpacity>
+
+                
+                
             </View>
         );    
     }

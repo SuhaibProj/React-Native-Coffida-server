@@ -15,7 +15,7 @@ export default class AddReviewLocations extends Component {
         }
     }
 
-    componentDidMount = async() => {
+    componentDidMount() {
         this.getLocations();
     }
 

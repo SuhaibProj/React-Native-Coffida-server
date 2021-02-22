@@ -13,6 +13,7 @@ export default class DeleteReview extends Component {
         this.deleteReview();
     }
 
+    
     deleteReview = async () => {
         const session = await AsyncStorage.getItem('@session_token');
         const location_id = await AsyncStorage.getItem('@location_id');

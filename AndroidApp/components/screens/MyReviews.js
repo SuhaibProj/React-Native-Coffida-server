@@ -2,8 +2,7 @@ import React from 'react'
 import { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid, FlatList, Image} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Divider from 'react-native-divider'
-import { ListItem, Body, Left, Thumbnail, Right, Header} from 'native-base';
+import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
 
 export default class MyReviews extends Component {
     constructor (props) {
@@ -14,7 +13,7 @@ export default class MyReviews extends Component {
         };
     }
 
-    componentDidMount = async() => {
+    componentDidMount() {
         this.myReviews();
     }
 
@@ -55,13 +54,10 @@ export default class MyReviews extends Component {
             this.props.navigation.navigate('DeleteReview');
         };
     
-        let update = async(review_id , location_id) => {
-            await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
-            await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
-            console.log("My Review ID:" , review_id);
-            console.log("My Location ID:" , location_id);
-            this.props.navigation.navigate('UpdateReview');
+        let update = async(item) => {
+            this.props.navigation.navigate('UpdateReview', {'review':item});
         };
+        
         return (
             <View style = {styleCSS.container}>
                 <Text style={ styleCSS.title }>View All Reviews</Text>
@@ -88,7 +84,7 @@ export default class MyReviews extends Component {
                                     <Text style={styleCSS.textDetails}>Details: {item.review.review_body}</Text>
                                 </Body>
                                 <Right>
-                                    <TouchableOpacity onPress={() => update(item.review.review_id, item.location.location_id)}>
+                                    <TouchableOpacity onPress={() => update(item)}>
                                         <Image
                                             style={styleCSS.edit}
                                             resizeMode='contain'

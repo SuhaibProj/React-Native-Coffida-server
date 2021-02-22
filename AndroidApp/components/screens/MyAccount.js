@@ -17,7 +17,7 @@ export default class MyAccount extends Component {
         }
     }
 
-    componentDidMount = async() => {
+    componentDidMount() {
         this.getDetails();
     }
 
@@ -63,9 +63,9 @@ export default class MyAccount extends Component {
                             <View style = {styleCSS.textDetails}>  
                                 <Text style = {styleCSS.textDetails}>My Details:</Text>   
                                 <View style = {{marginVertical:5}}></View>
-                                <Text style = {styleCSS.textDetails}>Email: {this.state.email}</Text>
                                 <Text style = {styleCSS.textDetails}>First Name: {this.state.firstName}</Text>
                                 <Text style = {styleCSS.textDetails}>Last Name: {this.state.lastName}</Text>
+                                <Text style = {styleCSS.textDetails}>Email: {this.state.email}</Text>
                             </View>
                     </ListItem>
                 </View>
@@ -105,7 +105,7 @@ const styleCSS = StyleSheet.create({
         marginVertical: 10, 
         marginHorizontal:10,
         backgroundColor: "#f1c50b",
-        padding: 10,
+        padding: 20,
         borderRadius:10,
     },
     location: {

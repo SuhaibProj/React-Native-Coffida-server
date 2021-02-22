@@ -14,6 +14,7 @@ export default class AuthUser extends Component {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
 
+
     handleBackButtonClick() {
         return true;
     }

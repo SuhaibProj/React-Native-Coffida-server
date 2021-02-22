@@ -31,6 +31,8 @@ import ViewFavouriteLocationsScreen from './components/screens/ViewFavouriteLoca
 
 import ReviewDetailsScreeen from './components/screens/ReviewDetails';
 import AddReviewLocationsScreen from './components/screens/AddReviewLocations';
+import LikeReviewScreen from './components/screens/LikeReview';
+import RemoveLikedReviewScreen from './components/screens/RemoveLikedReview';
 
 const Stack = createStackNavigator();
 
@@ -61,6 +63,8 @@ export default class App extends React.Component {
             <Stack.Screen name="AddReviewLocations" component={AddReviewLocationsScreen} options={{ title: 'Select Locations', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
             <Stack.Screen name="ViewFavouriteLocations" component={ViewFavouriteLocationsScreen} options={{ title: 'View Favourites', headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'} }}/>
             <Stack.Screen name="MyReviews" component={MyReviewsScreen} options={{ title: 'My Reviews' , headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
+            <Stack.Screen name="LikeReview" component={LikeReviewScreen} options={{ title: 'Like Review' , headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
+            <Stack.Screen name="RemoveLikedReview" component={RemoveLikedReviewScreen} options={{ title: 'Remove Liked Review' , headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
           </Stack.Navigator>
         </NavigationContainer>
     );

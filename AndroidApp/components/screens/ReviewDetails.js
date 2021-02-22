@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, StyleSheet, ScrollView, TouchableOpacity, ToastAndroid, FlatList} from 'react-native'
+import { Text, View, StyleSheet, Image, TouchableOpacity, ToastAndroid, FlatList} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
 import { ListItem, Body, Left, Thumbnail, Right, Header} from 'native-base';
@@ -19,11 +19,9 @@ export default class ReviewDetails extends Component {
         };
     }
 
-    componentDidMount = async() => {
+    componentDidMount() {
         this.locationDetails();
     }
-
-    
 
     locationDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token') ;
@@ -54,6 +52,11 @@ export default class ReviewDetails extends Component {
     render() { 
         let like = (review_id) =>{
             console.log("The review ID is: ",review_id);
+            this.props.navigation.navigate('LikeReview');
+        };
+        let unLike = (review_id) =>{
+            console.log("The review ID is: ",review_id);
+            this.props.navigation.navigate('RemoveLikedReview');
         };
         const navig = this.props.navigation;
         return (
@@ -75,10 +78,22 @@ export default class ReviewDetails extends Component {
                                     <Text>Quality Rating: {item.quality_rating}</Text>
                                     <Text>Details: {item.review_body}</Text>
                                 </Body>
-                                <Right style={{padding:40, marginRight: 20, marginTop: 10}}>
-                                    <TouchableOpacity style = {styleCSS.like} onPress={() => like(item.review_id)}>
-                                        <Text style = {styleCSS.textDetails}>Like</Text>
+                                <Right>
+                                    <TouchableOpacity onPress={() => like(item.review_id)}>
+                                        <Image
+                                            style={styleCSS.like}
+                                            resizeMode='contain'
+                                            source={ require('../Images/T.png')}
+                                        />
                                     </TouchableOpacity>
+                                    <View style ={{padding:5}}></View>
+                                    <TouchableOpacity onPress={() => unLike(item.review_id)}>
+                                        <Image
+                                            style={styleCSS.like}
+                                            resizeMode='contain'
+                                            source={ require('../Images/TD.png')}
+                                        />
+                                    </TouchableOpacity>     
                                 </Right>
                             </ListItem>
                         </View>
@@ -88,6 +103,7 @@ export default class ReviewDetails extends Component {
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AddReview')}>
                     <Text style = {styleCSS.textDetails}>Add Review</Text>
                 </TouchableOpacity>
+                
                 
             </View>
         );
@@ -129,13 +145,13 @@ const styleCSS = StyleSheet.create({
         borderRadius:10,
         marginBottom: '20%',
     },
-    like: {
+    /* like: {
         width: '200%',
         backgroundColor: "#3399FF",
         justifyContent:'center',
         alignSelf: 'center',
         borderRadius:40,
-    },
+    }, */
     list: {
         marginVertical: 10, 
         marginHorizontal:10,
@@ -151,5 +167,9 @@ const styleCSS = StyleSheet.create({
         borderColor:'white',
         paddingRight:20,
         borderRightWidth:1,  
+    },
+    like: {
+        width:20,
+        height:20,
     },
 });

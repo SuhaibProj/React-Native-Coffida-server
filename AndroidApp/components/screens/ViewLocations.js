@@ -16,10 +16,9 @@ export default class Locations extends Component {
         }
     }
 
-    componentDidMount = async() => {
+    componentDidMount(){
         this.getLocations();
     }
-
 
     getLocations = async () => {
         const session = await AsyncStorage.getItem('@session_token');
