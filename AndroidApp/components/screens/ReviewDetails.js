@@ -50,13 +50,10 @@ export default class ReviewDetails extends Component {
     }
 
     render() { 
-        let like = (review_id) =>{
+        let like = async(review_id) =>{
+            await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
             console.log("The review ID is: ",review_id);
             this.props.navigation.navigate('LikeReview');
-        };
-        let unLike = (review_id) =>{
-            console.log("The review ID is: ",review_id);
-            this.props.navigation.navigate('RemoveLikedReview');
         };
         const navig = this.props.navigation;
         return (
@@ -81,19 +78,11 @@ export default class ReviewDetails extends Component {
                                 <Right>
                                     <TouchableOpacity onPress={() => like(item.review_id)}>
                                         <Image
-                                            style={styleCSS.like}
+                                            style={styleCSS.likes}
                                             resizeMode='contain'
                                             source={ require('../Images/T.png')}
                                         />
-                                    </TouchableOpacity>
-                                    <View style ={{padding:5}}></View>
-                                    <TouchableOpacity onPress={() => unLike(item.review_id)}>
-                                        <Image
-                                            style={styleCSS.like}
-                                            resizeMode='contain'
-                                            source={ require('../Images/TD.png')}
-                                        />
-                                    </TouchableOpacity>     
+                                    </TouchableOpacity>   
                                 </Right>
                             </ListItem>
                         </View>
@@ -168,7 +157,7 @@ const styleCSS = StyleSheet.create({
         paddingRight:20,
         borderRightWidth:1,  
     },
-    like: {
+    likes: {
         width:20,
         height:20,
     },

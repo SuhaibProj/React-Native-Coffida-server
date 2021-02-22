@@ -4,7 +4,7 @@ import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid, FlatList, Image
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
 
-export default class MyReviews extends Component {
+export default class ViewLikedReviews extends Component {
     constructor (props) {
         super(props)
         this.state = {
@@ -14,10 +14,10 @@ export default class MyReviews extends Component {
     }
 
     componentDidMount() {
-        this.myReviews();
+        this.likedReviews();
     }
 
-    myReviews = async () => {
+    likedReviews = async () => {
         const session = await AsyncStorage.getItem('@session_token') ;
         const id = await AsyncStorage.getItem('@id');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
@@ -33,9 +33,9 @@ export default class MyReviews extends Component {
         })
         .then((responseJSON) => {
             this.setState({
-                reviewDetails: responseJSON
+                reviewDetails: responseJSON.liked_reviews
             });
-            console.log('Your Personal Reviews:', this.state.reviewDetails);
+            console.log('Your Liked Reviews:', this.state.reviewDetails);
         })
         .catch((error) => {
             console.log(error);
@@ -46,23 +46,18 @@ export default class MyReviews extends Component {
     
 
     render() { 
-        let bin = async(review_id, location_id) => {
+        let bin = async(review_id,location_id) => {
             await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
             console.log("My Review ID:" , review_id);
             console.log("My Location ID:" , location_id);
-            this.props.navigation.navigate('DeleteReview');
+            this.props.navigation.navigate('ViewLikedReviews');
         };
-    
-        let update = async(item) => {
-            this.props.navigation.navigate('UpdateReview', {'review':item});
-        };
-        
         return (
             <View style = {styleCSS.container}>
-                <Text style={ styleCSS.title }>View All Reviews</Text>
+                <Text style={ styleCSS.title }>View All Liked Reviews</Text>
                 <FlatList
-                    data={this.state.reviewDetails.reviews}
+                    data={this.state.reviewDetails}
                     keyExtractor={item => item.review.review_id.toString()}
                     renderItem={({item}) => (  
                         <View style={styleCSS.list}>    
@@ -85,19 +80,11 @@ export default class MyReviews extends Component {
                                     <Text style={styleCSS.textDetails}>Details: {item.review.review_body}</Text>
                                 </Body>
                                 <Right>
-                                    <TouchableOpacity onPress={() => update(item)}>
-                                        <Image
-                                            style={styleCSS.edit}
-                                            resizeMode='contain'
-                                            source={ require('../Images/E.png')}
-                                        />
-                                    </TouchableOpacity>
-                                    <View style ={{padding:5}}></View>
                                     <TouchableOpacity onPress={() => bin(item.review.review_id, item.location.location_id)}>
                                         <Image
                                             style={styleCSS.bin}
                                             resizeMode='contain'
-                                            source={ require('../Images/D.png')}
+                                            source={ require('../Images/TD.png')}
                                         />
                                     </TouchableOpacity>
                                 </Right>

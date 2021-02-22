@@ -24,6 +24,7 @@ export default class RemoveLikedReview extends Component {
             console.log("Removing Liked Review");
             ToastAndroid.show("Removed",ToastAndroid.SHORT);
             this.props.navigation.navigate('ReviewDetails');
+            ToastAndroid.show("Refresh Page for Updates",ToastAndroid.SHORT); 
         })
         .catch((error) => {
             console.log(error);
