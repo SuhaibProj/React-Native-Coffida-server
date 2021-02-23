@@ -8,11 +8,10 @@ export default class MyAccount extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            id: '',
-            firstName: '',
-            lastName: '',
+            uId: '',
+            fName: '',
+            lName: '',
             email: '',
-            password: '',
             listDetails: [],
         }
     }
@@ -23,9 +22,9 @@ export default class MyAccount extends Component {
 
     getDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@id');
+        const uId = await AsyncStorage.getItem('@id');
         console.log("Session Variable: " + session);
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ uId, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
         .then((response) => {
@@ -38,10 +37,10 @@ export default class MyAccount extends Component {
         .then((responseJSON) => {
             console.log(responseJSON)
             this.setState({
-                id: responseJSON.user_id,
+                uId: responseJSON.user_id,
                 email: responseJSON.email,  
-                firstName: responseJSON.first_name,
-                lastName: responseJSON.last_name,
+                fName: responseJSON.first_name,
+                lName: responseJSON.last_name,
             });
         })
         .catch((error) => {
@@ -63,8 +62,8 @@ export default class MyAccount extends Component {
                             <View style = {styleCSS.textDetails}>  
                                 <Text style = {styleCSS.textDetails}>My Details:</Text>   
                                 <View style = {{marginVertical:5}}></View>
-                                <Text style = {styleCSS.textDetails}>First Name: {this.state.firstName}</Text>
-                                <Text style = {styleCSS.textDetails}>Last Name: {this.state.lastName}</Text>
+                                <Text style = {styleCSS.textDetails}>First Name: {this.state.fName}</Text>
+                                <Text style = {styleCSS.textDetails}>Last Name: {this.state.lName}</Text>
                                 <Text style = {styleCSS.textDetails}>Email: {this.state.email}</Text>
                             </View>
                     </ListItem>

@@ -9,7 +9,6 @@ export default class MyReviews extends Component {
         super(props)
         this.state = {
             reviewDetails:[],
-            arrow:'>',
         };
     }
 
@@ -42,8 +41,6 @@ export default class MyReviews extends Component {
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     }
-
-    
 
     render() { 
         let bin = async(review_id, location_id) => {

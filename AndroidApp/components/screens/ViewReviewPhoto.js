@@ -1,50 +1,37 @@
 import React from 'react'
 import { Component } from 'react'
-import { Alert, Text, View, Image, StyleSheet, TouchableOpacity, ToastAndroid, LogBox} from 'react-native'
+import { Text, View, Image, StyleSheet, TouchableOpacity, ToastAndroid, LogBox} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class ViewReviewPhoto extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            iURL:'',
+            photoAddress:'',
         };
     }
 
     componentDidMount() {
-        this.getPhoto();
-        //LogBox.ignoreAllLogs(true)
-      }
+        this.retrievePhoto();
+        LogBox.ignoreAllLogs(true); //remmove irrelevant warnings
+    }
     
-    getPhoto = async () => {
+    //get token, review and location id's from async storage.
+    retrievePhoto = async () => {
         const session = await AsyncStorage.getItem('@session_token');
-        const location_id = await AsyncStorage.getItem('@location_id');
-        const review_id = await AsyncStorage.getItem('@review_id');
-        return fetch('http://10.0.2.2:3333/api/1.0.0/location/' + location_id + '/review/' + review_id + '/photo', {
-            headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
+        const lId = await AsyncStorage.getItem('@location_id');
+        const rId = await AsyncStorage.getItem('@review_id');
+        return fetch('http://10.0.2.2:3333/api/1.0.0/location/' + lId + '/review/' + rId + '/photo', {
+            headers: {'Content-Type': 'image/jpeg', 'X-Authorization': session,},
         })
         .then((response) => {
-            Alert.prompt(response.status.valueOf(200));
-            this.setState({ iURL: response.url + '?timestamp=' + Date.now(), });
-            this.state.iURL.toString();
-            console.log('URL:', this.state.iURL);
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-    };
-
-    deletePhoto = async () => {
-        const session = await AsyncStorage.getItem('@session_token');
-        const location_id = await AsyncStorage.getItem('@location_id');
-        const review_id = await AsyncStorage.getItem('@review_id');
-        return fetch('http://10.0.2.2:3333/api/1.0.0/location/' + location_id + '/review/' + review_id + '/photo', {
-            method: 'delete',    
-            headers: { 'Content-Type': 'image/jpeg', 'X-Authorization': session, },},
-        )
-        .then(() => {
-            ToastAndroid.show('Photo deleted!', ToastAndroid.SHORT);
-            this.props.navigation.navigate('MyReviews');
+            if(response.status === 200) { 
+                this.setState({ photoAddress: response.url + '?timestamp=' + Date.now(), }); 
+            }
+            else if (response.status === 401){ throw "Unauthorised"; }
+            else if (response.status === 404){ throw "Not Found"; }
+            else if (response.status === 500){ throw "Server Error"; }
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .catch((error) => {
             console.error(error);
@@ -52,12 +39,13 @@ export default class ViewReviewPhoto extends Component {
     };
 
     render() {
-        console.log('Render URL:', this.state.iURL);
+        console.log('Render URL:', this.state.photoAddress);
         return (
             <View style={styleCSS.container}>
-                <Image style={styleCSS.image} source={{uri: this.state.iURL}} />
+                <Text style={ styleCSS.title }>View Review Photo</Text>
+                <Image style={ styleCSS.photo } source={{uri: this.state.photoAddress}} />
                 <View style ={{padding:5}}></View>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.deletePhoto()}>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.props.navigation.navigate('DeleteReviewPhoto')}>
                     <Text style = {styleCSS.textDetails}>Delete</Text>
                 </TouchableOpacity> 
             </View>
@@ -84,33 +72,19 @@ const styleCSS = StyleSheet.create({
         textShadowRadius:5,
         fontSize: 15,
     },
-    text: {
-        color:'white',
-        alignSelf: 'center',
-        textShadowRadius:5,
-        fontSize: 15,
-    },
     button: {
         alignSelf: 'center',
-        width: '100%', 
+        width: '50%', 
         backgroundColor: "#f1c50b",
         padding: 15,
         borderRadius:10,
     },
-    list: {
-        marginVertical: 10, 
-        marginHorizontal:10,
-        backgroundColor: "#f1c50b",
-        padding: 10,
-        borderRadius:10,
-    },
-    location: {
-        alignSelf:'center',
-        textShadowRadius:5,
-        marginTop:'5%',
-        marginRight:20,
-        borderColor:'white',
-        paddingRight:10,
-        borderRightWidth:1,  
+    photo: {
+        resizeMode:'contain',
+        marginTop:10,
+        marginBottom: 30,
+        width:200,
+        height:200,
+        alignSelf: 'center',
     },
 });
