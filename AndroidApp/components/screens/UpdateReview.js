@@ -11,18 +11,11 @@ export default class UpdateReview extends Component {
         super(props)
         this.state = {
             reviewDetails: '',
-
             overall_rating:'',
             price_rating:'',
             quality_rating:'',
             clenliness_rating:'',
             review_body:'',
-
-            orig_overall_rating:'',
-            orig_price_rating:'',
-            orig_quality_rating:'',
-            orig_clenliness_rating:'',
-            orig_review_body:'',
         };
     }
 
@@ -48,6 +41,7 @@ export default class UpdateReview extends Component {
         console.log("clenliness_rating:",review.review.clenliness_rating);
         console.log("review_body:",review.review.review_body);
 
+        //check IF statement is correct.
         console.log(review.review.overall_rating != this.state.overall_rating, review.review.overall_rating, this.state.overall_rating)
 
         if (review.review.overall_rating != this.state.overall_rating){
@@ -67,11 +61,9 @@ export default class UpdateReview extends Component {
         }
 
         const session = await AsyncStorage.getItem('@session_token');
-        const rID = review.review.review_id;
-        const lID = review.location.location_id;
-        //const location_id = await AsyncStorage.getItem('@location_id');
-        //const review_id = await AsyncStorage.getItem('@review_id');
-        return fetch('http://10.0.2.2:3333/api/1.0.0/location/'+ lID+'/review/'+rID, {
+        const review_id = review.review.review_id;
+        const location_id = review.location.location_id;
+        return fetch('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id+'/review/'+review_id, {
             method: 'patch',
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
             body: JSON.stringify(database_info)

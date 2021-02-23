@@ -54,15 +54,19 @@ export default class MyReviews extends Component {
             this.props.navigation.navigate('DeleteReview');
         };
 
-        let cam = async(review_id, location_id) => {
+        let img = async(review_id, location_id) => {
             await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
             console.log("My Review ID:" , review_id);
             console.log("My Location ID:" , location_id);
-            this.props.navigation.navigate('AddReviewPhoto');
+            this.props.navigation.navigate('ViewReviewPhoto');
         };
+
+        let cam = (item) => {
+            this.props.navigation.navigate('AddReviewPhoto', {'review':item});
+        }
     
-        let update = async(item) => {
+        let update = (item) => {
             this.props.navigation.navigate('UpdateReview', {'review':item});
         };
         
@@ -109,11 +113,19 @@ export default class MyReviews extends Component {
                                         />
                                     </TouchableOpacity>
                                     <View style ={{padding:5}}></View>
-                                    <TouchableOpacity onPress={() => cam(item.review.review_id, item.location.location_id)}>
+                                    <TouchableOpacity onPress={() => cam(item)}>
                                         <Image
                                             style={styleCSS.icons}
                                             resizeMode='contain'
                                             source={ require('../Images/C.png')}
+                                        />
+                                    </TouchableOpacity>
+                                    <View style ={{padding:5}}></View>
+                                    <TouchableOpacity onPress={() => img(item.review.review_id, item.location.location_id)}>
+                                        <Image
+                                            style={styleCSS.icons}
+                                            resizeMode='contain'
+                                            source={ require('../Images/I.png')}
                                         />
                                     </TouchableOpacity>
                                 </Right>
