@@ -37,6 +37,8 @@ import LikeReviewScreen from './components/screens/LikeReview';
 import RemoveLikedReviewScreen from './components/screens/RemoveLikedReview';
 import ViewLikedReviewsScreen from './components/screens/ViewLikedReviews';
 
+import ViewGeoLocationScreen from './components/screens/ViewGeoLocation';
+
 const Stack = createStackNavigator();
 
 export default class App extends React.Component {
@@ -69,6 +71,7 @@ export default class App extends React.Component {
             <Stack.Screen name="LikeReview" component={LikeReviewScreen} options={{ title: 'Like Review' , headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
             <Stack.Screen name="RemoveLikedReview" component={RemoveLikedReviewScreen} options={{ title: 'Remove Liked Review' , headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
             <Stack.Screen name="ViewLikedReviews" component={ViewLikedReviewsScreen} options={{ title: 'View Liked Reviews' , headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
+            <Stack.Screen name="ViewGeoLocation" component={ViewGeoLocationScreen} options={{ title: 'Locations Map' , headerTintColor: 'white', headerStyle: {backgroundColor: '#404040'}}}/>
           </Stack.Navigator>
         </NavigationContainer>
     );

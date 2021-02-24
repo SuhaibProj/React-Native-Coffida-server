@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, Image, BackHandler} from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView, BackHandler} from 'react-native'
 import Divider from 'react-native-divider'
 
 export default class AuthUser extends Component {
@@ -24,7 +24,7 @@ export default class AuthUser extends Component {
         const navig = this.props.navigation;
 
         return (
-            <View style = {styleCSS.container}> 
+            <ScrollView style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Personal Home Page</Text>
                 <View style={{marginVertical:30}}>
                     <Image source={require('../Images/BG.png')} style={styleCSS.imageConfig}/>
@@ -38,12 +38,14 @@ export default class AuthUser extends Component {
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ViewLocations')}>
                     <Text style = {styleCSS.textDetails}>Locations</Text>
                 </TouchableOpacity>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ViewGeoLocation')}>
+                    <Text style = {styleCSS.textDetails}>View Map</Text>
+                </TouchableOpacity>
                 <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('Logout')}>
                     <Text style = {styleCSS.textDetails}>Logout</Text>
                 </TouchableOpacity>
-
-            </View>
+            </ScrollView>
             
         );    
     }

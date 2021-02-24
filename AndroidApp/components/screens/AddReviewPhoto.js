@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, ToastAndroid, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, ToastAndroid, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RNCamera} from 'react-native-camera';
 
@@ -42,7 +42,7 @@ export default class AddReviewPhoto extends Component {
                     this.camera = ref;
                 }}/>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.capture()}>
-                    <Text style = {styleCSS.textDetails}>Capture</Text>
+                    <Image style={styleCSS.location} resizeMode='contain' source={require('../Images/CS.png')}></Image>
                 </TouchableOpacity> 
             </View>
         );
@@ -60,15 +60,19 @@ const styleCSS = StyleSheet.create({
     },
     button: {
         alignSelf: 'center',
-        
         width: '100%', 
         backgroundColor: "#f1c50b",
-        padding: 15,
+        padding: 10,
         borderRadius:10,
     },
     textDetails: {
         alignSelf: 'center',
         textShadowRadius:5,
         fontSize: 15,
+    },
+    location: {
+        width:55,
+        height:55,
+        alignSelf: 'center', 
     },
 });

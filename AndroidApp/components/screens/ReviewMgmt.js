@@ -1,7 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'
-import Divider from 'react-native-divider'
 
 export default class ReviewMgmt extends Component {
     constructor (props) {

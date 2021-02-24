@@ -20,6 +20,7 @@ export default class MyAccount extends Component {
         this.getDetails();
     }
 
+    //get token, and user id from async storage.
     getDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token');
         const uId = await AsyncStorage.getItem('@id');

@@ -12,7 +12,8 @@ export default class Locations extends Component {
             locationData: [],
             notFollowing: true,
             location_id: '',
-            arrow: '>'
+            
+            searchQuery:'',
         }
     }
 
@@ -55,7 +56,9 @@ export default class Locations extends Component {
 
         return (
             <View style = {styleCSS.container}>
-                <Text style ={styleCSS.title}>View All Locations</Text>
+                <Text style ={styleCSS.title}>View Locations</Text>
+                {/* <TextInput style={styleCSS.input}placeholder="Search" placeholderTextColor='grey' 
+                    onChangeText={this.handleSearch}/> */}
                 <FlatList
                     data={this.state.locationData}
                     keyExtractor={item => item.location_id.toString()}
@@ -143,5 +146,16 @@ const styleCSS = StyleSheet.create({
         width:40,
         height:40,
         alignSelf:'center',
+    },
+    input: {
+        justifyContent: 'center',
+        height: 45,
+        width: '90%',
+        paddingStart: 20,
+        fontSize: 15,
+        backgroundColor: '#404040',
+        marginVertical: 10,
+        alignSelf: 'center',
+        color:'white',
     },
 });

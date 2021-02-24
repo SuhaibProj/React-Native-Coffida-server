@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, Image, StyleSheet, TouchableOpacity, ToastAndroid, LogBox} from 'react-native'
+import { Text, View, Image, StyleSheet, TouchableOpacity, ToastAndroid, ScrollView, LogBox} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default class ViewReviewPhoto extends Component {
@@ -39,15 +39,16 @@ export default class ViewReviewPhoto extends Component {
     };
 
     render() {
-        console.log('Render URL:', this.state.photoAddress);
         return (
             <View style={styleCSS.container}>
                 <Text style={ styleCSS.title }>View Review Photo</Text>
-                <Image style={ styleCSS.photo } source={{uri: this.state.photoAddress}} />
+                <ScrollView>
+                    <Image style={ styleCSS.photo } source={{uri: this.state.photoAddress}} />
+                </ScrollView>
                 <View style ={{padding:5}}></View>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.props.navigation.navigate('DeleteReviewPhoto')}>
                     <Text style = {styleCSS.textDetails}>Delete</Text>
-                </TouchableOpacity> 
+                </TouchableOpacity>
             </View>
         );
     }
@@ -74,7 +75,7 @@ const styleCSS = StyleSheet.create({
     },
     button: {
         alignSelf: 'center',
-        width: '50%', 
+        width: '100%', 
         backgroundColor: "#f1c50b",
         padding: 15,
         borderRadius:10,
@@ -83,8 +84,8 @@ const styleCSS = StyleSheet.create({
         resizeMode:'contain',
         marginTop:10,
         marginBottom: 30,
-        width:200,
-        height:200,
+        width:450,
+        height:550,
         alignSelf: 'center',
     },
 });
