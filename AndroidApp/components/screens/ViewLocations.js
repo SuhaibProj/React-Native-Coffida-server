@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
 import Divider from 'react-native-divider'
 
+/* Class that initiates a GET request to API to retrieve all the locations and displays result with UI */
+
 export default class Locations extends Component {
     constructor (props) {
         super(props)
@@ -159,3 +161,19 @@ const styleCSS = StyleSheet.create({
         color:'white',
     },
 });
+
+
+/* import { Rating, AirbnbRating } from 'react-native-elements';
+
+ratingCompleted(rating) {
+  console.log("Rating is: " + rating)
+}
+
+<AirbnbRating />
+
+<AirbnbRating
+  count={11}
+  reviews={["Terrible", "Bad", "Meh", "OK", "Good", "Hmm...", "Very Good", "Wow", "Amazing", "Unbelievable", "Jesus"]}
+  defaultRating={11}
+  size={20}
+/> */

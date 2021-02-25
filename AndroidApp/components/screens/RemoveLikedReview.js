@@ -3,6 +3,9 @@ import { Component } from 'react'
 import { View, StyleSheet, ToastAndroid, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+/* Class that initiates a DELETE request to API to DELETE liked reviews for 
+    specific review*/
+
 export default class RemoveLikedReview extends Component {
     constructor (props) {
         super(props)
@@ -20,11 +23,17 @@ export default class RemoveLikedReview extends Component {
             method: 'delete',    
             headers: {'X-Authorization': session,},
         })
-        .then(() => {
-            console.log("Removing Liked Review");
-            ToastAndroid.show("Removed",ToastAndroid.SHORT);
-            this.props.navigation.navigate('ReviewDetails');
-            ToastAndroid.show("Refresh Page for Updates",ToastAndroid.SHORT); 
+        .then((response) => {
+            if(response.status === 200) { 
+                this.props.navigation.navigate('ViewLikedReviews');
+                ToastAndroid.show("Liked Review Removed",ToastAndroid.SHORT);
+            }
+            else if (response.status === 400){ throw "Bad Request"; }
+            else if (response.status === 401){ throw "Unauthorised"; }
+            else if (response.status === 403){ throw "Forbidden"; }
+            else if (response.status === 404){ throw "Not Found"; }
+            else if (response.status === 500){ throw "Server Error"; }
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .catch((error) => {
             console.log(error);

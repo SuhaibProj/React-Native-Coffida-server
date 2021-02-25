@@ -3,33 +3,35 @@ import { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
-import { Right, ListItem, Left,Thumbnail } from 'native-base';
+import { ListItem, Left,Thumbnail } from 'native-base';
+
+/* Class that initiates a GET request to API to retrieve location Details for the 
+    specific location and displays result with UI */
 
 export default class LocationDetails extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            notFollowing: true,
-
-            location_id:'',
-            location_name: '',
-            location_town: '',
-            avg_clenliness_rating:'',
-            avg_overall_rating:'',
-            avg_price_rating:'',
+            locationId:'',
+            locationName: '',
+            locationTown: '',
+            avgCleanlinessRating:'',
+            avgOverallRating:'',
+            avgPriceRating:'',
             latitude:'',
             longitude:'',
         };
     }
 
+    //Run at screen load
     componentDidMount() {
         this.locationDetails();
     }
 
     locationDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token') ;
-        const location_id = await AsyncStorage.getItem('@location_id');
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id, {
+        const lId = await AsyncStorage.getItem('@location_id');
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ lId, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
         .then((response) => {
@@ -41,12 +43,12 @@ export default class LocationDetails extends Component {
         })
         .then((responseJSON) => {
             this.setState({
-                location_id:responseJSON.location_id,
-                location_name: responseJSON.location_name,
-                location_town: responseJSON.location_town,
-                avg_clenliness_rating: responseJSON.avg_clenliness_rating,
-                avg_overall_rating: responseJSON.avg_overall_rating,
-                avg_price_rating: responseJSON.avg_price_rating,
+                locationId:responseJSON.location_id,
+                locationName: responseJSON.location_name,
+                locationTown: responseJSON.location_town,
+                avgCleanlinessRating: responseJSON.avg_clenliness_rating,
+                avgOverallRating: responseJSON.avg_overall_rating,
+                avgPriceRating: responseJSON.avg_price_rating,
                 latitude: responseJSON.latitude,
                 longitude: responseJSON.longitude
             });
@@ -57,63 +59,37 @@ export default class LocationDetails extends Component {
         });
     }
 
-    changeFavourites = async() => {
-        const newState = !this.state.notFollowing;
-        const {notFollowing} = this.state;
-        this.setState({
-            notFollowing:newState,
-        });
-        console.log("The User is currently Follwing Location: ",this.state.notFollowing);
-        notFollowing?this._Following():this._notFollowing();
-    }
-
-    _Following = () => {
-        this.props.navigation.navigate('FavouriteLocations');
-    }
-
-    _notFollowing = () => {
-        this.props.navigation.navigate('RemoveFavouriteLocations');
-    }
-
     render() {
         const navig = this.props.navigation; 
-        const {notFollowing} = this.state;
-        const textFollowing = notFollowing?"Add to Favourites":"Remove from Favourites";
         return (
             <View style = {styleCSS.container}>
                 <Text style={styleCSS.title}>Location Details: </Text>
                 <View style={styleCSS.list}>
-                    <ListItem key={this.state.location_id} avatar>
+                    <ListItem key={this.state.locationId} avatar>
                         <Left>
                             <TouchableOpacity onPress={() => this.props.navigation.navigate('ViewLocations')}>
                                 <View style={styleCSS.location}>
                                     <Thumbnail style={{alignSelf: 'center'}} source={require('../Images/H.png')}/>
-                                    <Text style={{textAlign:'center'}}>{this.state.location_name}</Text>
+                                    <Text style={{textAlign:'center'}}>{this.state.locationName}</Text>
                                 </View>
                             </TouchableOpacity>
                         </Left>
                         <View style = {styleCSS.textDetails}>  
-                            <Text>Location: {this.state.location_town}</Text>
-                            <Text>Average Cleanliness Rating: {this.state.avg_clenliness_rating}</Text>
-                            <Text>Average Overall Rating: {this.state.avg_overall_rating}</Text>
-                            <Text>Average Price Rating: {this.state.avg_price_rating}</Text>
+                            <Text>Location Town: {this.state.locationTown}</Text>
+                            <Text>Average Cleanliness Rating: {this.state.avgCleanlinessRating}</Text>
+                            <Text>Average Overall Rating: {this.state.avgOverallRating}</Text>
+                            <Text>Average Price Rating: {this.state.avgPriceRating}</Text>
                             <Text>Latitude: {this.state.latitude}</Text>
                             <Text>Longitude: {this.state.longitude}</Text>
                         </View>
-                        <Right>
-                            
-                        </Right>
                     </ListItem>
                 </View>
-
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
-                
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.changeFavourites()}>
-                        <Text style = {styleCSS.textDetails}>{textFollowing}</Text>
+                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.props.navigation.navigate('FavouriteLocations')}>
+                    <Text style = {styleCSS.textDetails}>Add to Favourites</Text>
                 </TouchableOpacity>
-
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('ReviewDetails')}>
-                        <Text style = {styleCSS.textDetails}>Reviews</Text>
+                    <Text style = {styleCSS.textDetails}>Location Reviews</Text>
                 </TouchableOpacity>
             </View>
         );

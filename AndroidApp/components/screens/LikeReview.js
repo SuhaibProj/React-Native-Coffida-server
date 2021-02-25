@@ -3,6 +3,9 @@ import { Component } from 'react'
 import { View, StyleSheet, ToastAndroid, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+/* Class that initiates a POST request to API to CREATE a Liked review for the 
+    specific review and displays result with UI */
+
 export default class LikeReview extends Component {
     constructor (props) {
         super(props)
@@ -20,10 +23,16 @@ export default class LikeReview extends Component {
             method: 'post',    
             headers: {'X-Authorization': session,},
         })
-        .then(() => {
-            console.log("Adding Liked Review");
-            ToastAndroid.show("Liked",ToastAndroid.SHORT);
-            this.props.navigation.navigate('ReviewDetails');
+        .then((response) => {
+            if(response.status === 200) { 
+                this.props.navigation.navigate('ReviewDetails');
+                throw "Review Liked"
+            }
+            else if (response.status === 400){ throw "Bad Request"; }
+            else if (response.status === 401){ throw "Unauthorised"; }
+            else if (response.status === 404){ throw "Not Found"; }
+            else if (response.status === 500){ throw "Server Error"; }
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .catch((error) => {
             console.log(error);

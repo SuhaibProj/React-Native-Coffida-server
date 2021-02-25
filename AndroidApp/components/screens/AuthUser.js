@@ -3,26 +3,26 @@ import { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView, BackHandler} from 'react-native'
 import Divider from 'react-native-divider'
 
+/* Class that displays the immediate Logged-in Menu once authorised as a result with UI */
+
 export default class AuthUser extends Component {
     constructor (props) {
         super(props)
-
+        //Disable Back button to not allow user to get back to the login page.
         this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
     }
-
+    
+    //Run at screen load
     componentDidMount() {
+        //Disable Back button to not allow user to get back to the login page.
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
 
-
-    handleBackButtonClick() {
-        return true;
-    }
+    //Disable Back button to not allow user to get back to the login page.
+    handleBackButtonClick() { return true; }
 
     render() {
-        
         const navig = this.props.navigation;
-
         return (
             <ScrollView style = {styleCSS.container}> 
                 <Text style ={styleCSS.title}>Welcome to your Personal Home Page</Text>

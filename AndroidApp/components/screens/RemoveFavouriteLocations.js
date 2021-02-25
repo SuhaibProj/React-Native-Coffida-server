@@ -3,15 +3,18 @@ import { Component } from 'react'
 import { View, StyleSheet, ToastAndroid, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+/* Class that initiates a DELETE request to API to DELETE user-favourited locations
+    for specific location*/
+
 export default class RemoveFavouriteLocations extends Component {
     constructor (props) {
         super(props)
     }
 
+    //Run at screen load
     componentDidMount(){
         this.inputfavourite();
     }
-
 
     inputfavourite = async () => {
         const session = await AsyncStorage.getItem('@session_token');
@@ -20,11 +23,16 @@ export default class RemoveFavouriteLocations extends Component {
             method: 'delete',    
             headers: {'X-Authorization': session,},
         })
-        .then(() => {
-            console.log("Deleting Favourite Location");
-            ToastAndroid.show("Location Deleted",ToastAndroid.SHORT);
-            this.props.navigation.navigate('ViewFavouriteLocations');
-            ToastAndroid.show("Refresh Page for Updates",ToastAndroid.SHORT); 
+        .then((response) => {
+            if(response.status === 200) { 
+                this.props.navigation.navigate('ViewFavouriteLocations');
+                ToastAndroid.show("Location Deleted",ToastAndroid.SHORT);
+            }
+            else if (response.status === 401){ throw "Unauthorised"; }
+            else if (response.status === 403){ throw "Forbidden"; }
+            else if (response.status === 404){ throw "Not Found"; }
+            else if (response.status === 500){ throw "Server Error"; }
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .catch((error) => {
             console.log(error);

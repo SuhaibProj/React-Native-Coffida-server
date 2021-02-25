@@ -4,6 +4,9 @@ import { Text, View, StyleSheet, ToastAndroid, FlatList, Image, TouchableOpacity
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
 
+/* Class that initiates a GET request to API to retrieve and display all the 
+    user-favourited locations within the UI through querying from the FIND endpoint */
+
 export default class ViewFavouriteLocations extends Component {
     constructor (props) {
         super(props)
@@ -12,11 +15,12 @@ export default class ViewFavouriteLocations extends Component {
         }
     }
 
+    //Run at screen load
     componentDidMount(){
-        this.inputfavourite();
+        this.viewfavourite();
     }
 
-    inputfavourite = async() => {
+    viewfavourite = async() => {
         const session = await AsyncStorage.getItem('@session_token');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/find?search_in=favourite', {  
             headers: {'Content-Type': 'application/json','X-Authorization': session,},
@@ -42,9 +46,8 @@ export default class ViewFavouriteLocations extends Component {
     }
 
     render(){
-        let bin = async(location_id) => {
-            await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
-            console.log("My Location ID:" , location_id);
+        let bin = async(lId) => {
+            await AsyncStorage.setItem('@location_id', JSON.stringify(lId));
             this.props.navigation.navigate('RemoveFavouriteLocations');
         };
         return(

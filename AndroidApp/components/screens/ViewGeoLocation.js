@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, PermissionsAndroid, ToastAndroid, Image, Button } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, PermissionsAndroid, ToastAndroid, Image } from 'react-native'
 import Geolocation from 'react-native-geolocation-service';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
@@ -65,7 +65,6 @@ export default class ViewGeoLocation extends Component {
     render() {
         return (
             <View style = { styleCSS.container }> 
-                <Button title="Get my coords" onPress={() => {this.findCoordinates()}}/>
                 <Text>Location: { this.state.location }</Text>
             </View>
         )

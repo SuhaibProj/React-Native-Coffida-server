@@ -4,21 +4,23 @@ import { Text, View, TouchableOpacity, StyleSheet, FlatList, ToastAndroid, Image
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
 
+/* Class that initiates a GET request to API using FIND endpoint 
+   to retrieve coffee locations and displays result with UI, this class
+   differs with the generic GET locations by specifically redirecting to the
+   Add Review Page instead of location Details Page. */
+
 export default class AddReviewLocations extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            locationData: [],
-            notFollowing: true,
-            location_id: '',
-            arrow: '>'
+            locationData: []
         }
     }
 
+    //Run at screen load
     componentDidMount() {
         this.getLocations();
     }
-
 
     getLocations = async () => {
         const session = await AsyncStorage.getItem('@session_token')
@@ -33,11 +35,8 @@ export default class AddReviewLocations extends Component {
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then((responseJSON) => {
-            this.setState({
-                locationData: responseJSON,
-            });
+            this.setState({ locationData: responseJSON });
             this.state.locationData.toString();
-            console.log('The Entire Location Details are:', this.state.locationData);
         })
         .catch((error) => {
             console.log(error);

@@ -1,6 +1,8 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'
+import { Text, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'
+
+/* Class that displays a management screen dedicated for reviews section in designed UI */
 
 export default class ReviewMgmt extends Component {
     constructor (props) {

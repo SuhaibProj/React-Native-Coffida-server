@@ -1,17 +1,21 @@
 import React from 'react'
-import { Component, useState } from 'react'
+import { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid, Image, ScrollView } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
+
+/* Class that initiates both a GET and UPDATE request to API to first pre-populate the data with 
+    the users current details and then upon change, update the user details and displays result with UI */
+
 export default class UpdateDeails extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            user_id:'',
-            first_name: '',
-            last_name: '',
+            uId:'',
+            fName: '',
+            lName: '',
             email: '',
-            password: '',
+            pass: '',
         };
     }
 
@@ -21,9 +25,9 @@ export default class UpdateDeails extends Component {
 
     getDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token')
-        const user_id = await AsyncStorage.getItem('@id')
+        const uId = await AsyncStorage.getItem('@id')
         console.log("Session Variable: " + session)
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ user_id, {
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ uId, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
         .then((response) => {
@@ -36,10 +40,10 @@ export default class UpdateDeails extends Component {
         .then((responseJSON) => {
             console.log(responseJSON)
             this.setState({
-                user_id: responseJSON.user_id,
+                uId: responseJSON.user_id,
                 email: responseJSON.email,  
-                first_name: responseJSON.first_name,
-                last_name: responseJSON.last_name,
+                fName: responseJSON.first_name,
+                lName: responseJSON.last_name,
             });
         })
         .catch((error) => {
@@ -50,26 +54,24 @@ export default class UpdateDeails extends Component {
 
     onUpdate  = async () => {
         let database_info = {
-            first_name: this.state.first_name,
-            last_name: this.state.last_name,
+            first_name: this.state.fName,
+            last_name: this.state.lName,
             email: this.state.email,
-            password: this.state.password,
+            password: this.state.pass,
         };
         const session = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@id');
+        const uId = await AsyncStorage.getItem('@id');
         console.log("User ID in UpdateUser: "+id);
         console.log("User Session Token in UpdateUser: "+session);
-        return fetch('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
+        return fetch('http://10.0.2.2:3333/api/1.0.0/user/'+ uId, {
             method: 'patch',
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
             body: JSON.stringify(database_info)
         })
         .then((response) => {
             if(response.status === 200) { 
-                console.log("User Details Updated");
-                ToastAndroid.show("Details Updated",ToastAndroid.SHORT);
                 this.props.navigation.navigate("MyAccount");
-                ToastAndroid.show("Refresh Page for Updates",ToastAndroid.SHORT); 
+                ToastAndroid.show("Details Updated",ToastAndroid.SHORT); 
             }
             else if (response.status === 400){ throw "Bad Request"; }
             else if (response.status === 401){ throw "Unauthorised"; }
@@ -97,18 +99,18 @@ export default class UpdateDeails extends Component {
                         placeholderTextColor='grey'   
                     />
                     <TextInput style = {styleCSS.input} placeholder={'First Name'}  
-                        onChangeText = {(first_name) => this.setState({first_name})} 
-                        value={this.state.first_name} 
+                        onChangeText = {(fName) => this.setState({fName})} 
+                        value={this.state.fName} 
                         placeholderTextColor='grey' 
                     />
                     <TextInput style = {styleCSS.input} placeholder={'Last Name'} 
-                        onChangeText = {(last_name) => this.setState({last_name})} 
-                        value={this.state.last_name}  
+                        onChangeText = {(lName) => this.setState({lName})} 
+                        value={this.state.lName}  
                         placeholderTextColor='grey'  
                     />
                     <TextInput style = {styleCSS.input} placeholder={'Password'} secureTextEntry = {true} 
-                        onChangeText = {(password) => this.setState({password})} 
-                        value={this.state.password} 
+                        onChangeText = {(pass) => this.setState({pass})} 
+                        value={this.state.pass} 
                         placeholderTextColor='grey' 
                     />
                 </View>    

@@ -3,6 +3,8 @@ import { Component } from 'react'
 import { Text, View, Image, StyleSheet, TouchableOpacity, ToastAndroid, ScrollView, LogBox} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+/* Class that initiates a GET request to API to retrieve location photo taken by user(s) and displays result with UI */
+
 export default class ViewReviewPhoto extends Component {
     constructor (props) {
         super(props)
@@ -11,17 +13,21 @@ export default class ViewReviewPhoto extends Component {
         };
     }
 
+    //Run at screen load
     componentDidMount() {
         this.retrievePhoto();
-        LogBox.ignoreAllLogs(true); //remmove irrelevant warnings
+        //remmove irrelevant warnings
+        LogBox.ignoreAllLogs(true); 
     }
     
+    
+
     //get token, review and location id's from async storage.
     retrievePhoto = async () => {
         const session = await AsyncStorage.getItem('@session_token');
         const lId = await AsyncStorage.getItem('@location_id');
         const rId = await AsyncStorage.getItem('@review_id');
-        return fetch('http://10.0.2.2:3333/api/1.0.0/location/' + lId + '/review/' + rId + '/photo', {
+        return fetch('http://10.0.2.2:3333/api/1.0.0/location/'+lId+'/review/'+rId+'/photo', {
             headers: {'Content-Type': 'image/jpeg', 'X-Authorization': session,},
         })
         .then((response) => {
@@ -47,7 +53,7 @@ export default class ViewReviewPhoto extends Component {
                 </ScrollView>
                 <View style ={{padding:5}}></View>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.props.navigation.navigate('DeleteReviewPhoto')}>
-                    <Text style = {styleCSS.textDetails}>Delete</Text>
+                    <Image style={styleCSS.location} resizeMode='contain' source={require('../Images/D.png')}></Image>
                 </TouchableOpacity>
             </View>
         );
@@ -76,7 +82,7 @@ const styleCSS = StyleSheet.create({
     button: {
         alignSelf: 'center',
         width: '100%', 
-        backgroundColor: "#f1c50b",
+        backgroundColor: "red",
         padding: 15,
         borderRadius:10,
     },
@@ -87,5 +93,10 @@ const styleCSS = StyleSheet.create({
         width:450,
         height:550,
         alignSelf: 'center',
+    },
+    location: {
+        width:30,
+        height:30,
+        alignSelf: 'center', 
     },
 });

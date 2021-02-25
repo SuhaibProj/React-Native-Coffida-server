@@ -3,30 +3,28 @@ import { Component } from 'react'
 import { Text, View, StyleSheet, Image, TouchableOpacity, ToastAndroid, FlatList} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
-import { ListItem, Body, Left, Thumbnail, Right, Header} from 'native-base';
+import { ListItem, Body, Right} from 'native-base';
+
+/* Class that initiates a GET request to API to retireve the reviews for a 
+    specified location based on location id and displays result with UI */
 
 export default class ReviewDetails extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            
-            arrow:'.',
-            notfollowing: true,
-            like: "Remove from Favourites",
-            normal: "Add to Favourites",
-
             reviewDetails:[],
         };
     }
 
+    //Run at screen load
     componentDidMount() {
         this.locationDetails();
     }
 
     locationDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token') ;
-        const location_id = await AsyncStorage.getItem('@location_id');
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id, {
+        const lId = await AsyncStorage.getItem('@location_id');
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ lId, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
 
@@ -50,16 +48,14 @@ export default class ReviewDetails extends Component {
     }
 
     render() { 
-        let like = async(review_id) =>{
-            await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
-            console.log("The review ID is: ",review_id);
+        let like = async(rId) =>{
+            await AsyncStorage.setItem('@review_id', JSON.stringify(rId));
             this.props.navigation.navigate('LikeReview');
         };
         const navig = this.props.navigation;
         return (
             <View style = {styleCSS.container}>
                 <Text style={styleCSS.title}>Review Details: </Text>
-                
                 <FlatList
                     data={this.state.reviewDetails}
                     keyExtractor={item => item.review_id.toString()}
@@ -67,7 +63,6 @@ export default class ReviewDetails extends Component {
                         <View style={styleCSS.list}>
                             <ListItem key={item.review_id} avatar>
                                 <Body>
-                                    <Text>Review ID: {item.review_id}</Text>
                                     <Text>Overall Rating: {item.overall_rating}</Text>
                                     <Text>Cleanliness Rating: {item.clenliness_rating}</Text>
                                     <Text>Likes: {item.likes}</Text>
@@ -77,11 +72,7 @@ export default class ReviewDetails extends Component {
                                 </Body>
                                 <Right>
                                     <TouchableOpacity onPress={() => like(item.review_id)}>
-                                        <Image
-                                            style={styleCSS.likes}
-                                            resizeMode='contain'
-                                            source={ require('../Images/T.png')}
-                                        />
+                                        <Image style={styleCSS.likes} resizeMode='contain' source={ require('../Images/T.png')}/>
                                     </TouchableOpacity>   
                                 </Right>
                             </ListItem>
@@ -92,8 +83,6 @@ export default class ReviewDetails extends Component {
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('AddReview')}>
                     <Text style = {styleCSS.textDetails}>Add Review</Text>
                 </TouchableOpacity>
-                
-                
             </View>
         );
     }

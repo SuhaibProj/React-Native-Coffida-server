@@ -1,73 +1,64 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid, FlatList} from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid} from 'react-native'
 import Divider from 'react-native-divider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { ListItem, Body, Left, Thumbnail, Right, Header} from 'native-base';
-import { ScrollView } from 'react-native-gesture-handler'
+
+/* Class that initiates an UPDATE request to API to update user review and displays result with UI */
 
 export default class UpdateReview extends Component {
     constructor (props) {
         super(props)
         this.state = {
             reviewDetails: '',
-            overall_rating:'',
-            price_rating:'',
-            quality_rating:'',
-            clenliness_rating:'',
-            review_body:'',
+            overallRating:'',
+            priceRating:'',
+            qualityRating:'',
+            clenlinessRating:'',
+            reviewBody:'',
         };
     }
 
+    //Run at screen load
     componentDidMount(){
+        this.setReviewData();
+    }
+
+    //Pre-populate data into state variables
+    setReviewData = () => {
         const review = this.props.route.params.review
         this.setState({
-            overall_rating:review.review.overall_rating,
-            price_rating:review.review.price_rating,
-            quality_rating:review.review.quality_rating,
-            clenliness_rating:review.review.clenliness_rating,
-            review_body:review.review.review_body,
-        })
-    }
+            overallRating:review.review.overall_rating,
+            priceRating:review.review.price_rating,
+            qualityRating:review.review.quality_rating,
+            clenlinessRating:review.review.clenliness_rating,
+            reviewBody:review.review.review_body,
+        });
+    };
+    
+    
     updateReview  = async () => {
-        let database_info = { };
-
+        let database_info = { }; 
         const review = this.props.route.params.review;
 
-        console.log("The Review variable is: ",review);
-        console.log("overall_Rating:",review.review.overall_rating);
-        console.log("price_rating:",review.review.price_rating);
-        console.log("quality_rating:",review.review.quality_rating);
-        console.log("clenliness_rating:",review.review.clenliness_rating);
-        console.log("review_body:",review.review.review_body);
+        //Check if inputs are different to database to update variables
+        if (review.review.overall_rating != this.state.overallRating) { database_info['overall_rating'] = parseInt(this.state.overallRating); }
+        if (review.review.price_rating != this.state.priceRating) { database_info['price_rating'] = parseInt(this.state.priceRating); }
+        if (review.review.quality_rating != this.state.qualityRating) { database_info['quality_rating'] = parseInt(this.state.qualityRating); }
+        if (review.review.clenliness_rating != this.state.clenlinessRating) { database_info['clenliness_rating'] = parseInt(this.state.clenlinessRating); }
+        if (review.review.review_body != this.state.reviewBody) { database_info['review_body'] = this.state.reviewBody; }
 
-        //check IF statement is correct.
-        console.log(review.review.overall_rating != this.state.overall_rating, review.review.overall_rating, this.state.overall_rating)
-
-        if (review.review.overall_rating != this.state.overall_rating){
-            database_info['overall_rating'] = parseInt(this.state.overall_rating);
-        }
-        if (review.review.price_rating != this.state.price_rating){
-            database_info['price_rating'] = parseInt(this.state.price_rating);
-        }
-        if (review.review.quality_rating != this.state.quality_rating){
-            database_info['quality_rating'] = parseInt(this.state.quality_rating);
-        }
-        if (review.review.clenliness_rating != this.state.clenliness_rating){
-            database_info['clenliness_rating'] = parseInt(this.state.clenliness_rating);
-        }
-        if (review.review.review_body != this.state.review_body){
-            database_info['review_body'] = this.state.review_body;
-        }
-
+        //Retireve location + review id + session token from async storage for Request.
         const session = await AsyncStorage.getItem('@session_token');
-        const review_id = review.review.review_id;
-        const location_id = review.location.location_id;
-        return fetch('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id+'/review/'+review_id, {
+        const rId = review.review.review_id;
+        const lId = review.location.location_id;
+        return fetch('http://10.0.2.2:3333/api/1.0.0/location/'+lId+'/review/'+rId, {
             method: 'patch',
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
             body: JSON.stringify(database_info)
         })
+
+        //Response on success + Error Handling
         .then((response) => {
             if(response.status === 200) { 
                 console.log("User Review Updated");
@@ -88,44 +79,42 @@ export default class UpdateReview extends Component {
         })
     };
 
+    //User Interface
     render() {
         const review = this.props.route.params.review;
-        console.log(review)
         return (
             <View style = { styleCSS.container }> 
                 <Text style={ styleCSS.title }>Edit Review Details</Text> 
                 <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
-                    onChangeText = {(overall_rating) => this.setState({overall_rating})} 
+                    onChangeText = {(overallRating) => this.setState({overallRating})} 
                     defaultValue={review.review.overall_rating.toString()} placeholderTextColor='grey'
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
-                    onChangeText = {(price_rating) => this.setState({price_rating})} 
+                    onChangeText = {(priceRating) => this.setState({priceRating})} 
                     defaultValue={review.review.price_rating.toString()} placeholderTextColor='grey'
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
-                    onChangeText = {(quality_rating) => this.setState({quality_rating})} 
+                    onChangeText = {(qualityRating) => this.setState({qualityRating})} 
                     defaultValue={review.review.quality_rating.toString()} placeholderTextColor='grey'
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
-                    onChangeText = {(clenliness_rating) => this.setState({clenliness_rating})} 
+                    onChangeText = {(clenlinessRating) => this.setState({clenlinessRating})} 
                     defaultValue={review.review.clenliness_rating.toString()} placeholderTextColor='grey' 
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
-                    onChangeText = {(review_body) => this.setState({review_body})} 
+                    onChangeText = {(reviewBody) => this.setState({reviewBody})} 
                     defaultValue={review.review.review_body} placeholderTextColor='grey'
                 />
                 <Divider orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.updateReview()}>
                     <Text style = {styleCSS.textDetails}>Submit</Text>
-                </TouchableOpacity>
-
-                
-                
+                </TouchableOpacity> 
             </View>
         );    
     }
 }
 
+//CSS written code for styling
 const styleCSS = StyleSheet.create({
     container: {
         flex: 1,

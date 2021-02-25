@@ -4,12 +4,14 @@ import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid, FlatList, Image
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
 
+/* Class that initiates a GET request to API to retrieve and display all the 
+    user-liked reviews within the UI */
+
 export default class ViewLikedReviews extends Component {
     constructor (props) {
         super(props)
         this.state = {
             reviewDetails:[],
-            arrow:'>',
         };
     }
 
@@ -23,7 +25,6 @@ export default class ViewLikedReviews extends Component {
         return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
-
         .then((response) => {
             if(response.status === 200) { return response.json(); }
             else if (response.status === 400){ throw "Bad Request"; }
@@ -46,12 +47,12 @@ export default class ViewLikedReviews extends Component {
     
 
     render() { 
-        let bin = async(review_id,location_id) => {
-            await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
-            await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
-            console.log("My Review ID:" , review_id);
-            console.log("My Location ID:" , location_id);
-            this.props.navigation.navigate('ViewLikedReviews');
+        let bin = async(rId,lId) => {
+            await AsyncStorage.setItem('@review_id', JSON.stringify(rId));
+            await AsyncStorage.setItem('@location_id', JSON.stringify(lId));
+            console.log("My Review ID:" , rId);
+            console.log("My Location ID:" , lId);
+            this.props.navigation.navigate('RemoveLikedReview');
         };
         return (
             <View style = {styleCSS.container}>

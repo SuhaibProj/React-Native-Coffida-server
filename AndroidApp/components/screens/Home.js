@@ -4,20 +4,25 @@ import { Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
 
+/* Class that displays the initial starting page of user and also performs check status for when 
+    user has logged in previously, thus able to log them in automatically the next time,
+    a display is also designed with UI */
+
 export default class Home extends Component {
     constructor (props) {
         super(props)
     }
+
+    //Run at screen load
     componentDidMount(){
         this.verifyLoggedIn();
     }
 
-
-    //check if session token stored already thus sign in already.
+    //check that if session token is stored already then sign in with that session token.
     verifyLoggedIn = async () => {
-        let checkToken = await AsyncStorage.getItem('@session_token');
-        console.log("Session token at HomePage is: ",checkToken);
-        if (checkToken !== null) { this.props.navigation.navigate('AuthUser'); }
+        let session = await AsyncStorage.getItem('@session_token');
+        console.log("Session token at HomePage is: ",session);
+        if (session !== null) { this.props.navigation.navigate('AuthUser'); }
     }
 
     render() {

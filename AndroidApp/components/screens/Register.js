@@ -1,7 +1,9 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, ScrollView, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native';
+import { Text, ScrollView, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native';
 import Divider from 'react-native-divider'
+
+/* Class that initiates a POST request to API to CREATE a user account and displays accommodating UI */
 
 export default class Register extends Component {
     constructor (props) {
@@ -33,8 +35,7 @@ export default class Register extends Component {
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then((responseJSON) => {
-            console.log("User ID Created: ", responseJSON);
-            ToastAndroid.show("User Creation Successful",ToastAndroid.SHORT);
+            ToastAndroid.show("User Created",ToastAndroid.SHORT);
             this.props.navigation.navigate("Login");
         })
         .catch((error) => {

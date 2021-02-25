@@ -1,18 +1,20 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, ToastAndroid, Image, ScrollView } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, ToastAndroid, Image, ScrollView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
+
+/* Class that initiates a POST request to API to login to the application to reach the 
+    authorized homepage and displays result with UI */
 
 export default class Login extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            id:'',
+            uId:'',
             email: '',
             password: '',
-            token: '',
         };
     }
 
@@ -33,15 +35,8 @@ export default class Login extends Component {
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then(async(responseJSON) => {
-            console.log(responseJSON);
-            
             await AsyncStorage.setItem('@id', JSON.stringify(responseJSON.id));
             await AsyncStorage.setItem('@session_token', responseJSON.token);
-            
-            const id = await AsyncStorage.getItem('@id');
-            const session = await AsyncStorage.getItem('@session_token');
-            console.log("Login Token is:"+session);
-            console.log("Login ID is: "+id);
             ToastAndroid.show("User Log-In Successful",ToastAndroid.SHORT);
             this.props.navigation.navigate("AuthUser");
         })

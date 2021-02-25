@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
-import {View, Text, ToastAndroid, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {View, ToastAndroid, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {RNCamera} from 'react-native-camera';
 
-export default class AddReviewPhoto extends Component {
+/* Class that initiates a POST request to the API to utilize camera and CREATE a 
+    photo of the location and store in async storage and displays result with UI */
 
+export default class AddReviewPhoto extends Component {
     takePhoto = async(database_info) => {
         const review = this.props.route.params.review
         const session = await AsyncStorage.getItem('@session_token');
-        const review_id = review.review.review_id;
-        const location_id = review.location.location_id;
+        const rId = review.review.review_id;
+        const lId = review.location.location_id;
         
         console.log(database_info.uri);
-        return fetch('http://10.0.2.2:3333/api/1.0.0/location/' + location_id + '/review/' + review_id + '/photo',{
+        return fetch('http://10.0.2.2:3333/api/1.0.0/location/'+lId+'/review/'+rId+'/photo',{
             method: 'post',
             headers: {'Content-Type': 'image/jpeg', 'X-Authorization': session,},
             body: database_info,

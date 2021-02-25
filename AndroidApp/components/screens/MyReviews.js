@@ -4,6 +4,8 @@ import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid, FlatList, Image
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
 
+/* Class that initiates a GET request to API to retireve the users personal reviews and displays result with UI */
+
 export default class MyReviews extends Component {
     constructor (props) {
         super(props)
@@ -18,8 +20,8 @@ export default class MyReviews extends Component {
 
     myReviews = async () => {
         const session = await AsyncStorage.getItem('@session_token') ;
-        const id = await AsyncStorage.getItem('@id');
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
+        const uId = await AsyncStorage.getItem('@id');
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ uId, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
 

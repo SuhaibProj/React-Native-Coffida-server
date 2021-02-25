@@ -2,8 +2,11 @@ import React from 'react';
 import { Component } from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, ToastAndroid } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Right, ListItem, Left,Thumbnail } from 'native-base';
+import { ListItem, Left,Thumbnail } from 'native-base';
 import Divider from 'react-native-divider'
+
+/* Class that initiates a GET request to API to retireve the users personal details and displays result with UI */
+
 export default class MyAccount extends Component {
     constructor (props) {
         super(props)
@@ -16,6 +19,7 @@ export default class MyAccount extends Component {
         }
     }
 
+    //Run at screen load
     componentDidMount() {
         this.getDetails();
     }

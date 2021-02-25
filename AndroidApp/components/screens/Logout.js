@@ -3,16 +3,18 @@ import { Component } from 'react'
 import { View, ToastAndroid, StyleSheet, ActivityIndicator } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+/* Class that initiates a POST request to API to logout the user to reach the 
+    initial homepage and displays result with UI */
+
 export default class Logout extends Component {
     constructor (props) {
         super(props)
     }
 
+    //Run at screen load
     componentDidMount() {
         this.logOut();
     }
-
- 
 
     logOut = async () => {
         const session = await AsyncStorage.getItem('@session_token');
@@ -21,13 +23,21 @@ export default class Logout extends Component {
             method: 'post',
             headers: {'X-Authorization': session,}, 
         })
-        .then(async() => {
-            console.log("Logging Out");
-            await AsyncStorage.removeItem('@session_token');
-            ToastAndroid.show("Successfully Logged-Out",ToastAndroid.SHORT);
-            this.props.navigation.navigate("Home");
+        .then(async(response) => {
+            if(response.status === 200) { 
+                await AsyncStorage.removeItem('@session_token');
+                ToastAndroid.show("Logged-Out",ToastAndroid.SHORT);
+                this.props.navigation.navigate("Home");  
+            }
+            else if (response.status === 400){ throw "Bad Request"; }
+            else if (response.status === 401){ throw "Unauthorised"; }
+            else if (response.status === 403){ throw "Forbidden"; }
+            else if (response.status === 404){ throw "Not Found"; }
+            else if (response.status === 500){ throw "Server Error"; }
+            else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
     }
+    
     render() {
         return (
             <View style = { styleCSS.container }> 
