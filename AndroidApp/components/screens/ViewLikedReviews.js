@@ -3,6 +3,7 @@ import { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid, FlatList, Image} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
+import { AirbnbRating } from 'react-native-elements';
 
 /* Class that initiates a GET request to API to retrieve and display all the 
     user-liked reviews within the UI */
@@ -54,14 +55,23 @@ export default class ViewLikedReviews extends Component {
             console.log("My Location ID:" , lId);
             this.props.navigation.navigate('RemoveLikedReview');
         };
+
+        const count = 5;
+        const reviews=['1','2','3','4','5'];
+        const viewNumber=false;
+        const size=20;
+        const modified=true;
+        const position='center';
+        const space=10;
+
         return (
             <View style = {styleCSS.container}>
-                <Text style={ styleCSS.title }>View All Liked Reviews</Text>
+                <View style={{padding:space}}></View>
                 <FlatList
                     data={this.state.reviewDetails}
                     keyExtractor={item => item.review.review_id.toString()}
                     renderItem={({item}) => (  
-                        <View style={styleCSS.list}>    
+                        <View style={styleCSS.list}>
                             <ListItem key={item.review.review_id} key={item.location.location_id} avatar>
                                 <Left>
                                     <TouchableOpacity onPress={() => this.props.navigation.navigate('ViewLocations')}>
@@ -69,15 +79,23 @@ export default class ViewLikedReviews extends Component {
                                             <Thumbnail style={{alignSelf:'center'}} source={require('../Images/H.png')}/>
                                             <Text style={{textAlign:'center'}}>{item.location.location_name}</Text>
                                             <Text style={{textAlign:'center'}}>{item.location.location_town}</Text>
+                                            <Text style={{textAlign:'center',fontSize:12,color:'grey'}}>Likes: {item.review.likes}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </Left>
                                 <Body>
-                                    <Text style={styleCSS.textDetails}>Overall Rating: {item.review.overall_rating}</Text>
-                                    <Text style={styleCSS.textDetails}>Cleanliness Rating: {item.review.clenliness_rating}</Text>
-                                    <Text style={styleCSS.textDetails}>Price Rating: {item.review.price_rating}</Text>
-                                    <Text style={styleCSS.textDetails}>Quality Rating: {item.review.quality_rating}</Text>
-                                    <Text style={styleCSS.textDetails}>Likes: {item.review.likes}</Text>
+                                    <Text style={styleCSS.textDetails}>Overall Rating</Text>
+                                    <AirbnbRating count={count} reviews={reviews} defaultRating={item.review.overall_rating} isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+                                    <Text style={styleCSS.textDetails}>Cleanliness Rating:</Text>
+                                    <AirbnbRating count={count} reviews={reviews} defaultRating={item.review.clenliness_rating} isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+                                    <Text style={styleCSS.textDetails}>Price Rating:</Text>
+                                    <AirbnbRating count={count} reviews={reviews} defaultRating={item.review.price_rating} isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+                                    <Text style={styleCSS.textDetails}>Quality Rating:</Text>
+                                    <AirbnbRating count={count} reviews={reviews} defaultRating={item.review.quality_rating}isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
                                     <Text style={styleCSS.textDetails}>Details: {item.review.review_body}</Text>
                                 </Body>
                                 <Right>
@@ -117,6 +135,8 @@ const styleCSS = StyleSheet.create({
     textDetails: {
         textShadowRadius:5,
         fontSize: 15,
+        alignSelf:'center',
+        textAlign:'center',
     },
     list: {
         marginVertical: 10, 

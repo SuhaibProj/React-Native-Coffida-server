@@ -58,9 +58,7 @@ export default class Locations extends Component {
 
         return (
             <View style = {styleCSS.container}>
-                <Text style ={styleCSS.title}>View Locations</Text>
-                {/* <TextInput style={styleCSS.input}placeholder="Search" placeholderTextColor='grey' 
-                    onChangeText={this.handleSearch}/> */}
+                
                 <FlatList
                     data={this.state.locationData}
                     keyExtractor={item => item.location_id.toString()}

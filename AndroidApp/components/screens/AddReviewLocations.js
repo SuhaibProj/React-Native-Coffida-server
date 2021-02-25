@@ -53,7 +53,7 @@ export default class AddReviewLocations extends Component {
 
         return (
             <View style = {styleCSS.container}>
-                <Text style ={styleCSS.title}>Select Location to Add Review</Text>
+
                 <FlatList
                     data={this.state.locationData}
                     keyExtractor={item => item.location_id.toString()}

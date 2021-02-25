@@ -4,6 +4,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, ToastAndroid, FlatList
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
 import { ListItem, Body, Right} from 'native-base';
+import { AirbnbRating } from 'react-native-elements';
 
 /* Class that initiates a GET request to API to retireve the reviews for a 
     specified location based on location id and displays result with UI */
@@ -52,10 +53,18 @@ export default class ReviewDetails extends Component {
             await AsyncStorage.setItem('@review_id', JSON.stringify(rId));
             this.props.navigation.navigate('LikeReview');
         };
+        const count = 5;
+        const reviews=['1','2','3','4','5'];
+        const viewNumber=false;
+        const size=20;
+        const modified=true;
+        const position='center';
+        const space=10;
         const navig = this.props.navigation;
+
         return (
             <View style = {styleCSS.container}>
-                <Text style={styleCSS.title}>Review Details: </Text>
+                <View style={{padding:space}}></View>
                 <FlatList
                     data={this.state.reviewDetails}
                     keyExtractor={item => item.review_id.toString()}
@@ -63,12 +72,29 @@ export default class ReviewDetails extends Component {
                         <View style={styleCSS.list}>
                             <ListItem key={item.review_id} avatar>
                                 <Body>
-                                    <Text>Overall Rating: {item.overall_rating}</Text>
-                                    <Text>Cleanliness Rating: {item.clenliness_rating}</Text>
-                                    <Text>Likes: {item.likes}</Text>
-                                    <Text>Price Rating: {item.price_rating}</Text>
-                                    <Text>Quality Rating: {item.quality_rating}</Text>
-                                    <Text>Details: {item.review_body}</Text>
+
+                                    <Text style={styleCSS.textDetails}>Overall Rating</Text>
+                                    <AirbnbRating defaultRating={item.overall_rating} count={count} reviews={reviews}  
+                                        isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+
+                                    <Text style={styleCSS.textDetails}>Cleanliness Rating:</Text>
+                                    <AirbnbRating defaultRating={item.clenliness_rating} count={count} reviews={reviews}  
+                                        isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+
+                                    <Text style={styleCSS.textDetails}>Price Rating:</Text>
+                                    <AirbnbRating defaultRating={item.price_rating}  count={count} reviews={reviews} 
+                                        isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+
+                                    <Text style={styleCSS.textDetails}>Quality Rating:</Text>
+                                    <AirbnbRating defaultRating={item.quality_rating} count={count} reviews={reviews} 
+                                        isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+
+                                    <Text style={styleCSS.textDetails}>Details: {item.review_body}</Text>
+                                    
                                 </Body>
                                 <Right>
                                     <TouchableOpacity onPress={() => like(item.review_id)}>
@@ -103,9 +129,10 @@ const styleCSS = StyleSheet.create({
         color:'white',
     },
     textDetails: {
-        alignSelf: 'center',
         textShadowRadius:5,
         fontSize: 15,
+        alignSelf:'center',
+        textAlign:'center',
     },
     home: {
         flex: 1,

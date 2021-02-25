@@ -52,7 +52,7 @@ export default class ViewFavouriteLocations extends Component {
         };
         return(
             <View style = {styleCSS.container}>
-                <Text style = {styleCSS.title}>View All Favourites</Text>
+               
                 <FlatList
                     data={this.state.favouriteLocations}
                     keyExtractor={item => item.location_id.toString()}

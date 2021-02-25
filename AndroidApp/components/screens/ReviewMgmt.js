@@ -12,7 +12,7 @@ export default class ReviewMgmt extends Component {
         const navig = this.props.navigation;
         return (
             <ScrollView style = {styleCSS.container}> 
-                <Text style ={styleCSS.title}>Welcome to your Review Management</Text>
+                
                 <Image style={styleCSS.edit} source={require('../Images/R.png')}/>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('MyReviews')}>
                     <Text style = {styleCSS.textDetails}>My Reviews</Text>

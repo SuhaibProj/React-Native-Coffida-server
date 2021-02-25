@@ -1,8 +1,9 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid} from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid, ScrollView} from 'react-native'
 import Divider from 'react-native-divider'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AirbnbRating } from 'react-native-elements';
 
 /* Class that initiates an UPDATE request to API to update user review and displays result with UI */
 
@@ -82,34 +83,53 @@ export default class UpdateReview extends Component {
     //User Interface
     render() {
         const review = this.props.route.params.review;
+
+        const count = 5;
+        const reviews=['1','2','3','4','5'];
+        const viewNumber=false;
+        const size=20;
+        const modified=false;
+        const position='center';
+        const space=20;
+
+
         return (
-            <View style = { styleCSS.container }> 
-                <Text style={ styleCSS.title }>Edit Review Details</Text> 
-                <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
-                    onChangeText = {(overallRating) => this.setState({overallRating})} 
-                    defaultValue={review.review.overall_rating.toString()} placeholderTextColor='grey'
-                />
-                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
-                    onChangeText = {(priceRating) => this.setState({priceRating})} 
-                    defaultValue={review.review.price_rating.toString()} placeholderTextColor='grey'
-                />
-                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
-                    onChangeText = {(qualityRating) => this.setState({qualityRating})} 
-                    defaultValue={review.review.quality_rating.toString()} placeholderTextColor='grey'
-                />
-                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
-                    onChangeText = {(clenlinessRating) => this.setState({clenlinessRating})} 
-                    defaultValue={review.review.clenliness_rating.toString()} placeholderTextColor='grey' 
-                />
+            
+            <ScrollView style = { styleCSS.container }> 
+                
+                <View style={{padding:space}}></View>
+                <Text style={styleCSS.textDetails}>Your Overall Rating?</Text>
+                <AirbnbRating count={count} reviews={reviews} defaultRating={review.review.overall_rating.toString()} onFinishRating={(overallRating) => this.setState({overallRating})} 
+                    isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                <View style={{padding:space}}></View>
+                
+                <Text style={styleCSS.textDetails}>Your Rating for Price?</Text>
+                <AirbnbRating count={count} reviews={reviews} defaultRating={review.review.price_rating.toString()} onFinishRating={(priceRating) => this.setState({priceRating})} 
+                    isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                <View style={{padding:space}}></View>
+                
+                <Text style={styleCSS.textDetails}>Your Rating for Quality?</Text>
+                <AirbnbRating count={count} reviews={reviews} defaultRating={review.review.quality_rating.toString()} onFinishRating={(qualityRating) => this.setState({qualityRating})} 
+                    isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                <View style={{padding:space}}></View>
+
+                <Text style={styleCSS.textDetails}>Your Rating for Hygiene?</Text>
+                <AirbnbRating count={count} reviews={reviews} defaultRating={review.review.clenliness_rating.toString()} onFinishRating={(clenlinessRating) => this.setState({clenlinessRating})} 
+                    isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                <View style={{padding:space}}></View>
+                
+                <Text style={styleCSS.textDetails}>Your Review?</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
                     onChangeText = {(reviewBody) => this.setState({reviewBody})} 
-                    defaultValue={review.review.review_body} placeholderTextColor='grey'
+                    defaultValue={review.review.review_body} placeholderTextColor='grey' multiline={true}
                 />
+                <View style={{padding:space}}></View>
+
                 <Divider orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.updateReview()}>
                     <Text style = {styleCSS.textDetails}>Submit</Text>
                 </TouchableOpacity> 
-            </View>
+            </ScrollView>
         );    
     }
 }
@@ -130,12 +150,14 @@ const styleCSS = StyleSheet.create({
         alignSelf: 'center',
         textShadowRadius:5,
         fontSize: 15,
+        color:'white',
     },
     input: {
         justifyContent: 'center',
+        textAlign:'center',
         height: 45,
         width: 300,
-        paddingStart: 20,
+        //paddingStart: 20,
         fontSize: 15,
         backgroundColor: '#404040',
         marginVertical: 10,

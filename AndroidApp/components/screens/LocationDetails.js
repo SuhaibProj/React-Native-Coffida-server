@@ -3,7 +3,8 @@ import { Component } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
-import { ListItem, Left,Thumbnail } from 'native-base';
+import { ListItem, Left, Thumbnail } from 'native-base';
+import { AirbnbRating } from 'react-native-elements';
 
 /* Class that initiates a GET request to API to retrieve location Details for the 
     specific location and displays result with UI */
@@ -61,9 +62,18 @@ export default class LocationDetails extends Component {
 
     render() {
         const navig = this.props.navigation; 
+
+        const count = 5;
+        const reviews=['1','2','3','4','5'];
+        const viewNumber=false;
+        const size=20;
+        const modified=true;
+        const position='center';
+        const space=10;
+
         return (
             <View style = {styleCSS.container}>
-                <Text style={styleCSS.title}>Location Details: </Text>
+               
                 <View style={styleCSS.list}>
                     <ListItem key={this.state.locationId} avatar>
                         <Left>
@@ -71,16 +81,30 @@ export default class LocationDetails extends Component {
                                 <View style={styleCSS.location}>
                                     <Thumbnail style={{alignSelf: 'center'}} source={require('../Images/H.png')}/>
                                     <Text style={{textAlign:'center'}}>{this.state.locationName}</Text>
+                                    <Text style={{textAlign:'center'}}>{this.state.locationTown}</Text>
                                 </View>
                             </TouchableOpacity>
                         </Left>
-                        <View style = {styleCSS.textDetails}>  
-                            <Text>Location Town: {this.state.locationTown}</Text>
-                            <Text>Average Cleanliness Rating: {this.state.avgCleanlinessRating}</Text>
-                            <Text>Average Overall Rating: {this.state.avgOverallRating}</Text>
-                            <Text>Average Price Rating: {this.state.avgPriceRating}</Text>
-                            <Text>Latitude: {this.state.latitude}</Text>
-                            <Text>Longitude: {this.state.longitude}</Text>
+                        <View style = {styleCSS.textDetails}> 
+                            <View style={{padding:space}}></View>
+                            <Text style={styleCSS.textDetails}>Average Overall Rating:</Text>
+                            <AirbnbRating defaultRating={this.state.avgOverallRating} count={count} reviews={reviews}  
+                                isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                            <View style={{padding:space}}></View>
+
+                            <Text style={styleCSS.textDetails}>Average Cleanliness Rating:</Text>
+                            <AirbnbRating defaultRating={this.state.avgCleanlinessRating}  count={count} reviews={reviews} 
+                                isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber} selectedColor="white" unSelectedColor="grey"/>
+                            <View style={{padding:space}}></View>
+
+                            <Text style={styleCSS.textDetails}>Average Price Rating:</Text>
+                            <AirbnbRating defaultRating={this.state.avgPriceRating} count={count} reviews={reviews}
+                                isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                            <View style={{padding:space}}></View>
+
+                            <Text style={styleCSS.textDetails}>Latitude: {this.state.latitude}</Text>
+                            <Text style={styleCSS.textDetails}>Longitude: {this.state.longitude}</Text>
+                            <View style={{padding:space}}></View>
                         </View>
                     </ListItem>
                 </View>
@@ -110,9 +134,10 @@ const styleCSS = StyleSheet.create({
         color:'white',
     },
     textDetails: {
-        alignSelf: 'center',
         textShadowRadius:5,
         fontSize: 15,
+        alignSelf:'center',
+        textAlign:'center',
     },
     text: {
         color:'white',

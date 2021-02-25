@@ -58,7 +58,7 @@ export default class MyAccount extends Component {
         const navig = this.props.navigation;
         return (
             <View style = {styleCSS.container}> 
-                <Text style ={styleCSS.title}>Welcome to your Account</Text>
+               
                 <View style={styleCSS.list}>
                     <ListItem key={this.state.id} avatar>
                         <Left>

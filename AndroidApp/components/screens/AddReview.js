@@ -3,6 +3,7 @@ import { Component } from 'react'
 import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native'
 import Divider from 'react-native-divider'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AirbnbRating } from 'react-native-elements';
 
 /* Class that initiates a POST request to API to create a user review and displays result with UI*/
 
@@ -35,6 +36,7 @@ export default class AddReview extends Component {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
             body: JSON.stringify(database_info),
         })
+        
         //Response on success + Error Handling + Return to previous page once completed
         .then((response) => {
             if(response.status === 201) {
@@ -55,29 +57,42 @@ export default class AddReview extends Component {
 
     
     render() {
+
+        const count = 5;
+        const reviews=['1','2','3','4','5'];
+        const viewNumber=false;
+        const size=20;
+        const modified=false;
+        const position='center';
+        const space=20;
+
         return (
             <View style = { styleCSS.container }> 
-                <Text style = { styleCSS.title }>Add Your Review</Text>
-                <TextInput style = {styleCSS.input} placeholder={'Your Overall Rating?'} 
-                    onChangeText = {(overallRating) => this.setState({overallRating})} 
-                    value={this.state.overall_rating} placeholderTextColor='grey'
-                />
-                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Price?'}
-                    onChangeText = {(priceRating) => this.setState({priceRating})} 
-                    value={this.state.price_rating} placeholderTextColor='grey'
-                />
-                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Quality?'}
-                    onChangeText = {(qualityRating) => this.setState({qualityRating})} 
-                    value={this.state.quality_rating} placeholderTextColor='grey'
-                />
-                <TextInput style = {styleCSS.input} placeholder={'Your Rating for Hygiene?'}
-                    onChangeText = {(clenlinessRating) => this.setState({clenlinessRating})} 
-                    value={this.state.clenliness_rating} placeholderTextColor='grey'
-                />
+                <View style={{padding:space}}></View>
+                <Text style={styleCSS.textDetails}>Your Overall Rating?</Text>
+                <AirbnbRating count={count} reviews={reviews} defaultRating={null} onFinishRating={(overallRating) => this.setState({overallRating})} isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                <View style={{padding:space}}></View>
+                
+                <Text style={styleCSS.textDetails}>Your Rating for Price?</Text>
+                <AirbnbRating count={count} reviews={reviews} defaultRating={null} onFinishRating={(priceRating) => this.setState({priceRating})} isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                <View style={{padding:space}}></View>
+                
+                <Text style={styleCSS.textDetails}>Your Rating for Quality?</Text>
+                <AirbnbRating count={count} reviews={reviews} defaultRating={null} onFinishRating={(qualityRating) => this.setState({qualityRating})} isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                <View style={{padding:space}}></View>
+
+                <Text style={styleCSS.textDetails}>Your Rating for Hygiene?</Text>
+                <AirbnbRating count={count} reviews={reviews} defaultRating={null} onFinishRating={(clenlinessRating) => this.setState({clenlinessRating})} isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                <View style={{padding:space}}></View>
+                
+                <Text style={styleCSS.textDetails}>Your Review?</Text>
                 <TextInput style = {styleCSS.input} placeholder={'Any Comments?'}
                     onChangeText = {(reviewBody) => this.setState({reviewBody})} 
                     value={this.state.review_body} placeholderTextColor='grey'
+                    underlineColorAndroid="transparent"
                 />
+                <View style={{padding:space}}></View>
+
                 <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.addReview()}>
                     <Text style = {styleCSS.textDetails}>Submit</Text>
@@ -120,6 +135,7 @@ const styleCSS = StyleSheet.create({
     },
     textDetails: {
         alignSelf: 'center',
+        color: 'white',
         textShadowColor:'black',
         textShadowRadius:5,
         fontSize: 15,

@@ -47,7 +47,6 @@ export default class ViewReviewPhoto extends Component {
     render() {
         return (
             <View style={styleCSS.container}>
-                <Text style={ styleCSS.title }>View Review Photo</Text>
                 <ScrollView>
                     <Image style={ styleCSS.photo } source={{uri: this.state.photoAddress}} />
                 </ScrollView>

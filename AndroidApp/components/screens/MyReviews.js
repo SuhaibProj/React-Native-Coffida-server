@@ -1,8 +1,9 @@
-import React from 'react'
-import { Component } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid, FlatList, Image} from 'react-native'
+import React from 'react';
+import { Component } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid, FlatList, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ListItem, Body, Left, Thumbnail, Right} from 'native-base';
+import { AirbnbRating } from 'react-native-elements';
 
 /* Class that initiates a GET request to API to retireve the users personal reviews and displays result with UI */
 
@@ -45,33 +46,41 @@ export default class MyReviews extends Component {
     }
 
     render() { 
+        //For reditection to Delete review function
         let bin = async(review_id, location_id) => {
             await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
-            console.log("My Review ID:" , review_id);
-            console.log("My Location ID:" , location_id);
             this.props.navigation.navigate('DeleteReview');
         };
 
+        //For reditection to View review photo function
         let img = async(review_id, location_id) => {
             await AsyncStorage.setItem('@review_id', JSON.stringify(review_id));
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
-            console.log("My Review ID:" , review_id);
-            console.log("My Location ID:" , location_id);
             this.props.navigation.navigate('ViewReviewPhoto');
         };
 
+         //For reditection to Add review photo function
         let cam = (item) => {
             this.props.navigation.navigate('AddReviewPhoto', {'review':item});
         }
-    
+        
+         //For reditection to update review function
         let update = (item) => {
             this.props.navigation.navigate('UpdateReview', {'review':item});
         };
         
+        const count = 5;
+        const reviews=['1','2','3','4','5'];
+        const viewNumber=false;
+        const size=20;
+        const modified=true;
+        const position='center';
+        const space=10;
+
         return (
             <View style = {styleCSS.container}>
-                <Text style={ styleCSS.title }>View All Reviews</Text>
+                <View style={{padding:space}}></View>
                 <FlatList
                     data={this.state.reviewDetails.reviews}
                     keyExtractor={item => item.review.review_id.toString()}
@@ -84,16 +93,34 @@ export default class MyReviews extends Component {
                                             <Thumbnail style={{alignSelf:'center'}} source={require('../Images/H.png')}/>
                                             <Text style={{textAlign:'center'}}>{item.location.location_name}</Text>
                                             <Text style={{textAlign:'center'}}>{item.location.location_town}</Text>
+                                            <Text style={{textAlign:'center',fontSize:12,color:'grey'}}>Likes: {item.review.likes}</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </Left>
                                 <Body>
-                                    <Text style={styleCSS.textDetails}>Overall Rating: {item.review.overall_rating}</Text>
-                                    <Text style={styleCSS.textDetails}>Cleanliness Rating: {item.review.clenliness_rating}</Text>
-                                    <Text style={styleCSS.textDetails}>Price Rating: {item.review.price_rating}</Text>
-                                    <Text style={styleCSS.textDetails}>Quality Rating: {item.review.quality_rating}</Text>
-                                    <Text style={styleCSS.textDetails}>Likes: {item.review.likes}</Text>
+
+                                    <Text style={styleCSS.textDetails}>Overall Rating</Text>
+                                    <AirbnbRating defaultRating={item.review.overall_rating} count={count} reviews={reviews}  
+                                        isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+
+                                    <Text style={styleCSS.textDetails}>Cleanliness Rating:</Text>
+                                    <AirbnbRating defaultRating={item.review.clenliness_rating} count={count} reviews={reviews}  
+                                        isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+
+                                    <Text style={styleCSS.textDetails}>Price Rating:</Text>
+                                    <AirbnbRating defaultRating={item.review.price_rating}  count={count} reviews={reviews} 
+                                        isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+
+                                    <Text style={styleCSS.textDetails}>Quality Rating:</Text>
+                                    <AirbnbRating defaultRating={item.review.quality_rating} count={count} reviews={reviews} 
+                                        isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
+                                    <View style={{padding:space}}></View>
+
                                     <Text style={styleCSS.textDetails}>Details: {item.review.review_body}</Text>
+
                                 </Body>
                                 <Right>
                                     <TouchableOpacity onPress={() => update(item)}>
@@ -156,11 +183,14 @@ const styleCSS = StyleSheet.create({
     textDetails: {
         textShadowRadius:5,
         fontSize: 15,
+        alignSelf:'center',
+        textAlign:'center',
     },
     list: {
         marginVertical: 10, 
         marginHorizontal:10,
         backgroundColor: "#f1c50b",
+        //backgroundColor: "blue",
         padding: 10,
         borderRadius:10,
     },

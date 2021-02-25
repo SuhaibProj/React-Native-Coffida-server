@@ -51,19 +51,21 @@ export default class Login extends Component {
         const navig = this.props.navigation;
         return (
             <ScrollView style = { styleCSS.container }> 
-                <Text style = { styleCSS.title }>CoffiDa Login Page</Text>
+              
                 <Image style={styleCSS.edit} source={require('../Images/UG.png')}/>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
                     placeholderTextColor='grey'
                     underlineColorAndroid="transparent"
                     onChangeText = {(email) => this.setState({email})}
                     autoCapitalize="none" value={this.state.email}
+                    keyboardType={'email-address'}
                 />
                 <TextInput style = {styleCSS.input} placeholder={'Password'} 
                     placeholderTextColor='grey'
                     secureTextEntry = {true} underlineColorAndroid="transparent"
                     onChangeText = {(password) => this.setState({password})}
-                    autoCapitalize="none" value={this.state.password} 
+                    autoCapitalize="none" value={this.state.password}
+                    keyboardAppearance='dark' 
                 />
                 <Divider borderColor="#fff" color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.onLogin()}>

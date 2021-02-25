@@ -47,7 +47,7 @@ export default class Register extends Component {
     render() {
         return (
             <ScrollView style = { styleCSS.container }> 
-                <Text style={ styleCSS.title }>CoffiDa Registration Page</Text>
+               
                 <Text style={ styleCSS.text }>Enter your First Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'First Name'} 
                     onChangeText = {(firstName) => this.setState({firstName})} 
