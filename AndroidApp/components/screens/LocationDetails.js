@@ -55,7 +55,6 @@ export default class LocationDetails extends Component {
             });
         })
         .catch((error) => {
-            console.log(error);
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     }

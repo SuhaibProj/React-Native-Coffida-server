@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, TextInput, ToastAndroid, ScrollView } from 'react-native'
 import Divider from 'react-native-divider'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AirbnbRating } from 'react-native-elements';
@@ -36,7 +36,7 @@ export default class AddReview extends Component {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
             body: JSON.stringify(database_info),
         })
-        
+
         //Response on success + Error Handling + Return to previous page once completed
         .then((response) => {
             if(response.status === 201) {
@@ -50,7 +50,6 @@ export default class AddReview extends Component {
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .catch((error) => {
-            console.log(error);
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     };
@@ -67,7 +66,7 @@ export default class AddReview extends Component {
         const space=20;
 
         return (
-            <View style = { styleCSS.container }> 
+            <ScrollView style = { styleCSS.container }> 
                 <View style={{padding:space}}></View>
                 <Text style={styleCSS.textDetails}>Your Overall Rating?</Text>
                 <AirbnbRating count={count} reviews={reviews} defaultRating={null} onFinishRating={(overallRating) => this.setState({overallRating})} isDisabled={modified} alignSelf={position} size={size} showRating={viewNumber}  selectedColor="white" unSelectedColor="grey"/>
@@ -97,7 +96,7 @@ export default class AddReview extends Component {
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.addReview()}>
                     <Text style = {styleCSS.textDetails}>Submit</Text>
                 </TouchableOpacity>
-            </View>
+            </ScrollView>
         );    
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ToastAndroid, FlatList, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -15,8 +15,16 @@ export default class MyReviews extends Component {
         };
     }
 
+    //Run at screen load
     componentDidMount() {
         this.myReviews();
+        
+        //refresh page once updated
+        this.refresh = this.props.navigation.addListener('focus', () => { this.myReviews(); });
+    }
+
+    componentWillUnmount(){
+        this.refresh();
     }
 
     myReviews = async () => {
@@ -37,10 +45,8 @@ export default class MyReviews extends Component {
             this.setState({
                 reviewDetails: responseJSON
             });
-            console.log('Your Personal Reviews:', this.state.reviewDetails);
         })
         .catch((error) => {
-            console.log(error);
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     }
@@ -201,10 +207,10 @@ const styleCSS = StyleSheet.create({
     location: {
         alignSelf:'center',
         textShadowRadius:5,
-        marginTop:'5%',
-        marginRight:10,
+        marginTop:'60%',
+        
         borderColor:'white',
-        paddingRight:20,
+        paddingRight:40,
         borderRightWidth:1,  
     },
 });

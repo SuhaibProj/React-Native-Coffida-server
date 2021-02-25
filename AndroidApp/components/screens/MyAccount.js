@@ -18,17 +18,21 @@ export default class MyAccount extends Component {
             listDetails: [],
         }
     }
-
     //Run at screen load
     componentDidMount() {
         this.getDetails();
+        //refresh page once updated
+        this.refresh = this.props.navigation.addListener('focus', () => { this.getDetails(); });
+    }
+
+    componentWillUnmount(){
+        this.refresh();
     }
 
     //get token, and user id from async storage.
     getDetails = async () => {
         const session = await AsyncStorage.getItem('@session_token');
         const uId = await AsyncStorage.getItem('@id');
-        console.log("Session Variable: " + session);
         return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ uId, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
@@ -40,7 +44,7 @@ export default class MyAccount extends Component {
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .then((responseJSON) => {
-            console.log(responseJSON)
+            
             this.setState({
                 uId: responseJSON.user_id,
                 email: responseJSON.email,  
@@ -49,7 +53,6 @@ export default class MyAccount extends Component {
             });
         })
         .catch((error) => {
-            console.log(error);
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     }
@@ -60,7 +63,7 @@ export default class MyAccount extends Component {
             <View style = {styleCSS.container}> 
                
                 <View style={styleCSS.list}>
-                    <ListItem key={this.state.id} avatar>
+                    <ListItem key={this.state.uId} avatar>
                         <Left>
                             <Thumbnail style={styleCSS.location} source={require('../Images/UG.png')}/>
                         </Left>

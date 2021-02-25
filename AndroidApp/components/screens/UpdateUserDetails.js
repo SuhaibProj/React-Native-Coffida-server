@@ -61,8 +61,6 @@ export default class UpdateDeails extends Component {
         };
         const session = await AsyncStorage.getItem('@session_token');
         const uId = await AsyncStorage.getItem('@id');
-        console.log("User ID in UpdateUser: "+id);
-        console.log("User Session Token in UpdateUser: "+session);
         return fetch('http://10.0.2.2:3333/api/1.0.0/user/'+ uId, {
             method: 'patch',
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},

@@ -36,7 +36,6 @@ export default class DeleteReview extends Component {
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
         .catch((error) => {
-            console.log(error);
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     }

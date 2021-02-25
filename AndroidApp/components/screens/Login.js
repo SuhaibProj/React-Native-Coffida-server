@@ -41,7 +41,6 @@ export default class Login extends Component {
             this.props.navigation.navigate("AuthUser");
         })
         .catch((error) => {
-            console.log(error);
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     };

@@ -20,6 +20,11 @@ export default class ReviewDetails extends Component {
     //Run at screen load
     componentDidMount() {
         this.locationDetails();
+        this.refresh = this.props.navigation.addListener('willFocus',() => { this.locationDetails(); });
+    }
+
+    componentWillUnmount() {
+        this.refresh();
     }
 
     locationDetails = async () => {
@@ -94,7 +99,7 @@ export default class ReviewDetails extends Component {
                                     <View style={{padding:space}}></View>
 
                                     <Text style={styleCSS.textDetails}>Details: {item.review_body}</Text>
-                                    
+
                                 </Body>
                                 <Right>
                                     <TouchableOpacity onPress={() => like(item.review_id)}>

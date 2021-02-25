@@ -18,6 +18,8 @@ export default class ViewReviewPhoto extends Component {
         this.retrievePhoto();
         //remmove irrelevant warnings
         LogBox.ignoreAllLogs(true); 
+        //refresh page once updated
+        this.props.navigation.addListener('focus', () => { this.retrievePhoto(); });
     }
     
     

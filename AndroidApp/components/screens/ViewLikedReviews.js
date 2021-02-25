@@ -16,9 +16,16 @@ export default class ViewLikedReviews extends Component {
         };
     }
 
-    componentDidMount() {
+     //Run at screen load
+     componentDidMount() {
         this.likedReviews();
+        //refresh page once updated
+        this.refresh = this.props.navigation.addListener('focus', () => { this.likedReviews(); });
     }
+
+    /* componentWillUnmount(){
+        this.refresh();
+    } */
 
     likedReviews = async () => {
         const session = await AsyncStorage.getItem('@session_token') ;

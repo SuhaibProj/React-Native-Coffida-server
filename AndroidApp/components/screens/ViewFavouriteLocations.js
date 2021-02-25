@@ -16,9 +16,15 @@ export default class ViewFavouriteLocations extends Component {
     }
 
     //Run at screen load
-    componentDidMount(){
+    componentDidMount() {
         this.viewfavourite();
+        //refresh page once updated
+        this.refresh = this.props.navigation.addListener('focus', () => { this.viewfavourite(); });
     }
+
+    /* componentWillUnmount(){
+        this.refresh();
+    } */
 
     viewfavourite = async() => {
         const session = await AsyncStorage.getItem('@session_token');

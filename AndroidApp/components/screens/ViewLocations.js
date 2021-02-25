@@ -12,13 +12,11 @@ export default class Locations extends Component {
         super(props)
         this.state = {
             locationData: [],
-            notFollowing: true,
-            location_id: '',
-            
             searchQuery:'',
         }
     }
 
+    //Run at screen load
     componentDidMount(){
         this.getLocations();
     }
@@ -40,10 +38,8 @@ export default class Locations extends Component {
                 locationData: responseJSON,
             });
             this.state.locationData.toString();
-            console.log('The Entire Location Details are:', this.state.locationData );
         })
         .catch((error) => {
-            console.log(error);
             ToastAndroid.show(error, ToastAndroid.SHORT);
         });
     }
@@ -51,7 +47,6 @@ export default class Locations extends Component {
     render() {
         let locationDetails = async(location_id) => {
             await AsyncStorage.setItem('@location_id', JSON.stringify(location_id));
-            console.log("The Location ID for this is: ",location_id);
             this.props.navigation.navigate('LocationDetails');
         };
         const navig = this.props.navigation;
@@ -159,19 +154,3 @@ const styleCSS = StyleSheet.create({
         color:'white',
     },
 });
-
-
-/* import { Rating, AirbnbRating } from 'react-native-elements';
-
-ratingCompleted(rating) {
-  console.log("Rating is: " + rating)
-}
-
-<AirbnbRating />
-
-<AirbnbRating
-  count={11}
-  reviews={["Terrible", "Bad", "Meh", "OK", "Good", "Hmm...", "Very Good", "Wow", "Amazing", "Unbelievable", "Jesus"]}
-  defaultRating={11}
-  size={20}
-/> */
