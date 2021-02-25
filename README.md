@@ -1,8 +1,6 @@
 @Author: Muhammad Suhaib (17026213@stu.mmu.ac.uk) -
     Link to Repository: **https://github.com/SuhaibProj/Coffida_server**
 
-Added Collaborator: Ashley Williams (ashley.williams@mmu.ac.uk).
-
 
 # CoffiDa API
 This is the CoffiDa API for use in the 20/21 MAD assignment.
@@ -31,6 +29,13 @@ This is the CoffiDa API for use in the 20/21 MAD assignment.
 3. Unfavourite a Location
 4. Find Locations
 
+**Extras**
+1. View Liked Reviews
+2. View Favourited Locations
+
+**Partial Attempts**
+1. Get device Location and display on Map (Extension t2)
+
 ## Config
 1. Run 'npm install' to install the dependencies
 2. Create your .env file with your DB config details
@@ -39,4 +44,5 @@ This is the CoffiDa API for use in the 20/21 MAD assignment.
 5. Run the server with 'npm start'
 6. Code!
 
+Added Contributor: Ashley Williams (ashley.williams@mmu.ac.uk).
 
