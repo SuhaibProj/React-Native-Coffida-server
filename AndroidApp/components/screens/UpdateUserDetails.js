@@ -88,7 +88,7 @@ export default class UpdateDeails extends Component {
         
         return (
             <ScrollView style = { styleCSS.container }> 
-                
+                 <View style={{padding:20}}></View>
                 <Image style={styleCSS.edit} source={require('../Images/UG.png')}/>
                 <View>
                     <TextInput style = {[styleCSS.input]} placeholder={'Email'} 

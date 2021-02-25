@@ -72,7 +72,7 @@ export default class LocationDetails extends Component {
 
         return (
             <View style = {styleCSS.container}>
-               
+                <View style={{padding:10}}></View>
                 <View style={styleCSS.list}>
                     <ListItem key={this.state.locationId} avatar>
                         <Left>

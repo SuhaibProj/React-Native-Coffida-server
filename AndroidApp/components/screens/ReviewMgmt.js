@@ -1,6 +1,6 @@
 import React from 'react'
 import { Component } from 'react'
-import { Text, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, ScrollView} from 'react-native'
 
 /* Class that displays a management screen dedicated for reviews section in designed UI */
 
@@ -12,7 +12,7 @@ export default class ReviewMgmt extends Component {
         const navig = this.props.navigation;
         return (
             <ScrollView style = {styleCSS.container}> 
-                
+                 <View style={{padding:20}}></View>
                 <Image style={styleCSS.edit} source={require('../Images/R.png')}/>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => navig.navigate('MyReviews')}>
                     <Text style = {styleCSS.textDetails}>My Reviews</Text>

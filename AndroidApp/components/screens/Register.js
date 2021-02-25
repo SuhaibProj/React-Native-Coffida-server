@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, ScrollView, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, TextInput, ToastAndroid } from 'react-native';
 import Divider from 'react-native-divider'
 
 /* Class that initiates a POST request to API to CREATE a user account and displays accommodating UI */
@@ -47,7 +47,7 @@ export default class Register extends Component {
     render() {
         return (
             <ScrollView style = { styleCSS.container }> 
-               
+                <View style={{padding:20}}></View>
                 <Text style={ styleCSS.text }>Enter your First Name:</Text>
                 <TextInput style = {styleCSS.input} placeholder={'First Name'} 
                     onChangeText = {(firstName) => this.setState({firstName})} 

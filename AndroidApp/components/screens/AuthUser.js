@@ -24,8 +24,9 @@ export default class AuthUser extends Component {
     render() {
         const navig = this.props.navigation;
         return (
+            
             <ScrollView style = {styleCSS.container}> 
-               
+                <View style={{padding:10}}></View>
                 <View style={{marginVertical:30}}>
                     <Image source={require('../Images/BG.png')} style={styleCSS.imageConfig}/>
                 </View>

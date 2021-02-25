@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component } from 'react';
-import { Text, TouchableOpacity, StyleSheet, ToastAndroid, Image, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ToastAndroid, Image, ScrollView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Divider from 'react-native-divider'
@@ -50,7 +50,7 @@ export default class Login extends Component {
         const navig = this.props.navigation;
         return (
             <ScrollView style = { styleCSS.container }> 
-              
+                <View style={{padding:20}}></View>
                 <Image style={styleCSS.edit} source={require('../Images/UG.png')}/>
                 <TextInput style = {styleCSS.input} placeholder={'Email'} 
                     placeholderTextColor='grey'

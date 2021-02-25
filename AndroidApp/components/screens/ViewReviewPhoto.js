@@ -89,10 +89,10 @@ const styleCSS = StyleSheet.create({
     },
     photo: {
         resizeMode:'contain',
-        marginTop:10,
-        marginBottom: 30,
-        width:450,
-        height:550,
+        //marginTop:10,
+        //marginBottom: 30,
+        width:470,
+        height:650,
         alignSelf: 'center',
     },
     location: {

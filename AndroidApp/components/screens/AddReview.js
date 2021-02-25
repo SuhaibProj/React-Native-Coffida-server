@@ -94,7 +94,7 @@ export default class AddReview extends Component {
 
                 <Divider color="#fff" orientation="center"></Divider>
                 <TouchableOpacity  style = {styleCSS.button} onPress={() => this.addReview()}>
-                    <Text style = {styleCSS.textDetails}>Submit</Text>
+                    <Text style = {styleCSS.textDetails2}>Submit</Text>
                 </TouchableOpacity>
             </ScrollView>
         );    
@@ -117,12 +117,13 @@ const styleCSS = StyleSheet.create({
         justifyContent: 'center',
         height: 45,
         width: 300,
-        paddingStart: 20,
+        
         fontSize: 15,
         backgroundColor: '#404040',
         marginVertical: 10,
         alignSelf: 'center',
         color:'white',
+        textAlign:'center',
     },
     button: {
         alignSelf: 'center',
@@ -136,6 +137,11 @@ const styleCSS = StyleSheet.create({
         alignSelf: 'center',
         color: 'white',
         textShadowColor:'black',
+        textShadowRadius:5,
+        fontSize: 15,
+    },
+    textDetails2: {
+        alignSelf: 'center',
         textShadowRadius:5,
         fontSize: 15,
     },

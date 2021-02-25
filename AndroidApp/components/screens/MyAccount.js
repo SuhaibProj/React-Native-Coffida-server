@@ -60,8 +60,9 @@ export default class MyAccount extends Component {
     render() {
         const navig = this.props.navigation;
         return (
+            
             <View style = {styleCSS.container}> 
-               
+                <View style={{padding:10}}></View>
                 <View style={styleCSS.list}>
                     <ListItem key={this.state.uId} avatar>
                         <Left>

@@ -53,7 +53,7 @@ export default class Locations extends Component {
 
         return (
             <View style = {styleCSS.container}>
-                
+                <View style={{padding:10}}></View>
                 <FlatList
                     data={this.state.locationData}
                     keyExtractor={item => item.location_id.toString()}
