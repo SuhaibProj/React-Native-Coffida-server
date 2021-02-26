@@ -21,6 +21,7 @@ export default class AddReview extends Component {
     }
 
     addReview = async() => {
+        
         let database_info = {
             overall_rating: parseInt(this.state.overallRating),
             price_rating: parseInt(this.state.priceRating),
@@ -29,6 +30,7 @@ export default class AddReview extends Component {
             review_body: this.state.reviewBody,
         };
         
+        //Retireve location + session token from async storage for POST Request.
         const session = await AsyncStorage.getItem('@session_token') ;
         const lId = await AsyncStorage.getItem('@location_id');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+lId+'/review', {

@@ -23,6 +23,7 @@ export default class Register extends Component {
             email: this.state.email,
             password: this.state.password,
         };
+        //Register using POST Request.
         return fetch('http://10.0.2.2:3333/api/1.0.0/user', {
             method: 'post',
             headers: {'Content-Type': 'application/json',},

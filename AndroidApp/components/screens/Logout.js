@@ -17,6 +17,7 @@ export default class Logout extends Component {
     }
 
     logOut = async () => {
+        //Retireve session token from async storage for POST Request.
         const session = await AsyncStorage.getItem('@session_token');
         console.log("Session Token at LogOut: "+session);
         return fetch('http://10.0.2.2:3333/api/1.0.0/user/logout', {

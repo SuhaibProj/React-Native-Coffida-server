@@ -4,6 +4,10 @@ import { Text, View, TouchableOpacity, StyleSheet, PermissionsAndroid, ToastAndr
 import Geolocation from 'react-native-geolocation-service';
 import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
+/* Class that initiates a GET request to API to retrieve and display all the 
+    user-favourited locations within the UI through querying from the FIND endpoint */
+
+//Design Permission Function
 async function requestLocationPermission(){
     try {
         const granted = await PermissionsAndroid.request (
@@ -28,6 +32,7 @@ async function requestLocationPermission(){
         ToastAndroid.show(error, ToastAndroid.SHORT);
     }
 }
+
 
 export default class ViewGeoLocation extends Component {
     constructor (props) {
@@ -57,7 +62,7 @@ export default class ViewGeoLocation extends Component {
         (error) => { ToastAndroid.show(error, ToastAndroid.SHORT); },
         {
             enableHighAccuracy: true,
-            timeout: 20000, //get location for 20 secs
+            timeout: 20000, //get exact location for 20 secs
             maximumAge: 1000 
         });
     };

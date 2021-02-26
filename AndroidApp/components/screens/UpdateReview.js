@@ -49,7 +49,7 @@ export default class UpdateReview extends Component {
         if (review.review.clenliness_rating != this.state.clenlinessRating) { database_info['clenliness_rating'] = parseInt(this.state.clenlinessRating); }
         if (review.review.review_body != this.state.reviewBody) { database_info['review_body'] = this.state.reviewBody; }
 
-        //Retireve location + review id + session token from async storage for Request.
+        //Retireve location ID + review id + session token from async storage for PATCH (Update) Request.
         const session = await AsyncStorage.getItem('@session_token');
         const rId = review.review.review_id;
         const lId = review.location.location_id;

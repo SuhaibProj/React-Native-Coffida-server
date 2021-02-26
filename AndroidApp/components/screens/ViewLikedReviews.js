@@ -28,9 +28,10 @@ export default class ViewLikedReviews extends Component {
     } */
 
     likedReviews = async () => {
+        //Retireve User ID + session token from async storage for GET Request.
         const session = await AsyncStorage.getItem('@session_token') ;
-        const id = await AsyncStorage.getItem('@id');
-        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ id, {
+        const uId = await AsyncStorage.getItem('@id');
+        return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ uId, {
             headers: {'Content-Type': 'application/json', 'X-Authorization': session,},
         })
         .then((response) => {
@@ -55,11 +56,10 @@ export default class ViewLikedReviews extends Component {
     
 
     render() { 
+        //For reditection to Remove liked review page.
         let bin = async(rId,lId) => {
             await AsyncStorage.setItem('@review_id', JSON.stringify(rId));
             await AsyncStorage.setItem('@location_id', JSON.stringify(lId));
-            console.log("My Review ID:" , rId);
-            console.log("My Location ID:" , lId);
             this.props.navigation.navigate('RemoveLikedReview');
         };
 

@@ -30,6 +30,7 @@ export default class LocationDetails extends Component {
     }
 
     locationDetails = async () => {
+        //Retireve location ID + session token from async storage for GET Request.
         const session = await AsyncStorage.getItem('@session_token') ;
         const lId = await AsyncStorage.getItem('@location_id');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ lId, {

@@ -9,11 +9,11 @@ import {RNCamera} from 'react-native-camera';
 export default class AddReviewPhoto extends Component {
     takePhoto = async(database_info) => {
         const review = this.props.route.params.review
+        
+        //Retireve location ID + revied ID + session token from async storage for POST Request.
         const session = await AsyncStorage.getItem('@session_token');
         const rId = review.review.review_id;
         const lId = review.location.location_id;
-        
-        console.log(database_info.uri);
         return fetch('http://10.0.2.2:3333/api/1.0.0/location/'+lId+'/review/'+rId+'/photo',{
             method: 'post',
             headers: {'Content-Type': 'image/jpeg', 'X-Authorization': session,},

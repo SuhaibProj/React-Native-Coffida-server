@@ -17,6 +17,7 @@ export default class DeleteReview extends Component {
 
     
     deleteReview = async () => {
+        //Retireve location ID + review ID + session token from async storage for DELETE Request.
         const session = await AsyncStorage.getItem('@session_token');
         const lId = await AsyncStorage.getItem('@location_id');
         const rId = await AsyncStorage.getItem('@review_id');

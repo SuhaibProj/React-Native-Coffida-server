@@ -20,11 +20,10 @@ export default class AuthUser extends Component {
 
     //Disable Back button to not allow user to get back to the login page.
     handleBackButtonClick() { return true; }
-
+    
     render() {
         const navig = this.props.navigation;
         return (
-            
             <ScrollView style = {styleCSS.container}> 
                 <View style={{padding:10}}></View>
                 <View style={{marginVertical:30}}>

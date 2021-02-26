@@ -20,14 +20,17 @@ export default class ReviewDetails extends Component {
     //Run at screen load
     componentDidMount() {
         this.locationDetails();
+        //Add Listener to refresh page when updated
         this.refresh = this.props.navigation.addListener('willFocus',() => { this.locationDetails(); });
     }
-
+    
     componentWillUnmount() {
+        //remove memmory leak
         this.refresh();
     }
 
     locationDetails = async () => {
+        //Retireve Location ID + session token from async storage for GET Request.
         const session = await AsyncStorage.getItem('@session_token') ;
         const lId = await AsyncStorage.getItem('@location_id');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ lId, {

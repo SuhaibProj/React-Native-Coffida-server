@@ -29,8 +29,8 @@ export default class MyAccount extends Component {
         this.refresh();
     }
 
-    //get token, and user id from async storage.
     getDetails = async () => {
+        //Retireve User ID + session token from async storage for GET Request.
         const session = await AsyncStorage.getItem('@session_token');
         const uId = await AsyncStorage.getItem('@id');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/user/'+ uId, {
@@ -60,7 +60,6 @@ export default class MyAccount extends Component {
     render() {
         const navig = this.props.navigation;
         return (
-            
             <View style = {styleCSS.container}> 
                 <View style={{padding:10}}></View>
                 <View style={styleCSS.list}>

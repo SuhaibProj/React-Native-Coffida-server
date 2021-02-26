@@ -11,11 +11,13 @@ export default class LikeReview extends Component {
         super(props)
     }
 
+    //Run at screen load
     componentDidMount = () => {
         this.inputLikes();
     }
 
     inputLikes = async () => {
+         //Retireve location ID + review ID + session token from async storage for POST Request.
         const session = await AsyncStorage.getItem('@session_token');
         const review_id = await AsyncStorage.getItem('@review_id');
         const location_id = await AsyncStorage.getItem('@location_id');

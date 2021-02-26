@@ -23,6 +23,7 @@ export default class Login extends Component {
             email: this.state.email,
             password: this.state.password,
         };
+         //Login using POST Request.
         return fetch('http://10.0.2.2:3333/api/1.0.0/user/login', {
             method: 'post',
             headers: {'Content-Type': 'application/json',},

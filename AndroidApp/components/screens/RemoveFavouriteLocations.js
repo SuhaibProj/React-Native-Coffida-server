@@ -17,6 +17,7 @@ export default class RemoveFavouriteLocations extends Component {
     }
 
     inputfavourite = async () => {
+        //Retireve location ID + session token from async storage for DELETE Request.
         const session = await AsyncStorage.getItem('@session_token');
         const location_id = await AsyncStorage.getItem('@location_id');
         return fetch ('http://10.0.2.2:3333/api/1.0.0/location/'+ location_id+'/favourite', {

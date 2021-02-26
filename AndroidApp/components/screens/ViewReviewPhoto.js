@@ -10,6 +10,7 @@ export default class ViewReviewPhoto extends Component {
         super(props)
         this.state = {
             photoAddress:'',
+            notFound: false, 
         };
     }
 
@@ -22,10 +23,8 @@ export default class ViewReviewPhoto extends Component {
         this.props.navigation.addListener('focus', () => { this.retrievePhoto(); });
     }
     
-    
-
-    //get token, review and location id's from async storage.
     retrievePhoto = async () => {
+        //Retireve Location ID + review id + session token from async storage for GET Request.
         const session = await AsyncStorage.getItem('@session_token');
         const lId = await AsyncStorage.getItem('@location_id');
         const rId = await AsyncStorage.getItem('@review_id');
@@ -37,7 +36,9 @@ export default class ViewReviewPhoto extends Component {
                 this.setState({ photoAddress: response.url + '?timestamp=' + Date.now(), }); 
             }
             else if (response.status === 401){ throw "Unauthorised"; }
-            else if (response.status === 404){ throw "Not Found"; }
+            else if (response.status === 404){ 
+                this.setState({notFound: true});
+                throw "Not Found"; }
             else if (response.status === 500){ throw "Server Error"; }
             else { ToastAndroid.show(Error, ToastAndroid.SHORT); }
         })
@@ -47,20 +48,26 @@ export default class ViewReviewPhoto extends Component {
     };
 
     render() {
-        return (
-            <View style={styleCSS.container}>
-                <ScrollView>
-                    <Image style={ styleCSS.photo } source={{uri: this.state.photoAddress}} />
-                </ScrollView>
-                <View style ={{padding:5}}></View>
-                <TouchableOpacity  style = {styleCSS.button} onPress={() => this.props.navigation.navigate('DeleteReviewPhoto')}>
-                    <Image style={styleCSS.location} resizeMode='contain' source={require('../Images/D.png')}></Image>
-                </TouchableOpacity>
-            </View>
-        );
+        if (this.state.notFound) {
+            return (
+                <View style={styleCSS.container}>
+                    <Text style={styleCSS.textDetails}>No Image Found</Text>
+                </View>
+            );
+        } else {
+            return (
+                <View style={styleCSS.container}>
+                    <ScrollView>
+                        <Image style={ styleCSS.photo } source={{uri: this.state.photoAddress}} />
+                    </ScrollView>
+                    <View style ={{padding:5}}></View>
+                    <TouchableOpacity  style = {styleCSS.button} onPress={() => this.props.navigation.navigate('DeleteReviewPhoto')}>
+                        <Image style={styleCSS.location} resizeMode='contain' source={require('../Images/D.png')}></Image>
+                    </TouchableOpacity>
+                </View>
+            )   
+        }   
     }
-    
-
 }
 
 
@@ -77,8 +84,10 @@ const styleCSS = StyleSheet.create({
     },
     textDetails: {
         alignSelf: 'center',
+        marginTop:'75%',
         textShadowRadius:5,
         fontSize: 15,
+        color:'white',
     },
     button: {
         alignSelf: 'center',
@@ -89,8 +98,6 @@ const styleCSS = StyleSheet.create({
     },
     photo: {
         resizeMode:'contain',
-        //marginTop:10,
-        //marginBottom: 30,
         width:470,
         height:650,
         alignSelf: 'center',
