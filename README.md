@@ -1,4 +1,4 @@
-@Author: Muhammad Suhaib (17026213@stu.mmu.ac.uk) -
+@Author: Muhammad Suhaib (17026213@stu.mmu.ac.uk) (suhaib1602@gmail.com) -
     Link to Repository: **https://github.com/SuhaibProj/Coffida_server**
 
 
